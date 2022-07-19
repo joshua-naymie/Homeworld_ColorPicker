@@ -1,5 +1,6 @@
 namespace Homeworld_ColorPicker
 {
+    using Forms;
     internal static class Program
     {
         /// <summary>
@@ -11,7 +12,7 @@ namespace Homeworld_ColorPicker
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new StartDialog());
+            Application.Run(new MainWindow());
         }
     }
 }
