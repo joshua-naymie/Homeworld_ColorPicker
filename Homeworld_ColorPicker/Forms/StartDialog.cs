@@ -1,6 +1,7 @@
 namespace Homeworld_ColorPicker
 {
     using Forms;
+    using Objects;
 
     /// <summary>
     /// The different versions of Homeworld that can be detected.
@@ -14,7 +15,7 @@ namespace Homeworld_ColorPicker
     }
 
     /// <summary>
-    /// The form used to enter the paths to both the Homeworld instance to be worked on and the Homeworld Toolkit, used to data extraction.
+    /// The form used to enter the paths to both the Homeworld instance to be worked on and the Homeworld Toolkit, used for data extraction.
     /// Player profile is also selectable, when needed.
     /// </summary>
     public partial class StartDialog : Form
@@ -36,6 +37,8 @@ namespace Homeworld_ColorPicker
                FILE_HW2_EXE_PATH = @"\Bin\Release\Homeworld2.exe",
                FILE_HWR_EXE_PATH = @"\Bin\Release\HomeworldRM.exe",
                FILE_ARCHIVE_EXE_PATH = @"\WorkshopTool\Archive.exe",
+               FILE_NAME_DAT = @"\name.dat",
+               FILE_PLAYERCFG_LUA = @"\PLAYERCFG.LUA",
 
                TEXT_HW1_FOUND = "Homeworld 1 Found - Not Supported!",
                TEXT_HW2_FOUND = "Homeworld 2 Found",
@@ -161,7 +164,6 @@ namespace Homeworld_ColorPicker
         {
             ValidateRootDir();
             UpdateProfilesComboBox();
-
             UpdateOKButton();
         }
 
@@ -196,7 +198,6 @@ namespace Homeworld_ColorPicker
                 SetHomeworldNotFound();
                 version = HomeworldVersion.NONE;
             }
-
             else
             {
                 // check for version specific Homeworld .exe's
@@ -231,7 +232,7 @@ namespace Homeworld_ColorPicker
         //----------------------------------------
 
         /// <summary>
-        /// Gets all profiles at the current root directory and updates the profile ComboBox.
+        /// Updates the profile ComboBox with all valid profiles at the current root directory.
         /// </summary>
         private void UpdateProfilesComboBox()
         {
@@ -277,25 +278,30 @@ namespace Homeworld_ColorPicker
         //--------------------
 
         /// <summary>
-        /// Gets all directory names within the profile directory of the current valid root directory.
+        /// Gets all valid profile names and their directories within the profile directory of the current valid root directory.
         /// </summary>
-        /// <returns>All profiles in the current valid root directory</returns>
-        private string[] GetAllProfiles()
+        /// <returns>All valid profiles in the current valid root directory</returns>
+        private Profile[] GetAllProfiles()
         {
             string profilesPath = rootDirInput.Text + DIR_PROFILE_PATH;
             
             if (Util.CheckPathExists(profilesPath))
             {
-                string[] paths = Directory.GetDirectories(profilesPath),
-                         profiles = new string[paths.Length];
+                string[] paths = Directory.GetDirectories(profilesPath);
+                Profile[] profiles = new Profile[paths.Length];
 
                 // remove paths except directory names
                 int i = 0;
                 foreach (string path in paths)
                 {
-                    string[] temp = path.Split('\\');
+                    if(Util.CheckPathExists(path + FILE_NAME_DAT)
+                    && Util.CheckPathExists(path + FILE_PLAYERCFG_LUA))
+                    {
+                        string profilePath = path.Replace(currentRootDirectory, "");
+                        string profileName = File.ReadAllText(path + FILE_NAME_DAT);
 
-                    profiles[i++] = temp[temp.Length - 1];
+                        profiles[i++] = new Profile(profilePath, profileName);
+                    }
                 }
 
                 // if no profiles found
@@ -314,7 +320,7 @@ namespace Homeworld_ColorPicker
             // if 'profile' directory doesnt exist
             noProfilesLabel.Show();
 
-            return new string[0];
+            return new Profile[0];
         }
 
         //----------------------------------------
@@ -427,6 +433,18 @@ namespace Homeworld_ColorPicker
         public HomeworldVersion GetVersion()
         {
             return version;
+        }
+
+        //----------------------------------------
+
+        /// <summary>
+        /// Gets the Homeworld profile selected by the user.
+        /// Meant for access by <c>MainWindow</c> form.
+        /// </summary>
+        /// <returns>The selected Homeworld profile</returns>
+        public Profile GetProfile()
+        {
+            return (Profile)profileComboBox.SelectedItem;
         }
     }
 }

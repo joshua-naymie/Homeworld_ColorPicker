@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Homeworld_ColorPicker.Objects
 {
-    internal class Profile
+    public class Profile
     {
         private
         String path,
@@ -42,6 +42,14 @@ namespace Homeworld_ColorPicker.Objects
             return name;
         }
 
+        /// <summary>
+        /// Override of the ToString method. Returns the profile name found in the name.dat file.
+        /// </summary>
+        /// <returns>The profile name</returns>
+        public override string ToString()
+        {
+            return name;
+        }
 
     }
 }

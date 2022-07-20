@@ -20,7 +20,7 @@ namespace Homeworld_ColorPicker.Forms
             //----------
 
             InitializeComponent();
-            customColorButton.Text = startDialog.GetRootDirectory();
+            customColorButton.Text = startDialog.GetProfile().ToString();
         }
     }
 }
