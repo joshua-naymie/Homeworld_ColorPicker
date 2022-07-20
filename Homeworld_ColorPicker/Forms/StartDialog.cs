@@ -19,18 +19,18 @@ namespace Homeworld_ColorPicker
         //----------------------------------------
         private const
         string DIR_DOCUMENTS_COLORPICKER = @"\Homeworld ColorPicker",
-               FILE_CONFIG = @"\config",
                DIR_DEFAULT_PATH = @"C:\Program Files (x86)\Steam\steamapps\common\Homeworld\HomeworldRM",
                DIR_PROFILE_PATH = @"\Bin\Profiles",
 
+               FILE_CONFIG = @"\config",
                FILE_HW1_EXE_PATH = @"\exe\Homeworld.exe",
                FILE_HW2_EXE_PATH = @"\Bin\Release\Homeworld2.exe",
                FILE_HWR_EXE_PATH = @"\Bin\Release\HomeworldRM.exe",
 
-               HW1_FOUND_TEXT = "Homeworld 1 Found - Not Supported!",
-               HW2_FOUND_TEXT = "Homeworld 2 Found",
-               HWR_FOUND_TEXT = "Homeworld Remastered Found",
-               HW_NOT_FOUND_TEXT = "Homeworld Not Found!";
+               TEXT_HW1_FOUND = "Homeworld 1 Found - Not Supported!",
+               TEXT_HW2_FOUND = "Homeworld 2 Found",
+               TEXT_HWR_FOUND = "Homeworld Remastered Found",
+               TEXT_HW_NOT_FOUND = "Homeworld Not Found!";
 
         // INSTANCE VARIABLES
         //----------------------------------------
@@ -66,7 +66,7 @@ namespace Homeworld_ColorPicker
 
             string configPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + DIR_DOCUMENTS_COLORPICKER + FILE_CONFIG;
 
-            rootDirInput.Text = Util.checkPathExists(configPath) ? readConfigPath(configPath)
+            rootDirInput.Text = Util.checkPathExists(configPath) ? ReadConfigPath(configPath)
                                                                  : DIR_DEFAULT_PATH;
         }
 
@@ -78,7 +78,7 @@ namespace Homeworld_ColorPicker
         /// </summary>
         /// <param name="path">The file path of the config file</param>
         /// <returns>The root directory path saved in the config file or the default path if config file does not exist or is invalid.</returns>
-        private string readConfigPath(string path)
+        private string ReadConfigPath(string path)
         {
             string[] configText = System.IO.File.ReadAllLines(path);
 
@@ -119,10 +119,10 @@ namespace Homeworld_ColorPicker
         /// </summary>
         /// <param name="sender">The object that calls the event</param>
         /// <param name="e">The event</param>
-        private void checkRootInput(object sender, EventArgs e)
+        private void CheckRootInput(object sender, EventArgs e)
         {
-            validateRootDir();
-            updateProfilesComboBox();
+            ValidateRootDir();
+            UpdateProfilesComboBox();
 
 
             OKButton.Enabled = validRootDir && validProfile;
@@ -134,7 +134,7 @@ namespace Homeworld_ColorPicker
         /// <summary>
         /// Checks if the path input by the user points to a valid Homeworld root directory. Updates labels.
         /// </summary>
-        private void validateRootDir()
+        private void ValidateRootDir()
         {
             validRootDir = false;
 
@@ -143,15 +143,16 @@ namespace Homeworld_ColorPicker
 
             if (!Util.checkPathExists(rootDirInput.Text))
             {
-                setHomeworldNotFound();
+                SetHomeworldNotFound();
                 version = HomeworldVersion.NONE;
             }
+
             else
             {
                 // check for version specific Homeworld .exe's
                 if (Util.checkPathExists(rootDirInput.Text + FILE_HW1_EXE_PATH))
                 {
-                    setHomeworldFound(HW1_FOUND_TEXT);
+                    SetHomeworldFound(TEXT_HW1_FOUND);
                     version = HomeworldVersion.HW1;
 
                     // HW1 not supported
@@ -159,19 +160,19 @@ namespace Homeworld_ColorPicker
                 }
                 else if (Util.checkPathExists(rootDirInput.Text + FILE_HW2_EXE_PATH))
                 {
-                    setHomeworldFound(HW2_FOUND_TEXT);
+                    SetHomeworldFound(TEXT_HW2_FOUND);
                     version = HomeworldVersion.HW2;
                     validRootDir = true;
                 }
                 else if (Util.checkPathExists(rootDirInput.Text + FILE_HWR_EXE_PATH))
                 {
-                    setHomeworldFound(HWR_FOUND_TEXT);
+                    SetHomeworldFound(TEXT_HWR_FOUND);
                     version = HomeworldVersion.HWR;
                     validRootDir = true;
                 }
                 else
                 {
-                    setHomeworldNotFound();
+                    SetHomeworldNotFound();
                     version = HomeworldVersion.NONE;
                 }
             }
@@ -182,7 +183,7 @@ namespace Homeworld_ColorPicker
         /// <summary>
         /// Gets all profiles at the current root directory and updates the profile ComboBox.
         /// </summary>
-        private void updateProfilesComboBox()
+        private void UpdateProfilesComboBox()
         {
             validProfile = false;
             profileComboBox.Items.Clear();
@@ -199,12 +200,12 @@ namespace Homeworld_ColorPicker
                 case HomeworldVersion.HW2:
                     profileComboBox.Enabled = true;
                     
-                    profileComboBox.Items.AddRange(getAllProfiles());
+                    profileComboBox.Items.AddRange(GetAllProfiles());
                     break;
 
                 case HomeworldVersion.HWR:
                     profileComboBox.Enabled = true;
-                    profileComboBox.Items.AddRange(getAllProfiles());
+                    profileComboBox.Items.AddRange(GetAllProfiles());
                     break;
 
                 case HomeworldVersion.NONE:
@@ -229,7 +230,7 @@ namespace Homeworld_ColorPicker
         /// Gets all directory names within the profile directory of the current valid root directory.
         /// </summary>
         /// <returns>All profiles in the current valid root directory</returns>
-        private string[] getAllProfiles()
+        private string[] GetAllProfiles()
         {
             string profilesPath = rootDirInput.Text + DIR_PROFILE_PATH;
             
@@ -273,7 +274,7 @@ namespace Homeworld_ColorPicker
         /// Sets the homeworldFoundLabel text and the font color to black.
         /// </summary>
         /// <param name="labelText">The text to set the homeworldFoundLabel to</param>
-        private void setHomeworldFound(string labelText)
+        private void SetHomeworldFound(string labelText)
         {
             homeworldFoundLabel.Text = labelText;
             homeworldFoundLabel.ForeColor = HW_FOUND_COLOR;
@@ -284,9 +285,9 @@ namespace Homeworld_ColorPicker
         /// <summary>
         /// Sets the homeworldFoundLabel text to inform the user homeworl root directory has not been found and sets the font color to red.
         /// </summary>
-        private void setHomeworldNotFound()
+        private void SetHomeworldNotFound()
         {
-            homeworldFoundLabel.Text = HW_NOT_FOUND_TEXT;
+            homeworldFoundLabel.Text = TEXT_HW_NOT_FOUND;
             homeworldFoundLabel.ForeColor = HW_NOT_FOUND_COLOR;
         }
 
@@ -298,17 +299,19 @@ namespace Homeworld_ColorPicker
         /// Meant for access by MainWindow form.
         /// </summary>
         /// <returns>The current root directory input by the user</returns>
-        public String getRootDirectory()
+        public String GetRootDirectory()
         {
             return currentDirectory;
         }
+
+        //----------------------------------------
 
         /// <summary>
         /// Gets the detected Homeworld version at the current root directory input by the user.
         /// Meant for access by MainWindow form.
         /// </summary>
         /// <returns>The detected Homeworld version</returns>
-        public HomeworldVersion getVersion()
+        public HomeworldVersion GetVersion()
         {
             return version;
         }

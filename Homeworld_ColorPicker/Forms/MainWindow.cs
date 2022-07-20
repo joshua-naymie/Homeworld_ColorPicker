@@ -14,13 +14,13 @@ namespace Homeworld_ColorPicker.Forms
     {
         public MainWindow()
         {
-            StartDialog t = new StartDialog();
-            t.ShowDialog();
+            StartDialog startDialog = new StartDialog();
+            startDialog.ShowDialog();
 
             //----------
 
             InitializeComponent();
-            customColorButton.Text = t.getRootDirectory();
+            customColorButton.Text = startDialog.GetRootDirectory();
         }
     }
 }
