@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartDialog));
             this.OKButton = new System.Windows.Forms.Button();
             this.rootDirInput = new System.Windows.Forms.TextBox();
             this.rootDirLabel = new System.Windows.Forms.Label();
@@ -105,9 +106,9 @@
             this.noProfilesLabel.ForeColor = System.Drawing.Color.Red;
             this.noProfilesLabel.Location = new System.Drawing.Point(183, 236);
             this.noProfilesLabel.Name = "noProfilesLabel";
-            this.noProfilesLabel.Size = new System.Drawing.Size(377, 15);
+            this.noProfilesLabel.Size = new System.Drawing.Size(268, 15);
             this.noProfilesLabel.TabIndex = 6;
-            this.noProfilesLabel.Text = "No profiles found. Please create one in game before running program.";
+            this.noProfilesLabel.Text = "No profiles found. Run Homeworld to create one.";
             // 
             // toolkitFoundLabel
             // 
@@ -152,9 +153,10 @@
             this.Controls.Add(this.rootDirLabel);
             this.Controls.Add(this.rootDirInput);
             this.Controls.Add(this.OKButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StartDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Start Dialog";
+            this.Text = "Select Directories";
             this.ResumeLayout(false);
             this.PerformLayout();
 
