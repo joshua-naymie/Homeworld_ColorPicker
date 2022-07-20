@@ -35,9 +35,9 @@
             this.profileLabel = new System.Windows.Forms.Label();
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.noProfilesLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.toolkitFoundLabel = new System.Windows.Forms.Label();
             this.toolkitDirLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.toolkitDirInput = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // OKButton
@@ -64,7 +64,7 @@
             // 
             this.rootDirLabel.AutoSize = true;
             this.rootDirLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.rootDirLabel.Location = new System.Drawing.Point(60, 59);
+            this.rootDirLabel.Location = new System.Drawing.Point(64, 59);
             this.rootDirLabel.Name = "rootDirLabel";
             this.rootDirLabel.Size = new System.Drawing.Size(113, 19);
             this.rootDirLabel.TabIndex = 2;
@@ -109,41 +109,42 @@
             this.noProfilesLabel.TabIndex = 6;
             this.noProfilesLabel.Text = "No profiles found. Please create one in game before running program.";
             // 
-            // label1
+            // toolkitFoundLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(183, 151);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 19);
-            this.label1.TabIndex = 9;
+            this.toolkitFoundLabel.AutoSize = true;
+            this.toolkitFoundLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.toolkitFoundLabel.Location = new System.Drawing.Point(183, 151);
+            this.toolkitFoundLabel.Name = "toolkitFoundLabel";
+            this.toolkitFoundLabel.Size = new System.Drawing.Size(0, 19);
+            this.toolkitFoundLabel.TabIndex = 9;
             // 
             // toolkitDirLabel
             // 
             this.toolkitDirLabel.AutoSize = true;
             this.toolkitDirLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.toolkitDirLabel.Location = new System.Drawing.Point(60, 124);
+            this.toolkitDirLabel.Location = new System.Drawing.Point(50, 124);
             this.toolkitDirLabel.Name = "toolkitDirLabel";
-            this.toolkitDirLabel.Size = new System.Drawing.Size(113, 19);
+            this.toolkitDirLabel.Size = new System.Drawing.Size(127, 19);
             this.toolkitDirLabel.TabIndex = 8;
-            this.toolkitDirLabel.Text = "Root Directory:";
+            this.toolkitDirLabel.Text = "Toolkit Directory:";
             // 
-            // textBox1
+            // toolkitDirInput
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(183, 121);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(526, 25);
-            this.textBox1.TabIndex = 7;
+            this.toolkitDirInput.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.toolkitDirInput.Location = new System.Drawing.Point(183, 121);
+            this.toolkitDirInput.Name = "toolkitDirInput";
+            this.toolkitDirInput.Size = new System.Drawing.Size(526, 25);
+            this.toolkitDirInput.TabIndex = 7;
+            this.toolkitDirInput.TextChanged += new System.EventHandler(this.CheckToolkitInput);
             // 
             // StartDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(769, 337);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.toolkitFoundLabel);
             this.Controls.Add(this.toolkitDirLabel);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.toolkitDirInput);
             this.Controls.Add(this.noProfilesLabel);
             this.Controls.Add(this.profileComboBox);
             this.Controls.Add(this.profileLabel);
@@ -168,8 +169,8 @@
         private Label profileLabel;
         private ComboBox profileComboBox;
         private Label noProfilesLabel;
-        private Label label1;
+        private Label toolkitFoundLabel;
         private Label toolkitDirLabel;
-        private TextBox textBox1;
+        private TextBox toolkitDirInput;
     }
 }
