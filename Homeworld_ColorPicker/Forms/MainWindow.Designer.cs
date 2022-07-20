@@ -277,6 +277,7 @@
             this.Controls.Add(this.colorSwatch1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Homeworld ColorPicker";
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

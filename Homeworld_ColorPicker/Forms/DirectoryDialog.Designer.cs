@@ -1,6 +1,6 @@
 ﻿namespace Homeworld_ColorPicker
 {
-    partial class StartDialog
+    partial class DirectoryDialog
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DirectoryDialog));
             this.OKButton = new System.Windows.Forms.Button();
             this.rootDirInput = new System.Windows.Forms.TextBox();
             this.rootDirLabel = new System.Windows.Forms.Label();

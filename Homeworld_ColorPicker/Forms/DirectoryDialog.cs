@@ -18,7 +18,7 @@ namespace Homeworld_ColorPicker
     /// The form used to enter the paths to both the Homeworld instance to be worked on and the Homeworld Toolkit, used for data extraction.
     /// Player profile is also selectable, when needed.
     /// </summary>
-    public partial class StartDialog : Form
+    public partial class DirectoryDialog : Form
     {
         // CONSTANTS
         //----------------------------------------
@@ -81,9 +81,9 @@ namespace Homeworld_ColorPicker
         //----------------------------------------
 
         /// <summary>
-        /// Constructor for the StartDialog.
+        /// Constructor for the DirectoryDialog.
         /// </summary>
-        public StartDialog()
+        public DirectoryDialog()
         {
             InitializeComponent();
             SetDirInputs();
@@ -144,7 +144,7 @@ namespace Homeworld_ColorPicker
 
             File.WriteAllTextAsync(path, currentRootDirectory + "\n" + currentToolkitDirectory);
 
-            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
 
         //----------------------------------------

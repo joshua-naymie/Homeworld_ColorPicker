@@ -12,15 +12,24 @@ namespace Homeworld_ColorPicker.Forms
 {
     public partial class MainWindow : Form
     {
-        public MainWindow()
-        {
-            StartDialog startDialog = new StartDialog();
-            startDialog.ShowDialog();
+        /// <summary>
+        /// The dialog used to set or change the directories for Homeworld root, Remastered Toolkit, and Profile.
+        /// </summary>
+        private DirectoryDialog directoryDialog = new DirectoryDialog();
 
+        /// <summary>
+        /// Constructor for MainWindow.
+        /// </summary>
+        public MainWindow()
+        {            
+            if(directoryDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                Load += (s, e) => Close();
+            }
+            
             //----------
 
             InitializeComponent();
-            customColorButton.Text = startDialog.GetProfile().ToString();
         }
     }
 }
