@@ -58,7 +58,7 @@
             this.rootDirInput.Name = "rootDirInput";
             this.rootDirInput.Size = new System.Drawing.Size(526, 25);
             this.rootDirInput.TabIndex = 1;
-            this.rootDirInput.TextChanged += new System.EventHandler(this.CheckRootInput);
+            this.rootDirInput.TextChanged += new System.EventHandler(this.RootDirInputChanged);
             // 
             // rootDirLabel
             // 
@@ -135,7 +135,7 @@
             this.toolkitDirInput.Name = "toolkitDirInput";
             this.toolkitDirInput.Size = new System.Drawing.Size(526, 25);
             this.toolkitDirInput.TabIndex = 7;
-            this.toolkitDirInput.TextChanged += new System.EventHandler(this.CheckToolkitInput);
+            this.toolkitDirInput.TextChanged += new System.EventHandler(this.ToolkitDirInputChanged);
             // 
             // StartDialog
             // 

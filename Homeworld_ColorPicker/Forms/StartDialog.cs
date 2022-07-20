@@ -35,24 +35,33 @@ namespace Homeworld_ColorPicker
                FILE_HW1_EXE_PATH = @"\exe\Homeworld.exe",
                FILE_HW2_EXE_PATH = @"\Bin\Release\Homeworld2.exe",
                FILE_HWR_EXE_PATH = @"\Bin\Release\HomeworldRM.exe",
+               FILE_ARCHIVE_EXE_PATH = @"\WorkshopTool\Archive.exe",
 
                TEXT_HW1_FOUND = "Homeworld 1 Found - Not Supported!",
                TEXT_HW2_FOUND = "Homeworld 2 Found",
                TEXT_HWR_FOUND = "Homeworld Remastered Found",
-               TEXT_HW_NOT_FOUND = "Homeworld Not Found!";
+               TEXT_HW_NOT_FOUND = "Homeworld Not Found!",
+               TEXT_TOOLKIT_FOUND = "Remastered Toolkit Found",
+               TEXT_TOOLKIT_NOT_FOUND = "Remastered Toolkit Not Found!";
 
         private static readonly
-        Color HW_NOT_FOUND_COLOR = System.Drawing.Color.Red,
-              HW_FOUND_COLOR = System.Drawing.Color.Black;
+        Color LABEL_COLOR_INVALID = System.Drawing.Color.Red,
+              LABEL_COLOR_VALID = System.Drawing.Color.Black;
 
         // INSTANCE VARIABLES
         //----------------------------------------
 
         /// <summary>
-        /// The path of the current directory entered by the user.
+        /// The path of the current root directory entered by the user.
         /// </summary>
         private
-        string currentDirectory = DIR_DEFAULT_ROOT_PATH;
+        string currentRootDirectory = DIR_DEFAULT_ROOT_PATH;
+
+        /// <summary>
+        /// The path of the current toolkit directory entered by the user.
+        /// </summary>
+        private
+        string currentToolkitDirectory = DIR_DEFAULT_TOOLKIT_PATH;
 
         /// <summary>
         /// The version of Homeworld found at the current root directory.
@@ -62,11 +71,15 @@ namespace Homeworld_ColorPicker
 
         private
         bool validRootDir = false,
+             validToolkitDir = false,
              validProfile = false;
 
         // CONSTRUCTOR
         //----------------------------------------
 
+        /// <summary>
+        /// Constructor for the StartDialog.
+        /// </summary>
         public StartDialog()
         {
             InitializeComponent();
@@ -131,7 +144,7 @@ namespace Homeworld_ColorPicker
 
             path += FILE_CONFIG;
 
-            File.WriteAllTextAsync(path, currentDirectory);
+            File.WriteAllTextAsync(path, currentRootDirectory + "\n" + currentToolkitDirectory);
 
             this.Close();
         }
@@ -144,13 +157,12 @@ namespace Homeworld_ColorPicker
         /// </summary>
         /// <param name="sender">The object that calls the event</param>
         /// <param name="e">The event</param>
-        private void CheckRootInput(object sender, EventArgs e)
+        private void RootDirInputChanged(object sender, EventArgs e)
         {
             ValidateRootDir();
             UpdateProfilesComboBox();
 
-
-            OKButton.Enabled = validRootDir && validProfile;
+            UpdateOKButton();
         }
 
         //----------------------------------------
@@ -160,23 +172,24 @@ namespace Homeworld_ColorPicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CheckToolkitInput(object sender, EventArgs e)
+        private void ToolkitDirInputChanged(object sender, EventArgs e)
         {
-            
+            ValidateToolkitDir();
+            UpdateOKButton();
         }
 
         // PATH VALIDATION
         //----------------------------------------
 
         /// <summary>
-        /// Checks if the path input by the user points to a valid Homeworld root directory. Updates labels.
+        /// Checks if the root directory path input by the user points to a valid Homeworld root directory. Updates labels.
         /// </summary>
         private void ValidateRootDir()
         {
             validRootDir = false;
 
             noProfilesLabel.Hide();
-            currentDirectory = rootDirInput.Text.TrimEnd('\\');
+            currentRootDirectory = rootDirInput.Text.TrimEnd('\\');
 
             if (!Util.CheckPathExists(rootDirInput.Text))
             {
@@ -304,7 +317,39 @@ namespace Homeworld_ColorPicker
             return new string[0];
         }
 
-        // HOMEWORLD FOUND LABEL
+        //----------------------------------------
+
+        /// <summary>
+        /// Checks if the toolkit directory path input by the user points to a valid Homeworld Remastered Toolkit directory. Updates labels.
+        /// </summary>
+        private void ValidateToolkitDir()
+        {
+            currentToolkitDirectory = toolkitDirInput.Text.TrimEnd('\\');
+
+            if(Util.CheckPathExists(currentToolkitDirectory + FILE_ARCHIVE_EXE_PATH))
+            {
+                validToolkitDir = true;
+                SetToolkitLabelFound();
+            }
+            else
+            {
+                validToolkitDir = false;
+                SetToolkitLabelFound();
+            }
+        }
+
+        // UI UPDATORS
+        //----------------------------------------
+
+        /// <summary>
+        /// Checks whether there is currently a valid root and toolkit directory enetered as well as a valid profile selected.
+        /// Enables the OK button if all are valid, disables it otherwise.
+        /// </summary>
+        private void UpdateOKButton()
+        {
+            OKButton.Enabled = validRootDir && validToolkitDir && validProfile;
+        }
+
         //----------------------------------------
 
         /// <summary>
@@ -314,7 +359,7 @@ namespace Homeworld_ColorPicker
         private void SetHomeworldFound(string labelText)
         {
             homeworldFoundLabel.Text = labelText;
-            homeworldFoundLabel.ForeColor = HW_FOUND_COLOR;
+            homeworldFoundLabel.ForeColor = LABEL_COLOR_VALID;
         }
 
         //--------------------
@@ -325,7 +370,26 @@ namespace Homeworld_ColorPicker
         private void SetHomeworldNotFound()
         {
             homeworldFoundLabel.Text = TEXT_HW_NOT_FOUND;
-            homeworldFoundLabel.ForeColor = HW_NOT_FOUND_COLOR;
+            homeworldFoundLabel.ForeColor = LABEL_COLOR_INVALID;
+        }
+
+        //----------------------------------------
+
+        /// <summary>
+        /// Sets the toolkitFoundLabel text and color based on the state of validToolkit.
+        /// </summary>
+        private void SetToolkitLabelFound()
+        {
+            if(validToolkitDir)
+            {
+                toolkitFoundLabel.Text = TEXT_TOOLKIT_FOUND;
+                toolkitFoundLabel.ForeColor = LABEL_COLOR_VALID;
+            }
+            else
+            {
+                toolkitFoundLabel.Text = TEXT_TOOLKIT_NOT_FOUND;
+                toolkitFoundLabel.ForeColor = LABEL_COLOR_INVALID;
+            }
         }
 
         // ACCESSORS
@@ -338,7 +402,19 @@ namespace Homeworld_ColorPicker
         /// <returns>The current root directory input by the user</returns>
         public String GetRootDirectory()
         {
-            return currentDirectory;
+            return currentRootDirectory;
+        }
+
+        //----------------------------------------
+
+        /// <summary>
+        /// Gets the current toolkit directory input by the user.
+        /// Meant for access by MainWindow form.
+        /// </summary>
+        /// <returns>The current toolkit directory input by the user</returns>
+        public String GetToolkitDirectory()
+        {
+            return currentToolkitDirectory;
         }
 
         //----------------------------------------
