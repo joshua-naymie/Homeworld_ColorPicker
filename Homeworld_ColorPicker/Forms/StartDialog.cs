@@ -95,8 +95,8 @@ namespace Homeworld_ColorPicker
         //----------------------------------------
 
         /// <summary>
-        /// Attemps to read the config file and set the rootDirInput and toolkitDirInput text to the saved directories.
-        /// If config file doesn't exist or cannot be read, sets both inputs to the default directories.
+        /// Attemps to read the config file and set the <c>rootDirInput</c> and <c>toolkitDirInput</c> text to the saved directories.
+        /// If config file doesn't exist or cannot be read, sets both inputs to their default directories.
         /// </summary>
         /// <param name="path">The path of the config file</param>
         private void SetDirInputs(string path)
@@ -128,7 +128,7 @@ namespace Homeworld_ColorPicker
 
         /// <summary>
         /// Called when the OK button is pressed.
-        /// Writes currentDirectory to the config file in the `My Documents` directory.
+        /// Writes <c>currentRootDirectory</c> and <c>currentToolkitDirectory</c> to the config file in the `My Documents` directory.
         /// Closes this form.
         /// </summary>
         /// <param name="sender">The object that calls the event</param>
@@ -353,7 +353,7 @@ namespace Homeworld_ColorPicker
         //----------------------------------------
 
         /// <summary>
-        /// Sets the homeworldFoundLabel text and the font color to black.
+        /// Sets the <c>homeworldFoundLabel</c> text and the font color to black.
         /// </summary>
         /// <param name="labelText">The text to set the homeworldFoundLabel to</param>
         private void SetHomeworldFound(string labelText)
@@ -365,7 +365,7 @@ namespace Homeworld_ColorPicker
         //--------------------
 
         /// <summary>
-        /// Sets the homeworldFoundLabel text to inform the user homeworl root directory has not been found and sets the font color to red.
+        /// Sets the <c>homeworldFoundLabel</c> text to inform the user homeworl root directory has not been found and sets the font color to red.
         /// </summary>
         private void SetHomeworldNotFound()
         {
@@ -376,7 +376,7 @@ namespace Homeworld_ColorPicker
         //----------------------------------------
 
         /// <summary>
-        /// Sets the toolkitFoundLabel text and color based on the state of validToolkit.
+        /// Sets the <c>toolkitFoundLabel</c> text and color based on the state of validToolkit.
         /// </summary>
         private void SetToolkitLabelFound()
         {
@@ -397,7 +397,7 @@ namespace Homeworld_ColorPicker
 
         /// <summary>
         /// Gets the current root directory input by the user.
-        /// Meant for access by MainWindow form.
+        /// Meant for access by <c>MainWindow</c> form.
         /// </summary>
         /// <returns>The current root directory input by the user</returns>
         public String GetRootDirectory()
@@ -409,7 +409,7 @@ namespace Homeworld_ColorPicker
 
         /// <summary>
         /// Gets the current toolkit directory input by the user.
-        /// Meant for access by MainWindow form.
+        /// Meant for access by <c>MainWindow</c> form.
         /// </summary>
         /// <returns>The current toolkit directory input by the user</returns>
         public String GetToolkitDirectory()
@@ -421,7 +421,7 @@ namespace Homeworld_ColorPicker
 
         /// <summary>
         /// Gets the detected Homeworld version at the current root directory input by the user.
-        /// Meant for access by MainWindow form.
+        /// Meant for access by <c>MainWindow</c> form.
         /// </summary>
         /// <returns>The detected Homeworld version</returns>
         public HomeworldVersion GetVersion()
