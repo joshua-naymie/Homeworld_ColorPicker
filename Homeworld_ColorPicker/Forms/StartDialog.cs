@@ -86,12 +86,7 @@ namespace Homeworld_ColorPicker
         public StartDialog()
         {
             InitializeComponent();
-            noProfilesLabel.Hide();
-            OKButton.Enabled = false;
-
-            string configPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + DIR_DOCUMENTS_COLORPICKER + FILE_CONFIG;
-
-            SetDirInputs(configPath);
+            SetDirInputs();
         }
 
         // READ CONFIG FILE
@@ -101,12 +96,12 @@ namespace Homeworld_ColorPicker
         /// Attemps to read the config file and set the <c>rootDirInput</c> and <c>toolkitDirInput</c> text to the saved directories.
         /// If config file doesn't exist or cannot be read, sets both inputs to their default directories.
         /// </summary>
-        /// <param name="path">The path of the config file</param>
-        private void SetDirInputs(string path)
+        private void SetDirInputs()
         {
-            bool configRead = false;
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + DIR_DOCUMENTS_COLORPICKER + FILE_CONFIG;
 
-            if(Util.CheckPathExists(path))
+            bool configRead = false;
+            if (Util.CheckPathExists(path))
             {
                 string[] configText = System.IO.File.ReadAllLines(path);
 

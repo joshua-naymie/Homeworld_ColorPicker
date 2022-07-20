@@ -43,6 +43,7 @@
             // 
             // OKButton
             // 
+            this.OKButton.Enabled = false;
             this.OKButton.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.OKButton.Location = new System.Drawing.Point(617, 269);
             this.OKButton.Name = "OKButton";
@@ -109,6 +110,7 @@
             this.noProfilesLabel.Size = new System.Drawing.Size(268, 15);
             this.noProfilesLabel.TabIndex = 6;
             this.noProfilesLabel.Text = "No profiles found. Run Homeworld to create one.";
+            this.noProfilesLabel.Visible = false;
             // 
             // toolkitFoundLabel
             // 
