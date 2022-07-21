@@ -220,7 +220,7 @@
             this.customColorButton.Name = "customColorButton";
             this.customColorButton.Size = new System.Drawing.Size(97, 106);
             this.customColorButton.TabIndex = 16;
-            this.customColorButton.Text = "Custom Color";
+            this.customColorButton.Text = "Custom Colour";
             this.customColorButton.UseVisualStyleBackColor = true;
             // 
             // pictureBox16

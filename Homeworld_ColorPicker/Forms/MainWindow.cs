@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace Homeworld_ColorPicker.Forms
 {
+    using Objects;
+
     public partial class MainWindow : Form
     {
         /// <summary>
@@ -30,6 +32,7 @@ namespace Homeworld_ColorPicker.Forms
             //----------
 
             InitializeComponent();
+            System.Diagnostics.Debug.WriteLine(new HomeworldColor());
         }
     }
 }
