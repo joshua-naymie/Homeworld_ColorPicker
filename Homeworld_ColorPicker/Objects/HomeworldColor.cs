@@ -71,12 +71,18 @@ namespace Homeworld_ColorPicker.Objects
             this.b = b;
         }
 
+        // UTIL
+        //----------------------------------------
+
+        /// <summary>
+        /// Gets the current R,G,B values as a System.Drawing.Color object.
+        /// </summary>
+        /// <returns>The current R,G,B values as a System.Drawing.Color object</returns>
         public Color ToColor()
         {
             return Color.FromArgb(r, g, b);
         }
 
-        // UTIL
         //----------------------------------------
 
         /// <summary>
