@@ -14,6 +14,7 @@ namespace Homeworld_ColorPicker.Objects
         private
         byte r, g, b;
 
+        // CONSTRUCTORS
         //----------------------------------------
 
         /// <summary>
@@ -26,6 +27,8 @@ namespace Homeworld_ColorPicker.Objects
             g = Byte.MaxValue;
             b = Byte.MaxValue;
         }
+
+        //--------------------
 
         /// <summary>
         /// Constructor for HomeworldColor
@@ -41,6 +44,7 @@ namespace Homeworld_ColorPicker.Objects
             this.b = b;
         }
 
+        // ACCESSORS
         //----------------------------------------
 
         /// <summary>
@@ -72,6 +76,7 @@ namespace Homeworld_ColorPicker.Objects
             return Color.FromArgb(r, g, b);
         }
 
+        // UTIL
         //----------------------------------------
 
         /// <summary>
@@ -84,6 +89,8 @@ namespace Homeworld_ColorPicker.Objects
             return String.Format("{{{0:0.000}, {1:0.000}, {2:0.000}}}",
                                  (float) r/Byte.MaxValue, (float) g/Byte.MaxValue, (float) b/Byte.MaxValue);
         }
+
+        //----------------------------------------
 
         /// <summary>
         /// Overrides the <c>Equals</c> method.

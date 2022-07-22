@@ -21,6 +21,8 @@ namespace Homeworld_ColorPicker.Controls
         protected
         PictureBox box;
 
+        //----------------------------------------
+
         /// <summary>
         /// Constructor for ClickableBox base class.
         /// Must include the PictureBox to be controlled
@@ -33,6 +35,9 @@ namespace Homeworld_ColorPicker.Controls
             this.box.Click += BoxClicked;
         }
 
+        // MOUSE EVENT ACTIONS
+        //----------------------------------------
+
         /// <summary>
         /// Sets the method called when the left mouse click is detected
         /// </summary>
@@ -41,6 +46,8 @@ namespace Homeworld_ColorPicker.Controls
         {
             leftClickAction = action;
         }
+
+        //--------------------
 
         /// <summary>
         /// Sets the method called when the right mouse click is detected
@@ -51,6 +58,8 @@ namespace Homeworld_ColorPicker.Controls
             rightClickAction = action;
         }
 
+        //--------------------
+
         /// <summary>
         /// Sets the method called when the middle mouse click is detected
         /// </summary>
@@ -59,6 +68,9 @@ namespace Homeworld_ColorPicker.Controls
         {
             middleClickAction = action;
         }
+
+        // EVENTS
+        //----------------------------------------
 
         /// <summary>
         /// The event called when the box is clicked.
