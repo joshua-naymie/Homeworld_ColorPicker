@@ -22,6 +22,7 @@ namespace Homeworld_ColorPicker
     {
         // CONSTANTS
         //----------------------------------------
+
         private const
         int CONFIG_ROOT_DIR = 0,
             CONFIG_TOOLKIT_DIR = 1;
