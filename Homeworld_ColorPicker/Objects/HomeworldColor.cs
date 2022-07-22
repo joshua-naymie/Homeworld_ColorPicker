@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Homeworld_ColorPicker.Objects
 {
+    /// <summary>
+    /// Represents a color based on R,G,B values. Outputs data formatted to <c>teamcolor.lua</c> specifications.
+    /// </summary>
     public class HomeworldColor
     {
-        private const
-        byte MAX_VALUE = 255;
-
+        private
         byte r, g, b;
 
         //----------------------------------------
@@ -21,9 +22,9 @@ namespace Homeworld_ColorPicker.Objects
         /// </summary>
         public HomeworldColor()
         {
-            r = MAX_VALUE;
-            g = MAX_VALUE;
-            b = MAX_VALUE;
+            r = Byte.MaxValue;
+            g = Byte.MaxValue;
+            b = Byte.MaxValue;
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace Homeworld_ColorPicker.Objects
         public override string ToString()
         {
             return String.Format("{{{0:0.000}, {1:0.000}, {2:0.000}}}",
-                                 (float) r/MAX_VALUE, (float) g/MAX_VALUE, (float) b/MAX_VALUE);
+                                 (float) r/Byte.MaxValue, (float) g/Byte.MaxValue, (float) b/Byte.MaxValue);
         }
 
         /// <summary>
