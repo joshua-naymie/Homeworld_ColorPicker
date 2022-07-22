@@ -16,6 +16,8 @@ namespace Homeworld_ColorPicker.Controls
         private
         HomeworldColor currentColor;
 
+        //----------------------------------------
+
         /// <summary>
         /// Constructor for ColorBox, initializing with the default HomeworldColor color.
         /// </summary>
@@ -27,6 +29,8 @@ namespace Homeworld_ColorPicker.Controls
             this.box.BackColor = currentColor.ToColor();
             this.box.Click += BoxClicked;
         }
+
+        //--------------------
 
         /// <summary>
         /// Constructor for ColorBox, initializing with a specific color.
@@ -41,6 +45,8 @@ namespace Homeworld_ColorPicker.Controls
             this.box.Click += BoxClicked;
         }
 
+        //----------------------------------------
+
         /// <summary>
         /// Sets the color of the ColorBox and updates the PictureBox's BackColor with it.
         /// </summary>
@@ -51,6 +57,8 @@ namespace Homeworld_ColorPicker.Controls
             box.BackColor = currentColor.ToColor();
         }
 
+        //--------------------
+
         /// <summary>
         /// Gets the color currently assigned to the ColorBox and it's PictureBox.
         /// </summary>
@@ -59,6 +67,8 @@ namespace Homeworld_ColorPicker.Controls
         {
             return currentColor;
         }
+
+        //----------------------------------------
 
         /// <summary>
         /// ColorBox's implementation of the BoxClicked event.
