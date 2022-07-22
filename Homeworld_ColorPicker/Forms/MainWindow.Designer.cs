@@ -30,42 +30,42 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.colorSwatch1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
-            this.pictureBox13 = new System.Windows.Forms.PictureBox();
-            this.pictureBox14 = new System.Windows.Forms.PictureBox();
-            this.pictureBox15 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch2 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch4 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch3 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch8 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch7 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch6 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch5 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch16 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch15 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch14 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch13 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch12 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch11 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch10 = new System.Windows.Forms.PictureBox();
+            this.colorSwatch9 = new System.Windows.Forms.PictureBox();
             this.customColorButton = new System.Windows.Forms.Button();
-            this.pictureBox16 = new System.Windows.Forms.PictureBox();
-            this.mainTabPage = new System.Windows.Forms.TabPage();
+            this.currentColorSwatch = new System.Windows.Forms.PictureBox();
+            this.globalTabPage = new System.Windows.Forms.TabPage();
             this.levelTabControl = new System.Windows.Forms.TabControl();
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.currentColorSwatch)).BeginInit();
             this.levelTabControl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,140 +78,140 @@
             this.colorSwatch1.TabIndex = 0;
             this.colorSwatch1.TabStop = false;
             // 
-            // pictureBox1
+            // colorSwatch2
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(68, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.colorSwatch2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch2.Location = new System.Drawing.Point(68, 12);
+            this.colorSwatch2.Name = "colorSwatch2";
+            this.colorSwatch2.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch2.TabIndex = 1;
+            this.colorSwatch2.TabStop = false;
             // 
-            // pictureBox2
+            // colorSwatch4
             // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(180, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
+            this.colorSwatch4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch4.Location = new System.Drawing.Point(180, 12);
+            this.colorSwatch4.Name = "colorSwatch4";
+            this.colorSwatch4.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch4.TabIndex = 3;
+            this.colorSwatch4.TabStop = false;
             // 
-            // pictureBox3
+            // colorSwatch3
             // 
-            this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox3.Location = new System.Drawing.Point(124, 12);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
+            this.colorSwatch3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch3.Location = new System.Drawing.Point(124, 12);
+            this.colorSwatch3.Name = "colorSwatch3";
+            this.colorSwatch3.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch3.TabIndex = 2;
+            this.colorSwatch3.TabStop = false;
             // 
-            // pictureBox4
+            // colorSwatch8
             // 
-            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox4.Location = new System.Drawing.Point(404, 12);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox4.TabIndex = 7;
-            this.pictureBox4.TabStop = false;
+            this.colorSwatch8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch8.Location = new System.Drawing.Point(404, 12);
+            this.colorSwatch8.Name = "colorSwatch8";
+            this.colorSwatch8.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch8.TabIndex = 7;
+            this.colorSwatch8.TabStop = false;
             // 
-            // pictureBox5
+            // colorSwatch7
             // 
-            this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox5.Location = new System.Drawing.Point(348, 12);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox5.TabIndex = 6;
-            this.pictureBox5.TabStop = false;
+            this.colorSwatch7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch7.Location = new System.Drawing.Point(348, 12);
+            this.colorSwatch7.Name = "colorSwatch7";
+            this.colorSwatch7.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch7.TabIndex = 6;
+            this.colorSwatch7.TabStop = false;
             // 
-            // pictureBox6
+            // colorSwatch6
             // 
-            this.pictureBox6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox6.Location = new System.Drawing.Point(292, 12);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox6.TabIndex = 5;
-            this.pictureBox6.TabStop = false;
+            this.colorSwatch6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch6.Location = new System.Drawing.Point(292, 12);
+            this.colorSwatch6.Name = "colorSwatch6";
+            this.colorSwatch6.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch6.TabIndex = 5;
+            this.colorSwatch6.TabStop = false;
             // 
-            // pictureBox7
+            // colorSwatch5
             // 
-            this.pictureBox7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox7.Location = new System.Drawing.Point(236, 12);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox7.TabIndex = 4;
-            this.pictureBox7.TabStop = false;
+            this.colorSwatch5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch5.Location = new System.Drawing.Point(236, 12);
+            this.colorSwatch5.Name = "colorSwatch5";
+            this.colorSwatch5.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch5.TabIndex = 4;
+            this.colorSwatch5.TabStop = false;
             // 
-            // pictureBox8
+            // colorSwatch16
             // 
-            this.pictureBox8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox8.Location = new System.Drawing.Point(852, 12);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox8.TabIndex = 15;
-            this.pictureBox8.TabStop = false;
+            this.colorSwatch16.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch16.Location = new System.Drawing.Point(852, 12);
+            this.colorSwatch16.Name = "colorSwatch16";
+            this.colorSwatch16.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch16.TabIndex = 15;
+            this.colorSwatch16.TabStop = false;
             // 
-            // pictureBox9
+            // colorSwatch15
             // 
-            this.pictureBox9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox9.Location = new System.Drawing.Point(796, 12);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox9.TabIndex = 14;
-            this.pictureBox9.TabStop = false;
+            this.colorSwatch15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch15.Location = new System.Drawing.Point(796, 12);
+            this.colorSwatch15.Name = "colorSwatch15";
+            this.colorSwatch15.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch15.TabIndex = 14;
+            this.colorSwatch15.TabStop = false;
             // 
-            // pictureBox10
+            // colorSwatch14
             // 
-            this.pictureBox10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox10.Location = new System.Drawing.Point(740, 12);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox10.TabIndex = 13;
-            this.pictureBox10.TabStop = false;
+            this.colorSwatch14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch14.Location = new System.Drawing.Point(740, 12);
+            this.colorSwatch14.Name = "colorSwatch14";
+            this.colorSwatch14.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch14.TabIndex = 13;
+            this.colorSwatch14.TabStop = false;
             // 
-            // pictureBox11
+            // colorSwatch13
             // 
-            this.pictureBox11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox11.Location = new System.Drawing.Point(684, 12);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox11.TabIndex = 12;
-            this.pictureBox11.TabStop = false;
+            this.colorSwatch13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch13.Location = new System.Drawing.Point(684, 12);
+            this.colorSwatch13.Name = "colorSwatch13";
+            this.colorSwatch13.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch13.TabIndex = 12;
+            this.colorSwatch13.TabStop = false;
             // 
-            // pictureBox12
+            // colorSwatch12
             // 
-            this.pictureBox12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox12.Location = new System.Drawing.Point(628, 12);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox12.TabIndex = 11;
-            this.pictureBox12.TabStop = false;
+            this.colorSwatch12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch12.Location = new System.Drawing.Point(628, 12);
+            this.colorSwatch12.Name = "colorSwatch12";
+            this.colorSwatch12.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch12.TabIndex = 11;
+            this.colorSwatch12.TabStop = false;
             // 
-            // pictureBox13
+            // colorSwatch11
             // 
-            this.pictureBox13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox13.Location = new System.Drawing.Point(572, 12);
-            this.pictureBox13.Name = "pictureBox13";
-            this.pictureBox13.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox13.TabIndex = 10;
-            this.pictureBox13.TabStop = false;
+            this.colorSwatch11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch11.Location = new System.Drawing.Point(572, 12);
+            this.colorSwatch11.Name = "colorSwatch11";
+            this.colorSwatch11.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch11.TabIndex = 10;
+            this.colorSwatch11.TabStop = false;
             // 
-            // pictureBox14
+            // colorSwatch10
             // 
-            this.pictureBox14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox14.Location = new System.Drawing.Point(516, 12);
-            this.pictureBox14.Name = "pictureBox14";
-            this.pictureBox14.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox14.TabIndex = 9;
-            this.pictureBox14.TabStop = false;
+            this.colorSwatch10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch10.Location = new System.Drawing.Point(516, 12);
+            this.colorSwatch10.Name = "colorSwatch10";
+            this.colorSwatch10.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch10.TabIndex = 9;
+            this.colorSwatch10.TabStop = false;
             // 
-            // pictureBox15
+            // colorSwatch9
             // 
-            this.pictureBox15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox15.Location = new System.Drawing.Point(460, 12);
-            this.pictureBox15.Name = "pictureBox15";
-            this.pictureBox15.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox15.TabIndex = 8;
-            this.pictureBox15.TabStop = false;
+            this.colorSwatch9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.colorSwatch9.Location = new System.Drawing.Point(460, 12);
+            this.colorSwatch9.Name = "colorSwatch9";
+            this.colorSwatch9.Size = new System.Drawing.Size(50, 50);
+            this.colorSwatch9.TabIndex = 8;
+            this.colorSwatch9.TabStop = false;
             // 
             // customColorButton
             // 
@@ -222,29 +222,32 @@
             this.customColorButton.TabIndex = 16;
             this.customColorButton.Text = "Custom Colour";
             this.customColorButton.UseVisualStyleBackColor = true;
+            this.customColorButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SetCustomColor);
             // 
-            // pictureBox16
+            // currentColorSwatch
             // 
-            this.pictureBox16.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox16.Location = new System.Drawing.Point(12, 68);
-            this.pictureBox16.Name = "pictureBox16";
-            this.pictureBox16.Size = new System.Drawing.Size(890, 50);
-            this.pictureBox16.TabIndex = 17;
-            this.pictureBox16.TabStop = false;
+            this.currentColorSwatch.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.currentColorSwatch.Location = new System.Drawing.Point(12, 68);
+            this.currentColorSwatch.Name = "currentColorSwatch";
+            this.currentColorSwatch.Size = new System.Drawing.Size(890, 50);
+            this.currentColorSwatch.TabIndex = 17;
+            this.currentColorSwatch.TabStop = false;
             // 
-            // mainTabPage
+            // globalTabPage
             // 
-            this.mainTabPage.Location = new System.Drawing.Point(4, 24);
-            this.mainTabPage.Name = "mainTabPage";
-            this.mainTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.mainTabPage.Size = new System.Drawing.Size(985, 616);
-            this.mainTabPage.TabIndex = 0;
-            this.mainTabPage.Text = "Global";
-            this.mainTabPage.UseVisualStyleBackColor = true;
+            this.globalTabPage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.globalTabPage.Location = new System.Drawing.Point(4, 26);
+            this.globalTabPage.Name = "globalTabPage";
+            this.globalTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.globalTabPage.Size = new System.Drawing.Size(985, 614);
+            this.globalTabPage.TabIndex = 0;
+            this.globalTabPage.Text = "Global";
+            this.globalTabPage.UseVisualStyleBackColor = true;
             // 
             // levelTabControl
             // 
-            this.levelTabControl.Controls.Add(this.mainTabPage);
+            this.levelTabControl.Controls.Add(this.globalTabPage);
+            this.levelTabControl.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.levelTabControl.Location = new System.Drawing.Point(12, 135);
             this.levelTabControl.Name = "levelTabControl";
             this.levelTabControl.SelectedIndex = 0;
@@ -257,45 +260,45 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1017, 791);
             this.Controls.Add(this.levelTabControl);
-            this.Controls.Add(this.pictureBox16);
+            this.Controls.Add(this.currentColorSwatch);
             this.Controls.Add(this.customColorButton);
-            this.Controls.Add(this.pictureBox8);
-            this.Controls.Add(this.pictureBox9);
-            this.Controls.Add(this.pictureBox10);
-            this.Controls.Add(this.pictureBox11);
-            this.Controls.Add(this.pictureBox12);
-            this.Controls.Add(this.pictureBox13);
-            this.Controls.Add(this.pictureBox14);
-            this.Controls.Add(this.pictureBox15);
-            this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.pictureBox6);
-            this.Controls.Add(this.pictureBox7);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.colorSwatch16);
+            this.Controls.Add(this.colorSwatch15);
+            this.Controls.Add(this.colorSwatch14);
+            this.Controls.Add(this.colorSwatch13);
+            this.Controls.Add(this.colorSwatch12);
+            this.Controls.Add(this.colorSwatch11);
+            this.Controls.Add(this.colorSwatch10);
+            this.Controls.Add(this.colorSwatch9);
+            this.Controls.Add(this.colorSwatch8);
+            this.Controls.Add(this.colorSwatch7);
+            this.Controls.Add(this.colorSwatch6);
+            this.Controls.Add(this.colorSwatch5);
+            this.Controls.Add(this.colorSwatch4);
+            this.Controls.Add(this.colorSwatch3);
+            this.Controls.Add(this.colorSwatch2);
             this.Controls.Add(this.colorSwatch1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Homeworld ColorPicker";
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorSwatch9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.currentColorSwatch)).EndInit();
             this.levelTabControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -304,24 +307,24 @@
         #endregion
 
         private PictureBox colorSwatch1;
-        private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
-        private PictureBox pictureBox4;
-        private PictureBox pictureBox5;
-        private PictureBox pictureBox6;
-        private PictureBox pictureBox7;
-        private PictureBox pictureBox8;
-        private PictureBox pictureBox9;
-        private PictureBox pictureBox10;
-        private PictureBox pictureBox11;
-        private PictureBox pictureBox12;
-        private PictureBox pictureBox13;
-        private PictureBox pictureBox14;
-        private PictureBox pictureBox15;
+        private PictureBox colorSwatch2;
+        private PictureBox colorSwatch4;
+        private PictureBox colorSwatch3;
+        private PictureBox colorSwatch8;
+        private PictureBox colorSwatch7;
+        private PictureBox colorSwatch6;
+        private PictureBox colorSwatch5;
+        private PictureBox colorSwatch16;
+        private PictureBox colorSwatch15;
+        private PictureBox colorSwatch14;
+        private PictureBox colorSwatch13;
+        private PictureBox colorSwatch12;
+        private PictureBox colorSwatch11;
+        private PictureBox colorSwatch10;
+        private PictureBox colorSwatch9;
         private Button customColorButton;
-        private PictureBox pictureBox16;
-        private TabPage mainTabPage;
+        private PictureBox currentColorSwatch;
+        private TabPage globalTabPage;
         private TabControl levelTabControl;
     }
 }

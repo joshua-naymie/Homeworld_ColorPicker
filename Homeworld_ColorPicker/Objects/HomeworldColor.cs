@@ -66,6 +66,11 @@ namespace Homeworld_ColorPicker.Objects
             this.b = b;
         }
 
+        public Color ToColor()
+        {
+            return Color.FromArgb(r, g, b);
+        }
+
         //----------------------------------------
 
         /// <summary>
@@ -75,7 +80,8 @@ namespace Homeworld_ColorPicker.Objects
         /// <returns></returns>
         public override string ToString()
         {
-            return String.Format("{{{0:0.000}, {1:0.000}, {2:0.000}}}", r/MAX_VALUE, g/MAX_VALUE, b/MAX_VALUE);
+            return String.Format("{{{0:0.000}, {1:0.000}, {2:0.000}}}",
+                                 (float) r/MAX_VALUE, (float) g/MAX_VALUE, (float) b/MAX_VALUE);
         }
 
         /// <summary>

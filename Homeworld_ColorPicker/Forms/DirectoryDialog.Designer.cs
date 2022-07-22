@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DirectoryDialog));
             this.OKButton = new System.Windows.Forms.Button();
             this.rootDirInput = new System.Windows.Forms.TextBox();
@@ -39,6 +40,7 @@
             this.toolkitFoundLabel = new System.Windows.Forms.Label();
             this.toolkitDirLabel = new System.Windows.Forms.Label();
             this.toolkitDirInput = new System.Windows.Forms.TextBox();
+            this.dirDescriptionToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // OKButton
@@ -60,6 +62,8 @@
             this.rootDirInput.Name = "rootDirInput";
             this.rootDirInput.Size = new System.Drawing.Size(526, 25);
             this.rootDirInput.TabIndex = 1;
+            this.dirDescriptionToolTip.SetToolTip(this.rootDirInput, "The root directory of the Homeworld instance. Should end in Homeworld2Classic or " +
+        "HomeworldRM");
             this.rootDirInput.TextChanged += new System.EventHandler(this.RootDirInputChanged);
             // 
             // rootDirLabel
@@ -71,6 +75,8 @@
             this.rootDirLabel.Size = new System.Drawing.Size(113, 19);
             this.rootDirLabel.TabIndex = 2;
             this.rootDirLabel.Text = "Root Directory:";
+            this.dirDescriptionToolTip.SetToolTip(this.rootDirLabel, "The root directory of the Homeworld instance. Should end in Homeworld2Classic or " +
+        "HomeworldRM");
             // 
             // homeworldFoundLabel
             // 
@@ -130,6 +136,7 @@
             this.toolkitDirLabel.Size = new System.Drawing.Size(127, 19);
             this.toolkitDirLabel.TabIndex = 8;
             this.toolkitDirLabel.Text = "Toolkit Directory:";
+            this.dirDescriptionToolTip.SetToolTip(this.toolkitDirLabel, "The root directory of the Gearbox Toolkit. Should end in GBXTools");
             // 
             // toolkitDirInput
             // 
@@ -138,9 +145,10 @@
             this.toolkitDirInput.Name = "toolkitDirInput";
             this.toolkitDirInput.Size = new System.Drawing.Size(526, 25);
             this.toolkitDirInput.TabIndex = 7;
+            this.dirDescriptionToolTip.SetToolTip(this.toolkitDirInput, "The root directory of the Gearbox Toolkit. Should end in GBXTools");
             this.toolkitDirInput.TextChanged += new System.EventHandler(this.ToolkitDirInputChanged);
             // 
-            // StartDialog
+            // DirectoryDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -156,7 +164,7 @@
             this.Controls.Add(this.rootDirInput);
             this.Controls.Add(this.OKButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "StartDialog";
+            this.Name = "DirectoryDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Select Directories";
             this.ResumeLayout(false);
@@ -176,5 +184,6 @@
         private Label toolkitFoundLabel;
         private Label toolkitDirLabel;
         private TextBox toolkitDirInput;
+        private ToolTip dirDescriptionToolTip;
     }
 }
