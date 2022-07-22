@@ -56,9 +56,10 @@ namespace Homeworld_ColorPicker.IO
         /// <returns>An array of all 16 player colors as HomeworldColors</returns>
         private static HomeworldColor[] ReadSwatches(string file, int startIndex)
         {
+            HomeworldColor[] colors = new HomeworldColor[NUMBER_OF_SWATCHES];
+
             int nextIndex;
             string currentColor;
-            HomeworldColor[] colors = new HomeworldColor[NUMBER_OF_SWATCHES];
 
             for(int i=0; i<NUMBER_OF_SWATCHES; i++)
             {
@@ -78,13 +79,13 @@ namespace Homeworld_ColorPicker.IO
 
         /// <summary>
         /// Parse an individual color from the R,G,B values with comma delimiters.
+        /// Displays an error message if the color cannot be parsed.
         /// </summary>
         /// <param name="color">The string representing the R,G,B values delimited by commas</param>
-        /// <returns>A HomeworldColor with the parsed R,G,B value</returns>
+        /// <returns>A HomeworldColor with the parsed R,G,B values or the default HomeworldColor values if the color cannot be parsed</returns>
         private static HomeworldColor ParseColor(string color)
         {
             string[] values = color.Split(',');
-
             //System.Diagnostics.Debug.WriteLine("R: " + values[RED].Trim() + "\nG: " + values[GREEN].Trim() + "\nB: " + values[BLUE].Trim() + "\n\n");
 
             try
