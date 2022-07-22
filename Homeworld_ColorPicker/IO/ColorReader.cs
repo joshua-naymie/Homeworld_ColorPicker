@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 namespace Homeworld_ColorPicker.IO
 {
     using Objects;
+
+    /// <summary>
+    /// Reads the <c>PLAYERCFG.LUA</c> file at a given path and parses all player colors into HomeworldColors.
+    /// </summary>
     public class ColorReader
     {
         private const
@@ -32,7 +36,7 @@ namespace Homeworld_ColorPicker.IO
         /// </summary>
         /// <param name="path">The path to the <c>PLAYERCFG.LUA</c> file</param>
         /// <returns>The 16 player colors</returns>
-        public HomeworldColor[] GetPlayerColors(string path)
+        public static HomeworldColor[] GetPlayerColors(string path)
         {
             string file = System.IO.File.ReadAllText(path);
 
@@ -50,7 +54,7 @@ namespace Homeworld_ColorPicker.IO
         /// <param name="file">The text of the entire <c>PLAYERCFG.LUA</c> file</param>
         /// <param name="startIndex">The index of the first color swatch</param>
         /// <returns>An array of all 16 player colors as HomeworldColors</returns>
-        private HomeworldColor[] ReadSwatches(string file, int startIndex)
+        private static HomeworldColor[] ReadSwatches(string file, int startIndex)
         {
             int nextIndex;
             string currentColor;
@@ -77,7 +81,7 @@ namespace Homeworld_ColorPicker.IO
         /// </summary>
         /// <param name="color">The string representing the R,G,B values delimited by commas</param>
         /// <returns>A HomeworldColor with the parsed R,G,B value</returns>
-        private HomeworldColor ParseColor(string color)
+        private static HomeworldColor ParseColor(string color)
         {
             string[] values = color.Split(',');
 
