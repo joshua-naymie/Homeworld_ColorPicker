@@ -23,10 +23,15 @@ namespace Homeworld_ColorPicker.IO
 
         private const
         string COLOR_SWATCHES_START = "colorswatches = {",
-            
                MESSAGE_COULD_NOT_PARSE_COLOR = "Error: Could not parse color!";
 
+        //----------------------------------------
 
+        /// <summary>
+        /// Gets all the player colors from the <c>PLAYERCFG.LUA</c> file as HomeworldColors.
+        /// </summary>
+        /// <param name="path">The path to the <c>PLAYERCFG.LUA</c> file</param>
+        /// <returns>The 16 player colors</returns>
         public HomeworldColor[] GetPlayerColors(string path)
         {
             string file = System.IO.File.ReadAllText(path);
@@ -36,6 +41,15 @@ namespace Homeworld_ColorPicker.IO
             return ReadSwatches(file, startIndex);
         }
 
+        //----------------------------------------
+
+        /// <summary>
+        /// Finds substrings of all 16 player color swatches in the <c>PLAYERCFG.LUA</c> file.
+        /// Has them parsed into HomeworldColors
+        /// </summary>
+        /// <param name="file">The text of the entire <c>PLAYERCFG.LUA</c> file</param>
+        /// <param name="startIndex">The index of the first color swatch</param>
+        /// <returns>An array of all 16 player colors as HomeworldColors</returns>
         private HomeworldColor[] ReadSwatches(string file, int startIndex)
         {
             int nextIndex;
@@ -56,6 +70,13 @@ namespace Homeworld_ColorPicker.IO
             return colors;
         }
 
+        //----------------------------------------
+
+        /// <summary>
+        /// Parse an individual color from the R,G,B values with comma delimiters.
+        /// </summary>
+        /// <param name="color">The string representing the R,G,B values delimited by commas</param>
+        /// <returns>A HomeworldColor with the parsed R,G,B value</returns>
         private HomeworldColor ParseColor(string color)
         {
             string[] values = color.Split(',');
