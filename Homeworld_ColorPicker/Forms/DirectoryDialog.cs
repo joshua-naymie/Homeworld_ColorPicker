@@ -55,7 +55,7 @@ namespace Homeworld_ColorPicker
         // INSTANCE VARIABLES
         //----------------------------------------
 
-        /// <summary>
+        /// <summary> 
         /// The path of the current root directory entered by the user.
         /// </summary>
         private
