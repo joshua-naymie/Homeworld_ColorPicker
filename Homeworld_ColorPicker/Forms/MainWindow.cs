@@ -15,6 +15,9 @@ namespace Homeworld_ColorPicker.Forms
 
     public partial class MainWindow : Form
     {
+        private const
+        int NUMBER_OF_SWATCHES = 16;
+
         /// <summary>
         /// The dialog used to set or change the directories for Homeworld root, Remastered Toolkit, and Profile.
         /// </summary>
@@ -23,6 +26,12 @@ namespace Homeworld_ColorPicker.Forms
 
         private
         ColorDialog customColorDialog = new ColorDialog();
+
+        private
+        ColorBox currentColorBox;
+
+        private
+        ColorBox[] colorSwatches = new ColorBox[GC.NUM_PLAYER_COLORS];
 
         /// <summary>
         /// Constructor for MainWindow.
@@ -45,49 +54,55 @@ namespace Homeworld_ColorPicker.Forms
             //----------
 
             InitializeComponent();
+
+            InitColorSwatches();
+            currentColorBox = new ColorBox(currentColorSwatch);
         }
 
         private void InitColorSwatches()
         {
-            ColorBox[] colorSwatches = {
-                                        new ColorBox(colorSwatch1),
-                                        new ColorBox(colorSwatch2),
-                                        new ColorBox(colorSwatch3),
-                                        new ColorBox(colorSwatch4),
-                                        new ColorBox(colorSwatch5),
-                                        new ColorBox(colorSwatch6),
-                                        new ColorBox(colorSwatch7),
-                                        new ColorBox(colorSwatch8),
-                                        new ColorBox(colorSwatch9),
-                                        new ColorBox(colorSwatch10),
-                                        new ColorBox(colorSwatch11),
-                                        new ColorBox(colorSwatch12),
-                                        new ColorBox(colorSwatch13),
-                                        new ColorBox(colorSwatch14),
-                                        new ColorBox(colorSwatch15),
-                                        new ColorBox(colorSwatch16)
-                                       };
+            colorSwatches[0] = new ColorBox(colorSwatch1);
+            colorSwatches[1] = new ColorBox(colorSwatch2);
+            colorSwatches[2] = new ColorBox(colorSwatch3);
+            colorSwatches[3] = new ColorBox(colorSwatch4);
+            colorSwatches[4] = new ColorBox(colorSwatch5);
+            colorSwatches[5] = new ColorBox(colorSwatch6);
+            colorSwatches[6] = new ColorBox(colorSwatch7);
+            colorSwatches[7] = new ColorBox(colorSwatch8);
+            colorSwatches[8] = new ColorBox(colorSwatch9);
+            colorSwatches[9] = new ColorBox(colorSwatch10)l
+            colorSwatches[10] = new ColorBox(colorSwatch11);
+            colorSwatches[11] = new ColorBox(colorSwatch12);
+            colorSwatches[12] = new ColorBox(colorSwatch13);
+            colorSwatches[13] = new ColorBox(colorSwatch14);
+            colorSwatches[14] = new ColorBox(colorSwatch15);
+            colorSwatches[15] = new ColorBox(colorSwatch16);
+
+            foreach (ColorBox swatch in colorSwatches)
+            {
+                swatch.SetLeftClickAction(ColorSwatchClicked);
+            }
         }
 
         private void SetCustomColor(object sender, MouseEventArgs e)
         {
-            
+            customColorDialog.Color = currentColorSwatch
             customColorDialog.FullOpen = true;
 
             if(customColorDialog.ShowDialog() == DialogResult.OK)
             {
-                SetCurrentColor(customColorDialog.Color);
+                SetCurrentColor(new HomeworldColor(customColorDialog.Color));
             }
+        }
+
+        private void ColorSwatchClicked(ColorBox swatch)
+        {
+            SetCurrentColor(swatch.GetColor());
         }
 
         private void SetCurrentColor(HomeworldColor color)
         {
-            SetCurrentColor(color.ToColor());
-        }
-
-        private void SetCurrentColor(Color color)
-        {
-            currentColorSwatch.BackColor = color;
+            currentColorSwatch.BackColor = color.ToColor();
         }
 
         private DialogResult ShowDirectoryDialog()

@@ -44,6 +44,13 @@ namespace Homeworld_ColorPicker.Objects
             this.b = b;
         }
 
+        public HomeworldColor(Color color)
+        {
+            this.r = color.R;
+            this.g = color.G;
+            this.b = color.B;
+        }
+
         // ACCESSORS
         //----------------------------------------
 

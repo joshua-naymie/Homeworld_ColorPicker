@@ -23,9 +23,6 @@ namespace Homeworld_ColorPicker.IO
              COLOR_SWATCH_END = '}';
 
         private const
-        int NUMBER_OF_SWATCHES = 16;
-
-        private const
         string COLOR_SWATCHES_START = "colorswatches = {",
                MESSAGE_COULD_NOT_PARSE_COLOR = "Error: Could not parse color!";
 
@@ -56,12 +53,12 @@ namespace Homeworld_ColorPicker.IO
         /// <returns>An array of all 16 player colors as HomeworldColors</returns>
         private static HomeworldColor[] ReadSwatches(string file, int startIndex)
         {
-            HomeworldColor[] colors = new HomeworldColor[NUMBER_OF_SWATCHES];
+            HomeworldColor[] colors = new HomeworldColor[GC.NUM_PLAYER_COLORS];
 
             int nextIndex;
             string currentColor;
 
-            for(int i=0; i<NUMBER_OF_SWATCHES; i++)
+            for(int i=0; i<GC.NUM_PLAYER_COLORS; i++)
             {
                 nextIndex = file.IndexOf(COLOR_SWATCH_END, startIndex);
                 //System.Diagnostics.Debug.WriteLine("si: " + startIndex + " | ni: " + nextIndex);// + "\n");

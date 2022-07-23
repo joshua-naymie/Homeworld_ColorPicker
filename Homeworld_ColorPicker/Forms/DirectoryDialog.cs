@@ -28,18 +28,14 @@ namespace Homeworld_ColorPicker
             CONFIG_TOOLKIT_DIR = 1;
         
         private const
-        string DIR_DOCUMENTS_COLORPICKER = @"\Homeworld ColorPicker",
-               DIR_DEFAULT_ROOT_PATH = @"C:\Program Files (x86)\Steam\steamapps\common\Homeworld\HomeworldRM",
+        string DIR_DEFAULT_ROOT_PATH = @"C:\Program Files (x86)\Steam\steamapps\common\Homeworld\HomeworldRM",
                DIR_DEFAULT_TOOLKIT_PATH = @"C:\Program Files (x86)\Steam\steamapps\common\Homeworld\GBXTools",
-               DIR_PROFILE_PATH = @"\Bin\Profiles",
 
                FILE_CONFIG = @"\config",
                FILE_HW1_EXE_PATH = @"\exe\Homeworld.exe",
                FILE_HW2_EXE_PATH = @"\Bin\Release\Homeworld2.exe",
                FILE_HWR_EXE_PATH = @"\Bin\Release\HomeworldRM.exe",
-               FILE_ARCHIVE_EXE_PATH = @"\WorkshopTool\Archive.exe",
                FILE_NAME_DAT = @"\name.dat",
-               FILE_PLAYERCFG_LUA = @"\PLAYERCFG.LUA",
 
                TEXT_HW1_FOUND = "Homeworld 1 Found - Not Supported!",
                TEXT_HW2_FOUND = "Homeworld 2 Found",
@@ -99,7 +95,7 @@ namespace Homeworld_ColorPicker
         /// </summary>
         private void SetDirInputs()
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + DIR_DOCUMENTS_COLORPICKER + FILE_CONFIG;
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + GC.DIR_DOCUMENTS_COLORPICKER + FILE_CONFIG;
 
             bool configRead = false;
             if (Util.CheckPathExists(path))
@@ -134,7 +130,7 @@ namespace Homeworld_ColorPicker
         /// <param name="e">The event</param>
         private void OKButton_Click(object sender, EventArgs e)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + DIR_DOCUMENTS_COLORPICKER;
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + GC.DIR_DOCUMENTS_COLORPICKER;
 
             if (!Util.CheckPathExists(path))
             {
@@ -279,7 +275,7 @@ namespace Homeworld_ColorPicker
         /// <returns>All valid profiles in the current valid root directory</returns>
         private Profile[] GetAllProfiles()
         {
-            string profilesPath = rootDirInput.Text + DIR_PROFILE_PATH;
+            string profilesPath = rootDirInput.Text + GC.DIR_PROFILES_PATH;
             
             if (Util.CheckPathExists(profilesPath))
             {
@@ -291,7 +287,7 @@ namespace Homeworld_ColorPicker
                 foreach (string path in paths)
                 {
                     if(Util.CheckPathExists(path + FILE_NAME_DAT)
-                    && Util.CheckPathExists(path + FILE_PLAYERCFG_LUA))
+                    && Util.CheckPathExists(path + GC.FILE_PLAYERCFG_LUA))
                     {
                         string profilePath = path.Replace(currentRootDirectory, "");
                         string profileName = File.ReadAllText(path + FILE_NAME_DAT);
@@ -316,7 +312,7 @@ namespace Homeworld_ColorPicker
             // if 'profile' directory doesnt exist
             noProfilesLabel.Show();
 
-            return new Profile[0];
+            return Array.Empty<Profile>();
         }
 
         //----------------------------------------
@@ -328,7 +324,7 @@ namespace Homeworld_ColorPicker
         {
             currentToolkitDirectory = toolkitDirInput.Text.TrimEnd('\\');
 
-            if(Util.CheckPathExists(currentToolkitDirectory + FILE_ARCHIVE_EXE_PATH))
+            if(Util.CheckPathExists(currentToolkitDirectory + GC.FILE_ARCHIVE_EXE_PATH))
             {
                 validToolkitDir = true;
                 SetToolkitLabelFound();
