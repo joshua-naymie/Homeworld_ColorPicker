@@ -61,9 +61,11 @@ namespace Homeworld_ColorPicker.IO
             for(int i=0; i<GC.NUM_PLAYER_COLORS; i++)
             {
                 nextIndex = file.IndexOf(COLOR_SWATCH_END, startIndex);
-                //System.Diagnostics.Debug.WriteLine("si: " + startIndex + " | ni: " + nextIndex);// + "\n");
+                //System.Diagnostics.Debug.WriteLine("l: " + file.Length + " | si: " + startIndex + " | ni: " + nextIndex);// + "\n");
 
-                currentColor = file.Substring(file.IndexOf(COLOR_SWATCH_START, startIndex)+1, nextIndex);
+                startIndex = file.IndexOf(COLOR_SWATCH_START, startIndex) + 1;
+
+                currentColor = file.Substring(startIndex, nextIndex - startIndex);
                 colors[i] = ParseColor(currentColor);
 
                 startIndex = nextIndex + 1; 

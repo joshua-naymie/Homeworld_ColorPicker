@@ -9,7 +9,7 @@ namespace Homeworld_ColorPicker
     /// <summary>
     /// Global constants used throughout the program
     /// </summary>
-    public class GC
+    public static class GC
     {
         /// <summary>
         /// The number of player colors in <c>PLAYER.CFG</c>

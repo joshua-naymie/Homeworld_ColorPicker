@@ -18,6 +18,15 @@ namespace Homeworld_ColorPicker.Forms
         private const
         int NUMBER_OF_SWATCHES = 16;
 
+        private
+        string homeworldDirPath;
+
+        private
+        string toolkitDirPath;
+
+        private
+        Profile userProfile;
+
         /// <summary>
         /// The dialog used to set or change the directories for Homeworld root, Remastered Toolkit, and Profile.
         /// </summary>
@@ -38,14 +47,6 @@ namespace Homeworld_ColorPicker.Forms
         /// </summary>
         public MainWindow()
         {
-            //IO.ColorReader temp = new IO.ColorReader();
-            //HomeworldColor[] t = temp.GetPlayerColors(@"E:\Games\Steam\steamapps\common\Homeworld\HomeworldRM\Bin\Profiles\Profile1\PLAYERCFG.LUA");
-
-            //foreach(HomeworldColor c in t)
-            //{
-            //    System.Diagnostics.Debug.WriteLine(c);
-            //}
-
             if(ShowDirectoryDialog() == DialogResult.Cancel)
             {
                 Load += (s, e) => Close();
@@ -56,9 +57,14 @@ namespace Homeworld_ColorPicker.Forms
             InitializeComponent();
 
             InitColorSwatches();
-            currentColorBox = new ColorBox(currentColorSwatch);
+            InitCurrentColor();
         }
 
+        /// <summary>
+        /// Initializes all player color swatches.
+        /// Gets and assigns player colors from <c>PLAYERCFG.LUA</c>.
+        /// Adds Click events to all ColorBoxes.
+        /// </summary>
         private void InitColorSwatches()
         {
             colorSwatches[0] = new ColorBox(colorSwatch1);
@@ -70,7 +76,7 @@ namespace Homeworld_ColorPicker.Forms
             colorSwatches[6] = new ColorBox(colorSwatch7);
             colorSwatches[7] = new ColorBox(colorSwatch8);
             colorSwatches[8] = new ColorBox(colorSwatch9);
-            colorSwatches[9] = new ColorBox(colorSwatch10)l
+            colorSwatches[9] = new ColorBox(colorSwatch10);
             colorSwatches[10] = new ColorBox(colorSwatch11);
             colorSwatches[11] = new ColorBox(colorSwatch12);
             colorSwatches[12] = new ColorBox(colorSwatch13);
@@ -78,15 +84,37 @@ namespace Homeworld_ColorPicker.Forms
             colorSwatches[14] = new ColorBox(colorSwatch15);
             colorSwatches[15] = new ColorBox(colorSwatch16);
 
+            //System.Diagnostics.Debug.WriteLine(homeworldDirPath + userProfile.GetPath() + GC.FILE_PLAYERCFG_LUA);
+
+            HomeworldColor[] playerColors = IO.ColorReader.GetPlayerColors(homeworldDirPath + userProfile.GetPath()
+                                                                                            + GC.FILE_PLAYERCFG_LUA);
+            int i = 0;
             foreach (ColorBox swatch in colorSwatches)
             {
+                swatch.SetColor(playerColors[i++]);
                 swatch.SetLeftClickAction(ColorSwatchClicked);
             }
         }
 
+        /// <summary>
+        /// Initializes the current color ColorBox.
+        /// Sets the color to the first player color.
+        /// </summary>
+        private void InitCurrentColor()
+        {
+            currentColorBox = new ColorBox(currentColorSwatch);
+            SetCurrentColor(colorSwatches[0].GetColor());
+        }
+
+        /// <summary>
+        /// Opens a ColorDialog for the user to set a custom color.
+        /// Assigns the custom color to the current color if DialogResult is OK.
+        /// </summary>
+        /// <param name="sender">The object that called the event</param>
+        /// <param name="e">The mouse event arguments</param>
         private void SetCustomColor(object sender, MouseEventArgs e)
         {
-            customColorDialog.Color = currentColorSwatch
+            customColorDialog.Color = currentColorSwatch.BackColor;
             customColorDialog.FullOpen = true;
 
             if(customColorDialog.ShowDialog() == DialogResult.OK)
@@ -102,7 +130,7 @@ namespace Homeworld_ColorPicker.Forms
 
         private void SetCurrentColor(HomeworldColor color)
         {
-            currentColorSwatch.BackColor = color.ToColor();
+            currentColorBox.SetColor(color);
         }
 
         private DialogResult ShowDirectoryDialog()
@@ -110,7 +138,10 @@ namespace Homeworld_ColorPicker.Forms
             DialogResult result = directoryDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
+                homeworldDirPath = directoryDialog.GetRootDirectory();
+                toolkitDirPath = directoryDialog.GetToolkitDirectory();
 
+                userProfile = directoryDialog.GetProfile();
             }
 
             return result;
