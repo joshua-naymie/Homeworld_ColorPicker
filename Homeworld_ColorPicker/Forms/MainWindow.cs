@@ -47,6 +47,7 @@ namespace Homeworld_ColorPicker.Forms
         /// </summary>
         public MainWindow()
         {
+            IO.BigExtractor.ExtractBigFile("a", "a", "a");
             if(ShowDirectoryDialog() == DialogResult.Cancel)
             {
                 Load += (s, e) => Close();
