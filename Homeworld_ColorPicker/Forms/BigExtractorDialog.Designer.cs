@@ -39,8 +39,10 @@
             // 
             // outputTextBox
             // 
+            this.outputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.outputTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(36)))), ((int)(((byte)(86)))));
-            this.outputTextBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.outputTextBox.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.outputTextBox.ForeColor = System.Drawing.Color.White;
             this.outputTextBox.Location = new System.Drawing.Point(0, 0);
@@ -48,7 +50,7 @@
             this.outputTextBox.Name = "outputTextBox";
             this.outputTextBox.ReadOnly = true;
             this.outputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.outputTextBox.Size = new System.Drawing.Size(999, 252);
+            this.outputTextBox.Size = new System.Drawing.Size(999, 253);
             this.outputTextBox.TabIndex = 0;
             // 
             // startDoneButton
@@ -94,7 +96,7 @@
             this.panel1.Controls.Add(this.startDoneButton);
             this.panel1.Controls.Add(this.cancelButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 258);
+            this.panel1.Location = new System.Drawing.Point(0, 259);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(999, 52);
             this.panel1.TabIndex = 4;
@@ -103,10 +105,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(999, 310);
+            this.ClientSize = new System.Drawing.Size(999, 311);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.outputTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(447, 200);
             this.Name = "BigExtractorDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BigExtractorDialog";

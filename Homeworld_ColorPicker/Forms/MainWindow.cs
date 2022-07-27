@@ -49,12 +49,11 @@ namespace Homeworld_ColorPicker.Forms
                 Load += (s, e) => Close();
             }
 
-            if(!IO.ExtractedDataManager.VerifyHW2Remastered())
+            if(!IO.ExtractedDataManager.VerifyRequiredFiles(instance))
             {
-                BigExtractorDialog temp = new BigExtractorDialog(instance);
-                //temp.Shown += (s,e) => MessageBox.Show("We couldn't find the required files! They need to be extracted from the .big file to proceed.", "Files not found!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                BigExtractorDialog extractionDialog = new BigExtractorDialog(instance);
 
-                temp.ShowDialog();
+                extractionDialog.ShowDialog();
             }
 
             //----------
@@ -91,7 +90,7 @@ namespace Homeworld_ColorPicker.Forms
 
             //System.Diagnostics.Debug.WriteLine(homeworldDirPath + userProfile.GetPath() + GC.FILE_PLAYERCFG_LUA);
 
-            HomeworldColor[] playerColors = IO.ColorReader.GetPlayerColors(instance.GetHomeworldRoot() + instance.GetProfilePath());
+            HomeworldColor[] playerColors = IO.ColorReader.GetPlayerColors(instance.HomeworldRootDir + instance.ProfilePath);
             int i = 0;
             foreach (ColorBox swatch in colorSwatches)
             {

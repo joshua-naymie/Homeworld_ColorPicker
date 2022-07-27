@@ -9,7 +9,7 @@ namespace Homeworld_ColorPicker
     /// <summary>
     /// Class of miscellaneous utility methods that needed throughout the application
     /// </summary>
-    internal class Util
+    public static class Util
     {
         /// <summary>
         /// Checks whether a path exists within the file system.
@@ -20,6 +20,18 @@ namespace Homeworld_ColorPicker
         public static bool CheckPathExists(string path)
         {
             return Directory.Exists(path) || File.Exists(path);
+        }
+
+        /// <summary>
+        /// Deletes all files and subdirectories in a directory.
+        /// </summary>
+        /// <param name="directory">The path to directory to clear</param>
+        public static void ClearDirectory(string path)
+        {
+            DirectoryInfo directory = new DirectoryInfo(path);
+
+            directory.EnumerateFiles().ToList().ForEach(file => file.Delete());
+            directory.EnumerateDirectories().ToList().ForEach(d => d.Delete(true));
         }
     }
 }

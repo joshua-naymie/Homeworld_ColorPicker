@@ -36,26 +36,30 @@ namespace Homeworld_ColorPicker.Forms
                TEXT_INFO_DIALOG_MESSAGE = "We couldn't find the required files!\n"
                                         + "They need to be extracted from the .big file to proceed.";
 
-               
+
 
         private
         string homeworldRoot,
-               toolkitRoot,
-               extractPath = GC.DIR_DOCUMENTS_PATH + @"\output";
+               toolkitRoot;
 
         private
-        ExtractorSate currentState; 
+        ExtractorSate currentState;
+
+        private
+        GameInstance instance;
 
         private
         IO.BigExtractor? extractor;
         
         public BigExtractorDialog(GameInstance instance)
         {
+            this.instance = instance;
             this.Shown += ShowInfoDialog;
+
             InitializeComponent();
 
-            this.homeworldRoot = instance.GetHomeworldRoot();
-            this.toolkitRoot = instance.GetToolkitRoot();
+            this.homeworldRoot = instance.HomeworldRootDir;
+            this.toolkitRoot = instance.ToolkitRootDir;
 
             currentState = ExtractorSate.DialogOpened;
 
@@ -69,7 +73,7 @@ namespace Homeworld_ColorPicker.Forms
 
             cancelButton.Enabled = true;
 
-            extractor = new IO.BigExtractor(homeworldRoot, toolkitRoot, extractPath, AppendOutput);
+            extractor = new IO.BigExtractor(instance, AppendOutput);
 
 
             Task t = new Task(extractor.ExtractBigFile);
@@ -81,8 +85,8 @@ namespace Homeworld_ColorPicker.Forms
         {
             if(outputTextBox.InvokeRequired)
             {
-                Action safe = delegate { AppendOutput(text); };
-                outputTextBox.Invoke(safe);
+                Action safeAction = delegate { AppendOutput(text); };
+                outputTextBox.Invoke(safeAction);
             }
             else
             {
@@ -129,7 +133,7 @@ namespace Homeworld_ColorPicker.Forms
 
         private void DeleteExtractedData()
         {
-            DirectoryInfo outputDir = new DirectoryInfo(extractPath);
+            DirectoryInfo outputDir = new DirectoryInfo(GC.DIR_EXTRACTION_OUTPUT);
 
             
             foreach (DirectoryInfo directory in outputDir.GetDirectories())
@@ -142,22 +146,9 @@ namespace Homeworld_ColorPicker.Forms
             }
         }
 
-        private void MoveRequiredFiles(Task ta)
+        private void MoveRequiredFiles(Task t)
         {
-            string path = GC.DIR_DOCUMENTS_PATH + @"\HW2";
-
-            foreach (string levelPath in GC.HW2_TEAMCOLOR_PATHS)
-            {
-                if (!Util.CheckPathExists(path + levelPath))
-                {
-                    System.IO.Directory.CreateDirectory(path + levelPath);
-                }
-
-                System.Diagnostics.Debug.WriteLine("\n" + extractPath + levelPath + "\n" + path + levelPath);
-                System.Diagnostics.Debug.WriteLine(Util.CheckPathExists(extractPath + levelPath) + "," + !Util.CheckPathExists(path + levelPath) + "\n");
-
-                File.Move(extractPath + levelPath + GC.FILE_TEAMCOLOUR_LUA, path + levelPath + GC.FILE_TEAMCOLOUR_LUA);
-            }
+            IO.ExtractedDataManager.MoveRequiredFiles(instance);
         }
 
         private void MoveAllFiles()

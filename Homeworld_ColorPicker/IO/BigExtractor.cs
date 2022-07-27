@@ -8,7 +8,8 @@ using System.Diagnostics;
 
 namespace Homeworld_ColorPicker.IO
 {
-    public class BigExtractor
+    using Objects;
+    public sealed class BigExtractor
     {
         private const
         string ARCHIVE_ARGS_FORMAT = "-a \"{0}{1}\" -e \"{2}\"",
@@ -20,6 +21,9 @@ namespace Homeworld_ColorPicker.IO
 
         private const
         int CTLR_C_EVENT = 0;
+
+        private static readonly
+        Dictionary<>
 
         //CTRL+C REQUIREMENTS
         //----------------------------------------
@@ -68,12 +72,10 @@ namespace Homeworld_ColorPicker.IO
         //----------------------------------------
 
         private
-        string homeworldRoot,
-               toolkitRoot,
-               extractDirectory;
+        GameInstance instance;
 
         private
-        Action<string> textOutput;
+        Action<string> textOutputMethod;
 
         private
         System.Diagnostics.Process extractor;
@@ -84,21 +86,20 @@ namespace Homeworld_ColorPicker.IO
         /// <param name="homeworldRoot">The path to the homeworld root directory</param>
         /// <param name="toolkitRoot">The path to the toolkit root directory</param>
         /// <param name="extractDirectory">The path to the directory to extract the .big file contents to</param>
-        /// <param name="textOutput">The method to pass any text output from the Archive.exe process</param>
-        public BigExtractor(string homeworldRoot, string toolkitRoot, string extractDirectory, Action<string> textOutput)
+        /// <param name="textOutputMethod">The method to pass any text output from the Archive.exe process</param>
+        //public BigExtractor(string homeworldRoot, string toolkitRoot, string extractDirectory, Action<string> textOutput)
+        public BigExtractor(GameInstance instance, Action<string> textOutputMethod)
         {
-            this.homeworldRoot = homeworldRoot;
-            this.toolkitRoot = toolkitRoot;
-            this.extractDirectory = extractDirectory;
+            this.instance = instance;
 
-            this.textOutput = textOutput;
+            this.textOutputMethod = textOutputMethod;
 
             extractor = new System.Diagnostics.Process
             {
                 StartInfo = new System.Diagnostics.ProcessStartInfo
                 {
-                    FileName = String.Format(ARCHIVE_PATH_FORMAT, toolkitRoot, GC.FILE_ARCHIVE_EXE_PATH),
-                    Arguments = String.Format(ARCHIVE_ARGS_FORMAT, homeworldRoot, FILE_HW2_BIG_PATH, extractDirectory),
+                    FileName = String.Format(ARCHIVE_PATH_FORMAT, instance.ToolkitRootDir, GC.FILE_ARCHIVE_EXE_PATH),
+                    Arguments = String.Format(ARCHIVE_ARGS_FORMAT, instance.HomeworldRootDir, FILE_HW2_BIG_PATH, GC.DIR_EXTRACTION_OUTPUT_PATH),
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
@@ -117,7 +118,7 @@ namespace Homeworld_ColorPicker.IO
                 extractor.Start();
                 while (!extractor.StandardOutput.EndOfStream)
                 {
-                    textOutput.Invoke(extractor.StandardOutput.ReadLine());
+                    textOutputMethod.Invoke(extractor.StandardOutput.ReadLine());
                 }
             }
             catch (Exception e)
@@ -136,13 +137,6 @@ namespace Homeworld_ColorPicker.IO
                 foreach(ProcessThread thread in extractor.Threads)
                 {
                     IntPtr threadHandle = OpenThread(ThreadAccess.SUSPEND_RESUME, false, (uint)thread.Id);
-                    
-                    //if(pOpenThread != IntPtr.Zero)
-                    //{
-                    //    System.Diagnostics.Debug.WriteLine("NOT FOUND");
-                    //    continue;
-                    //}
-                    //System.Diagnostics.Debug.WriteLine("FOUND");
 
                     SuspendThread(threadHandle);
                     CloseHandle(threadHandle);

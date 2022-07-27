@@ -24,11 +24,14 @@ namespace Homeworld_ColorPicker
         public const
         string DIR_DOCUMENTS_COLORPICKER = @"\Homeworld ColorPicker";
 
+        public const
+        string DIR_EXTRACTION_OUTPUT = @"\output";
+
         /// <summary>
         /// The directory where extracted data from Homeworld 2 Remastered is stored in the Documents directory.
         /// </summary>
         public const
-        string DIR_HW2_RM_EXTRACTED_DATA = @"\HW2_RM";
+        string DIR_HW2_RM_DATA = @"\HW2_RM";
 
         /// <summary>
         /// The path to the <c>Profiles</c> directory from the Homeworld root directory
@@ -99,6 +102,10 @@ namespace Homeworld_ColorPicker
         public const
         string DIR_HW2_TEAMCOLOR_15_HOMEWORLD = @"\leveldata\campaign\ascension\m15_homeworld";
 
+        /// <summary>
+        /// The paths to all Homeworld 2 level directories where teamcolour.lua files are stored.
+        /// eg: \leveldata\campaign\ascension\[level_dir]
+        /// </summary>
         public static readonly
         string[] HW2_TEAMCOLOR_PATHS = { DIR_HW2_TEAMCOLOR_01_TANIS,
                                          DIR_HW2_TEAMCOLOR_02_HIIGARA,
@@ -116,7 +123,25 @@ namespace Homeworld_ColorPicker
                                          DIR_HW2_TEAMCOLOR_14_SAJUUK,
                                          DIR_HW2_TEAMCOLOR_15_HOMEWORLD };
 
+        /// <summary>
+        /// The path to the programs working directory in the users My Documents directory.
+        /// eg: C:\Users\[username]\Documents\[working_dir]
+        /// </summary>
         public static readonly
         string DIR_DOCUMENTS_PATH = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + DIR_DOCUMENTS_COLORPICKER;
+
+        /// <summary>
+        /// The path to the directory where Homeworld 2 Remastered data files are stored in the Homeworld ColorPicker working directory.
+        /// eg: C:\Users\[username]\Documents\[working_dir]\[hw2rm_data_dir]
+        /// </summary>
+        public static readonly
+        string DIR_HW2_RM_DATA_PATH = DIR_DOCUMENTS_PATH + DIR_HW2_RM_DATA;
+
+        /// <summary>
+        /// The path to the directory where .big files are extracted in the Homeworld ColorPicker working directory.
+        /// eg: C:\Users\[username]\Documents\[working_dir]\[output_dir]
+        /// </summary>
+        public static readonly
+        string DIR_EXTRACTION_OUTPUT_PATH = DIR_DOCUMENTS_PATH + DIR_EXTRACTION_OUTPUT;
     }
 }
