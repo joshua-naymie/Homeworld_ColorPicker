@@ -19,19 +19,14 @@ namespace Homeworld_ColorPicker.Forms
         int NUMBER_OF_SWATCHES = 16;
 
         private
-        string homeworldDirPath;
+        GameInstance instance;
 
-        private
-        string toolkitDirPath;
-
-        private
-        Profile userProfile;
 
         /// <summary>
         /// The dialog used to set or change the directories for Homeworld root, Remastered Toolkit, and Profile.
         /// </summary>
         private
-        DirectoryDialog directoryDialog = new DirectoryDialog();
+        DirectoryDialog directoryDialog;
 
         private
         ColorDialog customColorDialog = new ColorDialog();
@@ -47,12 +42,21 @@ namespace Homeworld_ColorPicker.Forms
         /// </summary>
         public MainWindow()
         {
-            IO.BigExtractor.ExtractBigFile("a", "a", "a");
-            if(ShowDirectoryDialog() == DialogResult.Cancel)
+            directoryDialog = new DirectoryDialog();
+
+            if(ShowDirectoryDialog(IO.ConfigManager.ReadConfig()) == DialogResult.Cancel)
             {
                 Load += (s, e) => Close();
             }
-            
+
+            if(!IO.ExtractedDataManager.VerifyHW2Remastered())
+            {
+                BigExtractorDialog temp = new BigExtractorDialog(instance);
+                //temp.Shown += (s,e) => MessageBox.Show("We couldn't find the required files! They need to be extracted from the .big file to proceed.", "Files not found!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                temp.ShowDialog();
+            }
+
             //----------
 
             InitializeComponent();
@@ -87,8 +91,7 @@ namespace Homeworld_ColorPicker.Forms
 
             //System.Diagnostics.Debug.WriteLine(homeworldDirPath + userProfile.GetPath() + GC.FILE_PLAYERCFG_LUA);
 
-            HomeworldColor[] playerColors = IO.ColorReader.GetPlayerColors(homeworldDirPath + userProfile.GetPath()
-                                                                                            + GC.FILE_PLAYERCFG_LUA);
+            HomeworldColor[] playerColors = IO.ColorReader.GetPlayerColors(instance.GetHomeworldRoot() + instance.GetProfilePath());
             int i = 0;
             foreach (ColorBox swatch in colorSwatches)
             {
@@ -134,15 +137,14 @@ namespace Homeworld_ColorPicker.Forms
             currentColorBox.SetColor(color);
         }
 
-        private DialogResult ShowDirectoryDialog()
+        private DialogResult ShowDirectoryDialog(RootDirectoryData rootDirectories)
         {
+            directoryDialog.SetRootDirectories(rootDirectories);
+
             DialogResult result = directoryDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                homeworldDirPath = directoryDialog.GetRootDirectory();
-                toolkitDirPath = directoryDialog.GetToolkitDirectory();
-
-                userProfile = directoryDialog.GetProfile();
+                instance = directoryDialog.GetInstance();
             }
 
             return result;

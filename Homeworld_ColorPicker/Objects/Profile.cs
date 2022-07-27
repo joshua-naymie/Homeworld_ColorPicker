@@ -37,7 +37,7 @@ namespace Homeworld_ColorPicker.Objects
         /// Gets the name of the profile.
         /// </summary>
         /// <returns>The name of the profile</returns>
-        public String getName()
+        public String GetName()
         {
             return name;
         }

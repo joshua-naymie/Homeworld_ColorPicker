@@ -31,11 +31,11 @@ namespace Homeworld_ColorPicker.IO
         /// <summary>
         /// Gets all the player colors from the <c>PLAYERCFG.LUA</c> file as HomeworldColors.
         /// </summary>
-        /// <param name="path">The path to the <c>PLAYERCFG.LUA</c> file</param>
+        /// <param name="profilePath">The path to the specific profile root directory</param>
         /// <returns>The 16 player colors</returns>
-        public static HomeworldColor[] GetPlayerColors(string path)
+        public static HomeworldColor[] GetPlayerColors(string profilePath)
         {
-            string file = System.IO.File.ReadAllText(path);
+            string file = System.IO.File.ReadAllText(profilePath + GC.FILE_PLAYERCFG_LUA);
 
             int startIndex = file.IndexOf(COLOR_SWATCHES_START) + COLOR_SWATCHES_START.Length;
 

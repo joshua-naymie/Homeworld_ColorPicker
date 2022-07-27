@@ -41,6 +41,8 @@
             this.toolkitDirLabel = new System.Windows.Forms.Label();
             this.toolkitDirInput = new System.Windows.Forms.TextBox();
             this.dirDescriptionToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.gameComboBox = new System.Windows.Forms.ComboBox();
+            this.gameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // OKButton
@@ -91,7 +93,7 @@
             // 
             this.profileLabel.AutoSize = true;
             this.profileLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.profileLabel.Location = new System.Drawing.Point(122, 211);
+            this.profileLabel.Location = new System.Drawing.Point(385, 211);
             this.profileLabel.Name = "profileLabel";
             this.profileLabel.Size = new System.Drawing.Size(50, 19);
             this.profileLabel.TabIndex = 4;
@@ -102,7 +104,7 @@
             this.profileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.profileComboBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.profileComboBox.FormattingEnabled = true;
-            this.profileComboBox.Location = new System.Drawing.Point(183, 208);
+            this.profileComboBox.Location = new System.Drawing.Point(441, 208);
             this.profileComboBox.Name = "profileComboBox";
             this.profileComboBox.Size = new System.Drawing.Size(224, 25);
             this.profileComboBox.TabIndex = 5;
@@ -111,7 +113,7 @@
             // 
             this.noProfilesLabel.AutoSize = true;
             this.noProfilesLabel.ForeColor = System.Drawing.Color.Red;
-            this.noProfilesLabel.Location = new System.Drawing.Point(183, 236);
+            this.noProfilesLabel.Location = new System.Drawing.Point(441, 236);
             this.noProfilesLabel.Name = "noProfilesLabel";
             this.noProfilesLabel.Size = new System.Drawing.Size(268, 15);
             this.noProfilesLabel.TabIndex = 6;
@@ -148,11 +150,33 @@
             this.dirDescriptionToolTip.SetToolTip(this.toolkitDirInput, "The root directory of the Gearbox Toolkit. Should end in GBXTools");
             this.toolkitDirInput.TextChanged += new System.EventHandler(this.ToolkitDirInputChanged);
             // 
+            // gameComboBox
+            // 
+            this.gameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.gameComboBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.gameComboBox.FormattingEnabled = true;
+            this.gameComboBox.Location = new System.Drawing.Point(183, 208);
+            this.gameComboBox.Name = "gameComboBox";
+            this.gameComboBox.Size = new System.Drawing.Size(106, 25);
+            this.gameComboBox.TabIndex = 10;
+            // 
+            // gameLabel
+            // 
+            this.gameLabel.AutoSize = true;
+            this.gameLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.gameLabel.Location = new System.Drawing.Point(129, 211);
+            this.gameLabel.Name = "gameLabel";
+            this.gameLabel.Size = new System.Drawing.Size(48, 19);
+            this.gameLabel.TabIndex = 11;
+            this.gameLabel.Text = "Game:";
+            // 
             // DirectoryDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(769, 337);
+            this.Controls.Add(this.gameLabel);
+            this.Controls.Add(this.gameComboBox);
             this.Controls.Add(this.toolkitFoundLabel);
             this.Controls.Add(this.toolkitDirLabel);
             this.Controls.Add(this.toolkitDirInput);
@@ -185,5 +209,7 @@
         private Label toolkitDirLabel;
         private TextBox toolkitDirInput;
         private ToolTip dirDescriptionToolTip;
+        private ComboBox gameComboBox;
+        private Label gameLabel;
     }
 }

@@ -3,6 +3,13 @@ namespace Homeworld_ColorPicker
     using Forms;
     using Objects;
 
+    public enum RemasteredGame
+    {
+        HW1,
+        HW2,
+        NONE
+    }
+
     /// <summary>
     /// The different versions of Homeworld that can be detected.
     /// </summary>
@@ -38,11 +45,25 @@ namespace Homeworld_ColorPicker
                FILE_NAME_DAT = @"\name.dat",
 
                TEXT_HW1_FOUND = "Homeworld 1 Found - Not Supported!",
-               TEXT_HW2_FOUND = "Homeworld 2 Found",
+               TEXT_HW2_FOUND = "Homeworld 2 Found - Not Supported!",
                TEXT_HWR_FOUND = "Homeworld Remastered Found",
                TEXT_HW_NOT_FOUND = "Homeworld Not Found!",
                TEXT_TOOLKIT_FOUND = "Remastered Toolkit Found",
-               TEXT_TOOLKIT_NOT_FOUND = "Remastered Toolkit Not Found!";
+               TEXT_TOOLKIT_NOT_FOUND = "Remastered Toolkit Not Found!",
+            
+               TEXT_REMASTERED_HOMEWORLD_2 = "Homeworld 2",
+               TEXT_REMASTERED_HOMEWORLD_1 = "Homeworld 1";
+
+
+        private static readonly
+        string[] REMASTERED_GAME_TYPES = { TEXT_REMASTERED_HOMEWORLD_2, TEXT_REMASTERED_HOMEWORLD_1 };
+
+        private static readonly
+        Dictionary<string, RemasteredGame> REMASTERED_GAME_DICTIONARY = new Dictionary<string, RemasteredGame>
+        {
+            { TEXT_REMASTERED_HOMEWORLD_2, RemasteredGame.HW2 },
+            { TEXT_REMASTERED_HOMEWORLD_1, RemasteredGame.HW1 }
+        };
 
         private static readonly
         Color LABEL_COLOR_INVALID = System.Drawing.Color.Red,
@@ -70,6 +91,9 @@ namespace Homeworld_ColorPicker
         HomeworldVersion version = HomeworldVersion.NONE;
 
         private
+        GameInstance gameInstance;
+
+        private
         bool validRootDir = false,
              validToolkitDir = false,
              validProfile = false;
@@ -83,39 +107,18 @@ namespace Homeworld_ColorPicker
         public DirectoryDialog()
         {
             InitializeComponent();
-            SetDirInputs();
         }
 
         // READ CONFIG FILE
         //----------------------------------------
 
         /// <summary>
-        /// Attemps to read the config file and set the <c>rootDirInput</c> and <c>toolkitDirInput</c> text to the saved directories.
-        /// If config file doesn't exist or cannot be read, sets both inputs to their default directories.
+        /// Sets the root directories for Homeworld and the Remastered Toolkit.
         /// </summary>
-        private void SetDirInputs()
+        public void SetRootDirectories(RootDirectoryData rootDirectories)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + GC.DIR_DOCUMENTS_COLORPICKER + FILE_CONFIG;
-
-            bool configRead = false;
-            if (Util.CheckPathExists(path))
-            {
-                string[] configText = System.IO.File.ReadAllLines(path);
-
-                if (configText.Length == 2)
-                {
-                    rootDirInput.Text = configText[CONFIG_ROOT_DIR];
-                    toolkitDirInput.Text = configText[CONFIG_TOOLKIT_DIR];
-
-                    configRead = true;
-                }
-            }
-            
-            if(!configRead)
-            {
-                rootDirInput.Text = DIR_DEFAULT_ROOT_PATH;
-                toolkitDirInput.Text = DIR_DEFAULT_TOOLKIT_PATH;
-            }
+            rootDirInput.Text = rootDirectories.GetHomeworldRoot();
+            toolkitDirInput.Text = rootDirectories.GetToolkitRoot();
         }
 
         // EVENTS
@@ -130,16 +133,12 @@ namespace Homeworld_ColorPicker
         /// <param name="e">The event</param>
         private void OKButton_Click(object sender, EventArgs e)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + GC.DIR_DOCUMENTS_COLORPICKER;
+            IO.ConfigManager.WriteConfig(new RootDirectoryData(currentRootDirectory, currentToolkitDirectory));
 
-            if (!Util.CheckPathExists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+            RemasteredGame game = REMASTERED_GAME_DICTIONARY[(string)gameComboBox.SelectedItem];
+            string profile = ((Profile)profileComboBox.SelectedItem).GetPath();
 
-            path += FILE_CONFIG;
-
-            File.WriteAllTextAsync(path, currentRootDirectory + "\n" + currentToolkitDirectory);
+            gameInstance = new GameInstance(currentRootDirectory, currentToolkitDirectory, version, game, profile);
 
             this.DialogResult = DialogResult.OK;
         }
@@ -205,7 +204,7 @@ namespace Homeworld_ColorPicker
                 {
                     SetHomeworldFound(TEXT_HW2_FOUND);
                     version = HomeworldVersion.HW2;
-                    validRootDir = true;
+                    validRootDir = false;
                 }
                 else if (Util.CheckPathExists(rootDirInput.Text + FILE_HWR_EXE_PATH))
                 {
@@ -235,24 +234,33 @@ namespace Homeworld_ColorPicker
             {
                 case HomeworldVersion.HW1:
                     profileComboBox.Enabled = false;
+                    gameComboBox.Enabled = false;
 
                     // no proiles in HW1
                     validProfile = true;
+                    DisableGameComboBox();
                     break;
 
                 case HomeworldVersion.HW2:
-                    profileComboBox.Enabled = true;
-                    
-                    profileComboBox.Items.AddRange(GetAllProfiles());
+                    //HW2 not currently supported
+
+                    profileComboBox.Enabled = false;
+                    gameComboBox.Enabled = false;
+                    //profileComboBox.Items.AddRange(GetAllProfiles());
+                    DisableGameComboBox();
                     break;
 
                 case HomeworldVersion.HWR:
                     profileComboBox.Enabled = true;
+                    gameComboBox.Enabled = true;
                     profileComboBox.Items.AddRange(GetAllProfiles());
+                    EnableGameComboBox();
                     break;
 
                 case HomeworldVersion.NONE:
                     profileComboBox.Enabled = false;
+                    gameComboBox.Enabled = false;
+                    DisableGameComboBox();
                     break;
             }
 
@@ -390,53 +398,40 @@ namespace Homeworld_ColorPicker
             }
         }
 
+        //----------------------------------------
+
+        /// <summary>
+        /// Enables the Remastered game ComboBox.
+        /// Selects the first value.
+        /// </summary>
+        private void EnableGameComboBox()
+        {
+            gameComboBox.Enabled = true;
+            gameComboBox.Items.AddRange(REMASTERED_GAME_TYPES);
+            gameComboBox.SelectedIndex = 0;
+        }
+
+        //--------------------
+
+        /// <summary>
+        /// Disables the Remastered game ComboBox and clears all items.
+        /// </summary>
+        private void DisableGameComboBox()
+        {
+            gameComboBox.Enabled = false;
+            gameComboBox.Items.Clear();
+        }
+
         // ACCESSORS
         //----------------------------------------
 
         /// <summary>
-        /// Gets the current root directory input by the user.
-        /// Meant for access by <c>MainWindow</c> form.
+        /// Gets a GameInstance populated with user's input from the form.
         /// </summary>
-        /// <returns>The current root directory input by the user</returns>
-        public String GetRootDirectory()
+        /// <returns>The GameInstance specified by the user</returns>
+        public GameInstance GetInstance()
         {
-            return currentRootDirectory;
-        }
-
-        //----------------------------------------
-
-        /// <summary>
-        /// Gets the current toolkit directory input by the user.
-        /// Meant for access by <c>MainWindow</c> form.
-        /// </summary>
-        /// <returns>The current toolkit directory input by the user</returns>
-        public String GetToolkitDirectory()
-        {
-            return currentToolkitDirectory;
-        }
-
-        //----------------------------------------
-
-        /// <summary>
-        /// Gets the detected Homeworld version at the current root directory input by the user.
-        /// Meant for access by <c>MainWindow</c> form.
-        /// </summary>
-        /// <returns>The detected Homeworld version</returns>
-        public HomeworldVersion GetVersion()
-        {
-            return version;
-        }
-
-        //----------------------------------------
-
-        /// <summary>
-        /// Gets the Homeworld profile selected by the user.
-        /// Meant for access by <c>MainWindow</c> form.
-        /// </summary>
-        /// <returns>The selected Homeworld profile</returns>
-        public Profile GetProfile()
-        {
-            return (Profile)profileComboBox.SelectedItem;
+            return gameInstance;
         }
     }
 }
