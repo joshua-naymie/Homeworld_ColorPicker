@@ -40,6 +40,18 @@ namespace Homeworld_ColorPicker
         string DIR_PROFILES_PATH = @"\Bin\Profiles";
 
         /// <summary>
+        /// The path to the HW2Campaign.big file from the Homeworld Remastered root directory.
+        /// </summary>
+        public const
+        string FILE_HW2_RM_BIG = @"\Data\HW2Campaign.big";
+
+        /// <summary>
+        /// The path to the HW1Campaign.big file from the Homeworld Remastered root directory.
+        /// </summary>
+        public const
+        string FILE_HW1_RM_BIG = @"\Data\HW1Campaign.big";
+
+        /// <summary>
         /// The file name of the player config file from the <c>Profiles</c> directory
         /// </summary>
         public const

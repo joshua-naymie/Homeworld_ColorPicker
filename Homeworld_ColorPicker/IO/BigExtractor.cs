@@ -9,37 +9,27 @@ using System.Diagnostics;
 namespace Homeworld_ColorPicker.IO
 {
     using Objects;
+
+    /// <summary>
+    /// Handles the process for executing the Archive.exe toolkit program.
+    /// </summary>
     public sealed class BigExtractor
     {
-        private const
-        string ARCHIVE_ARGS_FORMAT = "-a \"{0}{1}\" -e \"{2}\"",
-               ARCHIVE_PATH_FORMAT = "{0}{1}";
-
-        private const
-        string FILE_HW2_BIG_PATH = @"\Data\HW2Campaign.big",
-               KERNEL_32_DLL = "kernel32.dll";
-
-        private const
-        int CTLR_C_EVENT = 0;
-
-        private static readonly
-        Dictionary<>
-
-        //CTRL+C REQUIREMENTS
+        // IMPORTS
         //----------------------------------------
 
         [Flags]
         public enum ThreadAccess : int
         {
-            TERMINATE = (0x0001),
-            SUSPEND_RESUME = (0x0002),
-            GET_CONTEXT = (0x0008),
-            SET_CONTEXT = (0x0010),
-            SET_INFORMATION = (0x0020),
-            QUERY_INFORMATION = (0x0040),
-            SET_THREAD_TOKEN = (0x0080),
-            IMPERSONATE = (0x0100),
-            DIRECT_IMPERSONATION = (0x0200)
+                       TERMINATE = 0x0001,
+                  SUSPEND_RESUME = 0x0002,
+                     GET_CONTEXT = 0x0008,
+                     SET_CONTEXT = 0x0010,
+                 SET_INFORMATION = 0x0020,
+               QUERY_INFORMATION = 0x0040,
+                SET_THREAD_TOKEN = 0x0080,
+                     IMPERSONATE = 0x0100,
+            DIRECT_IMPERSONATION = 0x0200
         }
 
         [DllImport(KERNEL_32_DLL)]
@@ -69,43 +59,97 @@ namespace Homeworld_ColorPicker.IO
 
         delegate Boolean ConsoleCtrlDelegate(uint CtrlType);
 
+        // CONSTANTS
         //----------------------------------------
 
-        private
-        GameInstance instance;
+        private const
+        string ARCHIVE_ARGS_FORMAT = "-a \"{0}{1}\" -e \"{2}\"",
+               ARCHIVE_PATH_FORMAT = "{0}{1}";
 
+        private const
+        string FILE_HW2_RM_BIG_PATH = @"\Data\HW2Campaign.big",
+               FILE_HW1_RM_BIG_PATH = @"\Data\HW1Campaign.big",
+               KERNEL_32_DLL = "kernel32.dll";
+
+        private const
+        int CTLR_C_EVENT = 0;
+
+        // INSTANCE
+        //----------------------------------------
+
+        /// <summary>
+        /// The method to pass any output from the Archive.exe process.
+        /// </summary>
         private
         Action<string> textOutputMethod;
 
+        /// <summary>
+        /// The process for executing the Archive.exe file.
+        /// </summary>
         private
         System.Diagnostics.Process extractor;
 
         /// <summary>
+        /// Whether the process has been started or not.
+        /// Check this before killing the process.
+        /// </summary>
+        public
+        bool HasStarted { get; private set; } = false;
+
+        // CONSTRUCTOR
+        //----------------------------------------
+
+        /// <summary>
         /// Constructor for BigExtractor.
         /// </summary>
-        /// <param name="homeworldRoot">The path to the homeworld root directory</param>
-        /// <param name="toolkitRoot">The path to the toolkit root directory</param>
-        /// <param name="extractDirectory">The path to the directory to extract the .big file contents to</param>
+        /// <param name="instance">The game instance to work on</param>
         /// <param name="textOutputMethod">The method to pass any text output from the Archive.exe process</param>
-        //public BigExtractor(string homeworldRoot, string toolkitRoot, string extractDirectory, Action<string> textOutput)
+        /// <exception cref="Exceptions.InvalidRemasteredGameException">Thrown if the Remastered game is not supported or invalid</exception>
+        /// <exception cref="NotImplementedException">Thrown if the Homeworld version is not supported or invalid</exception>
         public BigExtractor(GameInstance instance, Action<string> textOutputMethod)
         {
-            this.instance = instance;
-
             this.textOutputMethod = textOutputMethod;
+
+            string bigFilePath;
+
+            switch(instance.Version)
+            {
+                case HomeworldVersion.HWR:
+                    switch(instance.RemasteredGame)
+                    {
+                        case RemasteredGame.HW2:
+                            bigFilePath = FILE_HW2_RM_BIG_PATH;
+                            break;
+
+                        case RemasteredGame.HW1:
+                            bigFilePath = FILE_HW1_RM_BIG_PATH;
+                            break;
+
+                        default:
+                            throw new Exceptions.InvalidRemasteredGameException("No .big file path found for " + instance.RemasteredGame);
+                    }
+                    break;
+
+                default:
+                    throw new NotImplementedException("No .big extraction implementated for " + instance.Version);
+
+            }
 
             extractor = new System.Diagnostics.Process
             {
                 StartInfo = new System.Diagnostics.ProcessStartInfo
                 {
                     FileName = String.Format(ARCHIVE_PATH_FORMAT, instance.ToolkitRootDir, GC.FILE_ARCHIVE_EXE_PATH),
-                    Arguments = String.Format(ARCHIVE_ARGS_FORMAT, instance.HomeworldRootDir, FILE_HW2_BIG_PATH, GC.DIR_EXTRACTION_OUTPUT_PATH),
+                    Arguments = String.Format(ARCHIVE_ARGS_FORMAT, instance.HomeworldRootDir, bigFilePath, GC.DIR_EXTRACTION_OUTPUT_PATH),
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
                 }
             };
         }
+
+        // PROCESS MANAGEMENT
+        //----------------------------------------
 
         /// <summary>
         /// Starts extracting the requested .big file.
@@ -116,6 +160,7 @@ namespace Homeworld_ColorPicker.IO
             try
             {
                 extractor.Start();
+                HasStarted = true;
                 while (!extractor.StandardOutput.EndOfStream)
                 {
                     textOutputMethod.Invoke(extractor.StandardOutput.ReadLine());
@@ -126,6 +171,8 @@ namespace Homeworld_ColorPicker.IO
                 MessageBox.Show("An error occured during extraction.\n\n" + e.Message);
             }
         }
+
+        //----------------------------------------
 
         /// <summary>
         /// Suspends all threads of the extraction process.
@@ -143,6 +190,8 @@ namespace Homeworld_ColorPicker.IO
                 }
             }
         }
+
+        //----------------------------------------
 
         /// <summary>
         /// Resumes all threads of the extraction process.
@@ -166,6 +215,8 @@ namespace Homeworld_ColorPicker.IO
                 }
             }
         }
+
+        //----------------------------------------
 
         /// <summary>
         /// Sends a Ctrl+C command to the Archive.exe extraction process.
@@ -194,14 +245,24 @@ namespace Homeworld_ColorPicker.IO
             }
         }
 
+        //----------------------------------------
+
         /// <summary>
-        /// Kills the Archive.exe process.
+        /// Kills the Archive.exe process if it has been instantiated and has not exited.
         /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown if called before the process has been started</exception>
         public void KillProcess()
         {
-            if (extractor != null && !extractor.HasExited)
+            try
             {
-                extractor.Kill();
+                if (extractor != null && !extractor.HasExited)
+                {
+                    extractor.Kill();
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new InvalidOperationException("Attempting to kill extractor before started. Check HasStarted field before trying to kill.");
             }
         }
     }

@@ -63,7 +63,7 @@
             this.startDoneButton.TabIndex = 1;
             this.startDoneButton.Text = "Start";
             this.startDoneButton.UseVisualStyleBackColor = true;
-            this.startDoneButton.Click += new System.EventHandler(this.StartExtraction);
+            this.startDoneButton.Click += new System.EventHandler(this.StartDonePressed);
             // 
             // cancelButton
             // 
