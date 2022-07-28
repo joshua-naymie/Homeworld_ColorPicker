@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Homeworld_ColorPicker.Objects
 {
-
+    /// <summary>
+    /// An instance of Homeworld. Holds root directories, game version, and remastered game type.
+    /// </summary>
     public class GameInstance
     {
         /// <summary>

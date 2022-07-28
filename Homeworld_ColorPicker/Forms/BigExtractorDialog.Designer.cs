@@ -50,14 +50,14 @@
             this.outputTextBox.Name = "outputTextBox";
             this.outputTextBox.ReadOnly = true;
             this.outputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.outputTextBox.Size = new System.Drawing.Size(999, 253);
+            this.outputTextBox.Size = new System.Drawing.Size(894, 253);
             this.outputTextBox.TabIndex = 0;
             // 
             // startDoneButton
             // 
             this.startDoneButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.startDoneButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.startDoneButton.Location = new System.Drawing.Point(896, 13);
+            this.startDoneButton.Location = new System.Drawing.Point(791, 13);
             this.startDoneButton.Name = "startDoneButton";
             this.startDoneButton.Size = new System.Drawing.Size(91, 27);
             this.startDoneButton.TabIndex = 1;
@@ -68,7 +68,7 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.Location = new System.Drawing.Point(783, 13);
+            this.cancelButton.Location = new System.Drawing.Point(678, 13);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(91, 27);
             this.cancelButton.TabIndex = 2;
@@ -83,7 +83,7 @@
             this.deleteFilesCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.deleteFilesCheckBox.Checked = true;
             this.deleteFilesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.deleteFilesCheckBox.Location = new System.Drawing.Point(590, 18);
+            this.deleteFilesCheckBox.Location = new System.Drawing.Point(485, 18);
             this.deleteFilesCheckBox.Name = "deleteFilesCheckBox";
             this.deleteFilesCheckBox.Size = new System.Drawing.Size(156, 19);
             this.deleteFilesCheckBox.TabIndex = 3;
@@ -98,21 +98,21 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 259);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(999, 52);
+            this.panel1.Size = new System.Drawing.Size(894, 52);
             this.panel1.TabIndex = 4;
             // 
             // BigExtractorDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(999, 311);
+            this.ClientSize = new System.Drawing.Size(894, 311);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.outputTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(447, 200);
             this.Name = "BigExtractorDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BigExtractorDialog";
+            this.Text = "Big Extractor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Cleanup);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

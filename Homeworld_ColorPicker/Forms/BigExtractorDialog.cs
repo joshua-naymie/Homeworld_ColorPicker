@@ -146,6 +146,7 @@ namespace Homeworld_ColorPicker.Forms
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if(e.CloseReason != CloseReason.WindowsShutDown
+            && currentState != ExtractorSate.Done
             && !ShowExitConfirmationDialog(TEXT_CANCEL_EXTRACTING_MESSAGE, TEXT_CANCEL_EXTRACTING_TITLE))
             {
                 e.Cancel = true;
@@ -196,10 +197,7 @@ namespace Homeworld_ColorPicker.Forms
             switch (currentState)
             {
                 case ExtractorSate.DialogOpened:
-                    if(ShowExitConfirmationDialog(TEXT_CANCEL_EXTRACTING_MESSAGE, TEXT_CANCEL_EXTRACTING_TITLE))
-                    {
-                        this.DialogResult = DialogResult.Cancel;
-                    }
+                    this.DialogResult = DialogResult.Cancel;
                     break;
 
                 case ExtractorSate.ExtractionInProgress:
@@ -288,6 +286,7 @@ namespace Homeworld_ColorPicker.Forms
 
             AppendOutput(TEXT_EXTRACTION_COMPLETE);
 
+            deleteFilesCheckBox.Enabled = false;
             if (deleteFilesCheckBox.Checked)
             {
                 AppendOutput(TEXT_MOVE_REQUIRED_FILES);

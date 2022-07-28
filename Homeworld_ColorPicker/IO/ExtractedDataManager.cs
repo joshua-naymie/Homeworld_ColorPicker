@@ -8,6 +8,10 @@ namespace Homeworld_ColorPicker.IO
 {
     using Objects;
     using Exceptions;
+
+    /// <summary>
+    /// Manages the extraction output and data directories.
+    /// </summary>
     public static class ExtractedDataManager
     {
         // VERIFY FILES
