@@ -12,9 +12,14 @@ namespace Homeworld_ColorPicker.Forms
 {
     using Objects;
     using Controls;
+    using System.Runtime.InteropServices;
+    using System.Drawing.Text;
 
     public partial class MainWindow : Form
     {
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
+
         private const
         int NUMBER_OF_SWATCHES = 16;
 
@@ -37,6 +42,8 @@ namespace Homeworld_ColorPicker.Forms
         private
         ColorBox[] colorSwatches = new ColorBox[GC.NUM_PLAYER_COLORS];
 
+        System.Drawing.Text.PrivateFontCollection pfc = new System.Drawing.Text.PrivateFontCollection();
+
         /// <summary>
         /// Constructor for MainWindow.
         /// </summary>
@@ -44,24 +51,76 @@ namespace Homeworld_ColorPicker.Forms
         {
             directoryDialog = new DirectoryDialog();
 
-            if(ShowDirectoryDialog(IO.ConfigManager.ReadConfig()) == DialogResult.Cancel)
+            bool continueRunning = ShowDirectoryDialog(IO.ConfigManager.ReadConfig()) == DialogResult.OK;
+
+            if (continueRunning
+            && !IO.ExtractedDataManager.VerifyRequiredFiles(instance))
+            {
+                BigExtractorDialog extractionDialog = new BigExtractorDialog(instance);
+                continueRunning = extractionDialog.ShowDialog() == DialogResult.OK;
+            }
+
+            if (!continueRunning)
             {
                 Load += (s, e) => Close();
             }
 
-            if(!IO.ExtractedDataManager.VerifyRequiredFiles(instance))
-            {
-                BigExtractorDialog extractionDialog = new BigExtractorDialog(instance);
-
-                extractionDialog.ShowDialog();
-            }
-
             //----------
-
+            InitCustomFont();
             InitializeComponent();
+            customColorButton.Font = new Font(pfc.Families[0], 11);
+            label1.Font = new Font(pfc.Families[0], label1.Font.Size);
+            label1.Text = "HOMEWORLD 2";
 
-            InitColorSwatches();
-            InitCurrentColor();
+            if (continueRunning)
+            {
+                InitColorSwatches();
+                InitCurrentColor();
+            }
+        }
+
+        private void InitCustomFont()
+        {
+            //System.IntPtr data = Marshal.AllocCoTaskMem(Properties.Resources.Microgramma_Font.Length);
+
+            //Byte[] fontData = new Byte[Properties.Resources.Microgramma_Font.Length];
+
+            //byte[] fontStream = Properties.Resources.Microgramma_Font;
+
+            //Marshal.Copy(fontData, 0, data, (int)fontStream.Length);
+
+            //uint cFonts = 0;
+            //AddFontMemResourceEx(data, (uint)fontData.Length, IntPtr.Zero, ref cFonts);
+
+            //pfc.AddMemoryFont(data, (int)fontStream.Length);
+
+            //MessageBox.Show("FONTS: " + pfc.Families.Length);
+
+            //Marshal.FreeCoTaskMem(data);
+
+            //Create your private font collection object.
+            //System.Drawing.Text.PrivateFontCollection pfc = new System.Drawing.Text.PrivateFontCollection();
+
+            //Select your font from the resources.
+            //My font here is "Digireu.ttf"
+            int fontLength = Properties.Resources.Microgramma_Font.Length;
+
+            // create a buffer to read in to
+            byte[] fontdata = Properties.Resources.Microgramma_Font;
+
+            // create an unsafe memory block for the font data
+            System.IntPtr data = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontLength);
+
+            // copy the bytes to the unsafe memory block
+            System.Runtime.InteropServices.Marshal.Copy(fontdata, 0, data, fontLength);
+
+            uint cFonts = 0;
+            AddFontMemResourceEx(data, (uint)fontdata.Length, IntPtr.Zero, ref cFonts);
+
+            // pass the font to the font collection
+            pfc.AddMemoryFont(data, fontLength);
+
+            Marshal.FreeCoTaskMem(data);
         }
 
         /// <summary>

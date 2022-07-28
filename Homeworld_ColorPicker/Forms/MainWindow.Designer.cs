@@ -48,7 +48,10 @@
             this.customColorButton = new System.Windows.Forms.Button();
             this.currentColorSwatch = new System.Windows.Forms.PictureBox();
             this.globalTabPage = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.levelTabControl = new System.Windows.Forms.TabControl();
+            this.colorPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch4)).BeginInit();
@@ -66,7 +69,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.currentColorSwatch)).BeginInit();
+            this.globalTabPage.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.levelTabControl.SuspendLayout();
+            this.colorPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // colorSwatch1
@@ -235,49 +241,78 @@
             // 
             // globalTabPage
             // 
+            this.globalTabPage.Controls.Add(this.panel1);
             this.globalTabPage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.globalTabPage.Location = new System.Drawing.Point(4, 26);
             this.globalTabPage.Name = "globalTabPage";
             this.globalTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.globalTabPage.Size = new System.Drawing.Size(985, 614);
+            this.globalTabPage.Size = new System.Drawing.Size(985, 603);
             this.globalTabPage.TabIndex = 0;
             this.globalTabPage.Text = "Global";
             this.globalTabPage.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(0, 88);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(985, 515);
+            this.panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(428, 48);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 28);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
             // 
             // levelTabControl
             // 
             this.levelTabControl.Controls.Add(this.globalTabPage);
             this.levelTabControl.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.levelTabControl.Location = new System.Drawing.Point(12, 135);
+            this.levelTabControl.Location = new System.Drawing.Point(12, 146);
             this.levelTabControl.Name = "levelTabControl";
             this.levelTabControl.SelectedIndex = 0;
-            this.levelTabControl.Size = new System.Drawing.Size(993, 644);
+            this.levelTabControl.Size = new System.Drawing.Size(993, 633);
             this.levelTabControl.TabIndex = 18;
+            // 
+            // colorPanel
+            // 
+            this.colorPanel.Controls.Add(this.colorSwatch1);
+            this.colorPanel.Controls.Add(this.customColorButton);
+            this.colorPanel.Controls.Add(this.currentColorSwatch);
+            this.colorPanel.Controls.Add(this.colorSwatch2);
+            this.colorPanel.Controls.Add(this.colorSwatch3);
+            this.colorPanel.Controls.Add(this.colorSwatch16);
+            this.colorPanel.Controls.Add(this.colorSwatch4);
+            this.colorPanel.Controls.Add(this.colorSwatch15);
+            this.colorPanel.Controls.Add(this.colorSwatch5);
+            this.colorPanel.Controls.Add(this.colorSwatch14);
+            this.colorPanel.Controls.Add(this.colorSwatch6);
+            this.colorPanel.Controls.Add(this.colorSwatch13);
+            this.colorPanel.Controls.Add(this.colorSwatch7);
+            this.colorPanel.Controls.Add(this.colorSwatch12);
+            this.colorPanel.Controls.Add(this.colorSwatch8);
+            this.colorPanel.Controls.Add(this.colorSwatch11);
+            this.colorPanel.Controls.Add(this.colorSwatch9);
+            this.colorPanel.Controls.Add(this.colorSwatch10);
+            this.colorPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.colorPanel.Location = new System.Drawing.Point(0, 0);
+            this.colorPanel.Name = "colorPanel";
+            this.colorPanel.Size = new System.Drawing.Size(1017, 118);
+            this.colorPanel.TabIndex = 19;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1017, 791);
+            this.Controls.Add(this.colorPanel);
             this.Controls.Add(this.levelTabControl);
-            this.Controls.Add(this.currentColorSwatch);
-            this.Controls.Add(this.customColorButton);
-            this.Controls.Add(this.colorSwatch16);
-            this.Controls.Add(this.colorSwatch15);
-            this.Controls.Add(this.colorSwatch14);
-            this.Controls.Add(this.colorSwatch13);
-            this.Controls.Add(this.colorSwatch12);
-            this.Controls.Add(this.colorSwatch11);
-            this.Controls.Add(this.colorSwatch10);
-            this.Controls.Add(this.colorSwatch9);
-            this.Controls.Add(this.colorSwatch8);
-            this.Controls.Add(this.colorSwatch7);
-            this.Controls.Add(this.colorSwatch6);
-            this.Controls.Add(this.colorSwatch5);
-            this.Controls.Add(this.colorSwatch4);
-            this.Controls.Add(this.colorSwatch3);
-            this.Controls.Add(this.colorSwatch2);
-            this.Controls.Add(this.colorSwatch1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -299,7 +334,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorSwatch9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.currentColorSwatch)).EndInit();
+            this.globalTabPage.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.levelTabControl.ResumeLayout(false);
+            this.colorPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -326,5 +365,8 @@
         private PictureBox currentColorSwatch;
         private TabPage globalTabPage;
         private TabControl levelTabControl;
+        private Panel colorPanel;
+        private Panel panel1;
+        private Label label1;
     }
 }

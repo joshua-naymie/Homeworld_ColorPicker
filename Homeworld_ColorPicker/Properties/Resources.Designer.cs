@@ -59,5 +59,15 @@ namespace Homeworld_ColorPicker.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Microgramma_Font {
+            get {
+                object obj = ResourceManager.GetObject("Microgramma_Font", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
