@@ -155,5 +155,8 @@ namespace Homeworld_ColorPicker
         /// </summary>
         public static readonly
         string DIR_EXTRACTION_OUTPUT_PATH = DIR_DOCUMENTS_PATH + DIR_EXTRACTION_OUTPUT;
+
+        //public static readonly
+        //Dictionary<int, >
     }
 }

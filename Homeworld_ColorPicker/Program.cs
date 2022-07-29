@@ -11,8 +11,10 @@ namespace Homeworld_ColorPicker
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MainWindow());
+            //ApplicationConfiguration.Initialize();
+            //Application.Run(new MainWindow());
+
+            IO.TeamColourReader.ReadTeamColourLua(@"G:\Documents\Homeworld ColorPicker\HW2_RM\leveldata\campaign\ascension\m08_hangar\teamcolour.lua");
         }
     }
 }

@@ -354,10 +354,10 @@ namespace Homeworld_ColorPicker.Forms
             switch(instance.RemasteredGame)
             {
                 case RemasteredGame.HW2:
-                    return Util.CheckPathExists(instance.HomeworldRootDir + GC.FILE_HW2_RM_BIG);
+                    return Util.PathExists(instance.HomeworldRootDir + GC.FILE_HW2_RM_BIG);
 
                 case RemasteredGame.HW1:
-                    return Util.CheckPathExists(instance.HomeworldRootDir + GC.FILE_HW1_RM_BIG);
+                    return Util.PathExists(instance.HomeworldRootDir + GC.FILE_HW1_RM_BIG);
 
                 default:
                     throw new Exceptions.InvalidRemasteredGameException("Cannot find big file for remastered game: " + instance.RemasteredGame);

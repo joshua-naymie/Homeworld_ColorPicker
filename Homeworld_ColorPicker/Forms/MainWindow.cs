@@ -101,18 +101,20 @@ namespace Homeworld_ColorPicker.Forms
             //Create your private font collection object.
             //System.Drawing.Text.PrivateFontCollection pfc = new System.Drawing.Text.PrivateFontCollection();
 
-            //Select your font from the resources.
-            //My font here is "Digireu.ttf"
+
+
+
+            //Select your font from the resources
             int fontLength = Properties.Resources.Microgramma_Font.Length;
 
             // create a buffer to read in to
             byte[] fontdata = Properties.Resources.Microgramma_Font;
 
             // create an unsafe memory block for the font data
-            System.IntPtr data = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontLength);
+            System.IntPtr data = Marshal.AllocCoTaskMem(fontLength);
 
             // copy the bytes to the unsafe memory block
-            System.Runtime.InteropServices.Marshal.Copy(fontdata, 0, data, fontLength);
+            Marshal.Copy(fontdata, 0, data, fontLength);
 
             uint cFonts = 0;
             AddFontMemResourceEx(data, (uint)fontdata.Length, IntPtr.Zero, ref cFonts);
@@ -149,7 +151,7 @@ namespace Homeworld_ColorPicker.Forms
 
             //System.Diagnostics.Debug.WriteLine(homeworldDirPath + userProfile.GetPath() + GC.FILE_PLAYERCFG_LUA);
 
-            HomeworldColor[] playerColors = IO.ColorReader.GetPlayerColors(instance.HomeworldRootDir + instance.ProfilePath);
+            HomeworldColour[] playerColors = IO.ColorReader.GetPlayerColors(instance.HomeworldRootDir + instance.ProfilePath);
             int i = 0;
             foreach (ColorBox swatch in colorSwatches)
             {
@@ -181,7 +183,7 @@ namespace Homeworld_ColorPicker.Forms
 
             if(customColorDialog.ShowDialog() == DialogResult.OK)
             {
-                SetCurrentColor(new HomeworldColor(customColorDialog.Color));
+                SetCurrentColor(new HomeworldColour(customColorDialog.Color));
             }
         }
 
@@ -190,7 +192,7 @@ namespace Homeworld_ColorPicker.Forms
             SetCurrentColor(swatch.GetColor());
         }
 
-        private void SetCurrentColor(HomeworldColor color)
+        private void SetCurrentColor(HomeworldColour color)
         {
             currentColorBox.SetColor(color);
         }

@@ -9,10 +9,10 @@ namespace Homeworld_ColorPicker.Objects
     /// <summary>
     /// Represents a color based on R,G,B values. Outputs data formatted to <c>teamcolor.lua</c> specifications.
     /// </summary>
-    public class HomeworldColor
+    public class HomeworldColour
     {
         private
-        byte r, g, b;
+        float r, g, b;
 
         // CONSTRUCTORS
         //----------------------------------------
@@ -21,11 +21,11 @@ namespace Homeworld_ColorPicker.Objects
         /// Constructor for HomeworldColor.
         /// Initializes with 255 for R,G,B values
         /// </summary>
-        public HomeworldColor()
+        public HomeworldColour()
         {
-            r = Byte.MaxValue;
-            g = Byte.MaxValue;
-            b = Byte.MaxValue;
+            r = 1;
+            g = 1;
+            b = 1;
         }
 
         //--------------------
@@ -37,18 +37,18 @@ namespace Homeworld_ColorPicker.Objects
         /// <param name="r">The red value</param>
         /// <param name="g">The green value</param>
         /// <param name="b">The blue value</param>
-        public HomeworldColor(byte r, byte g, byte b)
+        public HomeworldColour(float r, float g, float b)
         {
             this.r = r;
             this.g = g;
             this.b = b;
         }
 
-        public HomeworldColor(Color color)
+        public HomeworldColour(Color color)
         {
-            this.r = color.R;
-            this.g = color.G;
-            this.b = color.B;
+            this.r = color.R / Byte.MaxValue;
+            this.g = color.G / Byte.MaxValue;
+            this.b = color.B / Byte.MaxValue;
         }
 
         // ACCESSORS
@@ -58,7 +58,7 @@ namespace Homeworld_ColorPicker.Objects
         /// Sets the R,G,B values using the values of another <c>HomeworldColor</c>
         /// </summary>
         /// <param name="color"></param>
-        public void SetColor(HomeworldColor color)
+        public void SetColor(HomeworldColour color)
         {
             SetRGB(color.r, color.g, color.b);
         }
@@ -71,7 +71,7 @@ namespace Homeworld_ColorPicker.Objects
         /// <param name="r">The red value</param>
         /// <param name="g">The green value</param>
         /// <param name="b">The blue value</param>
-        public void SetRGB(byte r, byte g, byte b)
+        public void SetRGB(float r, float g, float b)
         {
             this.r = r;
             this.g = g;
@@ -87,7 +87,11 @@ namespace Homeworld_ColorPicker.Objects
         /// <returns>The current R,G,B values as a System.Drawing.Color object</returns>
         public Color ToColor()
         {
-            return Color.FromArgb(r, g, b);
+            byte red   = (byte)Math.Round(r * Byte.MaxValue),
+                 green = (byte)Math.Round(g * Byte.MaxValue),
+                 blue  = (byte)Math.Round(b * Byte.MaxValue);
+
+            return Color.FromArgb(red, green, blue);
         }
 
         //----------------------------------------
@@ -99,8 +103,7 @@ namespace Homeworld_ColorPicker.Objects
         /// <returns></returns>
         public override string ToString()
         {
-            return String.Format("{{{0:0.000}, {1:0.000}, {2:0.000}}}",
-                                 (float) r/Byte.MaxValue, (float) g/Byte.MaxValue, (float) b/Byte.MaxValue);
+            return String.Format("{{{0:0.000}, {1:0.000}, {2:0.000}}}", r, g, b);
         }
 
         //----------------------------------------
@@ -114,11 +117,11 @@ namespace Homeworld_ColorPicker.Objects
         public override bool Equals(object? obj)
         {
             if(obj != null
-            && obj.GetType() == typeof(HomeworldColor))
+            && obj.GetType() == typeof(HomeworldColour))
             {
-                if(this.r == ((HomeworldColor)obj).r
-                && this.g == ((HomeworldColor)obj).g
-                && this.b == ((HomeworldColor)obj).b)
+                if(this.r == ((HomeworldColour)obj).r
+                && this.g == ((HomeworldColour)obj).g
+                && this.b == ((HomeworldColour)obj).b)
                 {
                     return true;
                 }

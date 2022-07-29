@@ -184,7 +184,7 @@ namespace Homeworld_ColorPicker
             noProfilesLabel.Hide();
             currentRootDirectory = rootDirInput.Text.TrimEnd('\\');
 
-            if (!Util.CheckPathExists(rootDirInput.Text))
+            if (!Util.PathExists(rootDirInput.Text))
             {
                 SetHomeworldNotFound();
                 version = HomeworldVersion.NONE;
@@ -192,7 +192,7 @@ namespace Homeworld_ColorPicker
             else
             {
                 // check for version specific Homeworld .exe's
-                if (Util.CheckPathExists(rootDirInput.Text + FILE_HW1_EXE_PATH))
+                if (Util.PathExists(rootDirInput.Text + FILE_HW1_EXE_PATH))
                 {
                     SetHomeworldFound(TEXT_HW1_FOUND);
                     version = HomeworldVersion.HW1;
@@ -200,13 +200,13 @@ namespace Homeworld_ColorPicker
                     // HW1 not supported
                     //validRootDir = true;
                 }
-                else if (Util.CheckPathExists(rootDirInput.Text + FILE_HW2_EXE_PATH))
+                else if (Util.PathExists(rootDirInput.Text + FILE_HW2_EXE_PATH))
                 {
                     SetHomeworldFound(TEXT_HW2_FOUND);
                     version = HomeworldVersion.HW2;
                     validRootDir = false;
                 }
-                else if (Util.CheckPathExists(rootDirInput.Text + FILE_HWR_EXE_PATH))
+                else if (Util.PathExists(rootDirInput.Text + FILE_HWR_EXE_PATH))
                 {
                     SetHomeworldFound(TEXT_HWR_FOUND);
                     version = HomeworldVersion.HWR;
@@ -285,7 +285,7 @@ namespace Homeworld_ColorPicker
         {
             string profilesPath = rootDirInput.Text + GC.DIR_PROFILES_PATH;
             
-            if (Util.CheckPathExists(profilesPath))
+            if (Util.PathExists(profilesPath))
             {
                 string[] paths = Directory.GetDirectories(profilesPath);
                 Profile[] profiles = new Profile[paths.Length];
@@ -294,8 +294,8 @@ namespace Homeworld_ColorPicker
                 int i = 0;
                 foreach (string path in paths)
                 {
-                    if(Util.CheckPathExists(path + FILE_NAME_DAT)
-                    && Util.CheckPathExists(path + GC.FILE_PLAYERCFG_LUA))
+                    if(Util.PathExists(path + FILE_NAME_DAT)
+                    && Util.PathExists(path + GC.FILE_PLAYERCFG_LUA))
                     {
                         string profilePath = path.Replace(currentRootDirectory, "");
                         string profileName = File.ReadAllText(path + FILE_NAME_DAT);
@@ -332,7 +332,7 @@ namespace Homeworld_ColorPicker
         {
             currentToolkitDirectory = toolkitDirInput.Text.TrimEnd('\\');
 
-            if(Util.CheckPathExists(currentToolkitDirectory + GC.FILE_ARCHIVE_EXE_PATH))
+            if(Util.PathExists(currentToolkitDirectory + GC.FILE_ARCHIVE_EXE_PATH))
             {
                 validToolkitDir = true;
                 SetToolkitLabelFound();

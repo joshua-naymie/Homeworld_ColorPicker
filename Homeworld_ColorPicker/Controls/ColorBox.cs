@@ -14,7 +14,7 @@ namespace Homeworld_ColorPicker.Controls
     public class ColorBox : ClickableBox<ColorBox>
     {
         private
-        HomeworldColor currentColor;
+        HomeworldColour currentColor;
 
         //----------------------------------------
 
@@ -24,7 +24,7 @@ namespace Homeworld_ColorPicker.Controls
         /// <param name="box">The PictureBox to manage</param>
         public ColorBox(PictureBox box) : base(box)
         {
-            this.currentColor = new HomeworldColor();
+            this.currentColor = new HomeworldColour();
 
             this.box.BackColor = currentColor.ToColor();
             this.box.Click += BoxClicked;
@@ -37,7 +37,7 @@ namespace Homeworld_ColorPicker.Controls
         /// </summary>
         /// <param name="box">The PictureBox to manage</param>
         /// <param name="currentColor">The color to assign</param>
-        public ColorBox(PictureBox box, HomeworldColor currentColor) : base(box)
+        public ColorBox(PictureBox box, HomeworldColour currentColor) : base(box)
         {
             this.currentColor = currentColor;
 
@@ -51,7 +51,7 @@ namespace Homeworld_ColorPicker.Controls
         /// Sets the color of the ColorBox and updates the PictureBox's BackColor with it.
         /// </summary>
         /// <param name="color"></param>
-        public void SetColor(HomeworldColor color)
+        public void SetColor(HomeworldColour color)
         {
             currentColor = color;
             box.BackColor = currentColor.ToColor();
@@ -63,7 +63,7 @@ namespace Homeworld_ColorPicker.Controls
         /// Gets the color currently assigned to the ColorBox and it's PictureBox.
         /// </summary>
         /// <returns>The current color</returns>
-        public HomeworldColor GetColor()
+        public HomeworldColour GetColor()
         {
             return currentColor;
         }

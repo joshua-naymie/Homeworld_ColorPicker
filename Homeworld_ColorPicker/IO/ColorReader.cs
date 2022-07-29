@@ -33,7 +33,7 @@ namespace Homeworld_ColorPicker.IO
         /// </summary>
         /// <param name="profilePath">The path to the specific profile root directory</param>
         /// <returns>The 16 player colors</returns>
-        public static HomeworldColor[] GetPlayerColors(string profilePath)
+        public static HomeworldColour[] GetPlayerColors(string profilePath)
         {
             string file = System.IO.File.ReadAllText(profilePath + GC.FILE_PLAYERCFG_LUA);
 
@@ -51,9 +51,9 @@ namespace Homeworld_ColorPicker.IO
         /// <param name="file">The text of the entire <c>PLAYERCFG.LUA</c> file</param>
         /// <param name="startIndex">The index of the first color swatch</param>
         /// <returns>An array of all 16 player colors as HomeworldColors</returns>
-        private static HomeworldColor[] ReadSwatches(string file, int startIndex)
+        private static HomeworldColour[] ReadSwatches(string file, int startIndex)
         {
-            HomeworldColor[] colors = new HomeworldColor[GC.NUM_PLAYER_COLORS];
+            HomeworldColour[] colors = new HomeworldColour[GC.NUM_PLAYER_COLORS];
 
             int nextIndex;
             string currentColor;
@@ -82,7 +82,7 @@ namespace Homeworld_ColorPicker.IO
         /// </summary>
         /// <param name="color">The string representing the R,G,B values delimited by commas</param>
         /// <returns>A HomeworldColor with the parsed R,G,B values or the default HomeworldColor values if the color cannot be parsed</returns>
-        private static HomeworldColor ParseColor(string color)
+        private static HomeworldColour ParseColor(string color)
         {
             string[] values = color.Split(',');
             //System.Diagnostics.Debug.WriteLine("R: " + values[RED].Trim() + "\nG: " + values[GREEN].Trim() + "\nB: " + values[BLUE].Trim() + "\n\n");
@@ -93,13 +93,13 @@ namespace Homeworld_ColorPicker.IO
                      g = Byte.Parse(values[GREEN].Trim()),
                      b = Byte.Parse(values[BLUE].Trim());
 
-                return new HomeworldColor(r, g, b);
+                return new HomeworldColour(r, g, b);
             }
             catch(Exception e)
             {
                 MessageBox.Show(MESSAGE_COULD_NOT_PARSE_COLOR);
 
-                return new HomeworldColor();
+                return new HomeworldColour();
             }
         }
     }

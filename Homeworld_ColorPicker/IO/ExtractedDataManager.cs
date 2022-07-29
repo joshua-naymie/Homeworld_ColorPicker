@@ -89,7 +89,7 @@ namespace Homeworld_ColorPicker.IO
             {
                 string filePath = rootPath + GC.HW2_TEAMCOLOR_PATHS[i] + GC.FILE_TEAMCOLOUR_LUA;
 
-                if(!Util.CheckPathExists(filePath))
+                if(!Util.PathExists(filePath))
                 {
                     allFilesFound = false;
                     i = GC.HW2_TEAMCOLOR_PATHS.Length;
@@ -224,7 +224,7 @@ namespace Homeworld_ColorPicker.IO
         {
             foreach (string levelPath in paths)
             {
-                if (!Util.CheckPathExists(moveDir + levelPath))
+                if (!Util.PathExists(moveDir + levelPath))
                 {
                     System.IO.Directory.CreateDirectory(moveDir + levelPath);
                 }
