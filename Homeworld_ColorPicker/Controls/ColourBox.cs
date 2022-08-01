@@ -11,24 +11,32 @@ namespace Homeworld_ColorPicker.Controls
     /// <summary>
     /// A manager class for a PictureBox representing a team color.
     /// </summary>
-    public class ColorBox : ClickableBox<ColorBox>
+    public class ColourBox : ClickableBox<ColourBox>
     {
         private
         HomeworldColour currentColor;
 
         //----------------------------------------
 
-        /// <summary>
-        /// Constructor for ColorBox, initializing with the default HomeworldColor color.
-        /// </summary>
-        /// <param name="box">The PictureBox to manage</param>
-        public ColorBox(PictureBox box) : base(box)
+        public ColourBox()
         {
             this.currentColor = new HomeworldColour();
 
-            this.box.BackColor = currentColor.ToColor();
-            this.box.Click += BoxClicked;
+            base.BackColor = this.currentColor.ToColor();
+            //base.Click += BoxClicked;
         }
+
+        ///// <summary>
+        ///// Constructor for ColorBox, initializing with the default HomeworldColor color.
+        ///// </summary>
+        ///// <param name="box">The PictureBox to manage</param>
+        //public ColourBox(PictureBox box)
+        //{
+        //    this.currentColor = new HomeworldColour();
+
+        //    this.box.BackColor = currentColor.ToColor();
+        //    //this.box.Click += BoxClicked;
+        //}
 
         //--------------------
 
@@ -37,13 +45,28 @@ namespace Homeworld_ColorPicker.Controls
         /// </summary>
         /// <param name="box">The PictureBox to manage</param>
         /// <param name="currentColor">The color to assign</param>
-        public ColorBox(PictureBox box, HomeworldColour currentColor) : base(box)
+        public ColourBox(HomeworldColour currentColor)
         {
             this.currentColor = currentColor;
 
-            this.box.BackColor = currentColor.ToColor();
-            this.box.Click += BoxClicked;
+            this.BackColor = currentColor.ToColor();
+            //this.Click += BoxClicked;
         }
+
+        //--------------------
+
+        /// <summary>
+        /// Constructor for ColorBox, passing a reference to a HomeworldColour.
+        /// </summary>
+        /// <param name="box"></param>
+        /// <param name="currentColor"></param>
+        //public ColorBox(PictureBox box, ref HomeworldColour currentColor) : base(box)
+        //{
+        //    this.currentColor = currentColor;
+
+        //    this.box.BackColor = currentColor.ToColor();
+        //    this.box.Click += BoxClicked;
+        //}
 
         //----------------------------------------
 
@@ -54,7 +77,7 @@ namespace Homeworld_ColorPicker.Controls
         public void SetColor(HomeworldColour color)
         {
             currentColor = color;
-            box.BackColor = currentColor.ToColor();
+            this.BackColor = currentColor.ToColor();
         }
 
         //--------------------

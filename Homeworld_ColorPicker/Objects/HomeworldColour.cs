@@ -44,11 +44,25 @@ namespace Homeworld_ColorPicker.Objects
             this.b = b;
         }
 
+        /// <summary>
+        /// Constructor for HomeworldColor
+        /// Initializes with specified R,G,B values.
+        /// </summary>
+        /// <param name="r">The red value</param>
+        /// <param name="g">The green value</param>
+        /// <param name="b">The blue value</param>
+        public HomeworldColour(byte r, byte g, byte b)
+        {
+            this.r = (float)r / Byte.MaxValue;
+            this.g = (float)g / Byte.MaxValue;
+            this.b = (float)b / Byte.MaxValue;
+        }
+
         public HomeworldColour(Color color)
         {
-            this.r = color.R / Byte.MaxValue;
-            this.g = color.G / Byte.MaxValue;
-            this.b = color.B / Byte.MaxValue;
+            this.r = (float)color.R / Byte.MaxValue;
+            this.g = (float)color.G / Byte.MaxValue;
+            this.b = (float)color.B / Byte.MaxValue;
         }
 
         // ACCESSORS

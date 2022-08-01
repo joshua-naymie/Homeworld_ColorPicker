@@ -6,14 +6,6 @@ using System.Threading.Tasks;
 
 namespace Homeworld_ColorPicker.Objects
 {
-    public enum HW2Races
-    {
-        Hiigaran,
-        Vaygr,
-        Bentusi,
-        Progenitor
-    }
-
     public class TeamColour
     {
         private const
@@ -54,9 +46,14 @@ namespace Homeworld_ColorPicker.Objects
             this.baseColor = baseColor;
         }
 
-        public HomeworldColour getBaseColor()
+        public HomeworldColour GetBaseColor()
         {
             return baseColor;
+        }
+
+        public ref HomeworldColour getBaseColorRef()
+        {
+            return ref baseColor;
         }
 
 
@@ -71,7 +68,7 @@ namespace Homeworld_ColorPicker.Objects
         }
 
 
-        public HomeworldColour getStripeColor()
+        public HomeworldColour GetStripeColor()
         {
             return stripeColor;
         }
@@ -86,9 +83,19 @@ namespace Homeworld_ColorPicker.Objects
             this.trailColor = trailColor;
         }
 
-        public HomeworldColour getTrailColor()
+        public HomeworldColour GetTrailColor()
         {
             return trailColor;
+        }
+
+        public void SetBadgePath(string badgePath)
+        {
+            this.badgePath = badgePath;
+        }
+
+        public string GetBadgePath()
+        {
+            return badgePath;
         }
 
         public void SetTrailPath(string trailPath)

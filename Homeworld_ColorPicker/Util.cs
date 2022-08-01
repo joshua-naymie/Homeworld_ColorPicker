@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Homeworld_ColorPicker
 {
@@ -32,6 +33,20 @@ namespace Homeworld_ColorPicker
 
             directory.EnumerateFiles().ToList().ForEach(file => file.Delete());
             directory.EnumerateDirectories().ToList().ForEach(d => d.Delete(true));
+        }
+
+        public static Size GetLabelSize(Label label)
+        {
+            //SizeF size;
+            //using (Graphics g = label.CreateGraphics())
+            //{
+            //    size = g.MeasureString(label.Text, label.Font);
+            //}
+
+            //return new Size((int)Math.Ceiling(size.Width), (int)Math.Ceiling(size.Height));
+            Size s = TextRenderer.MeasureText(label.Text, label.Font);
+            s.Width += 2;
+            return s;
         }
     }
 }

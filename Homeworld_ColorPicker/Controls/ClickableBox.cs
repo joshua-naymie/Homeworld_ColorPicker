@@ -11,15 +11,12 @@ namespace Homeworld_ColorPicker.Controls
     /// Manages mouse event actions and the PictureBox.
     /// </summary>
     /// <typeparam name="T">The child class to be passed on mouse events</typeparam>
-    public abstract class ClickableBox<T>
+    public abstract class ClickableBox<T> : PictureBox
     {
         protected
         Action<T>? leftClickAction,
                    rightClickAction,
                    middleClickAction;
-
-        protected
-        PictureBox box;
 
         //----------------------------------------
 
@@ -28,11 +25,9 @@ namespace Homeworld_ColorPicker.Controls
         /// Must include the PictureBox to be controlled
         /// </summary>
         /// <param name="box">The picture box to be controlled</param>
-        public ClickableBox(PictureBox box)
+        public ClickableBox()
         {
-            this.box = box;
-
-            this.box.Click += BoxClicked;
+            this.Click += BoxClicked;
         }
 
         // MOUSE EVENT ACTIONS
