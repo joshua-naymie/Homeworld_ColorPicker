@@ -432,7 +432,7 @@ namespace Paloma
 
         }
 
-        public TargaImage(byte[] imageData)
+        public TargaImage(byte[] imageData) : this()
         {
             MemoryStream filestream = null;
             BinaryReader binReader = null;

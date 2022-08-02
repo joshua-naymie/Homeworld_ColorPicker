@@ -32,19 +32,22 @@ namespace Homeworld_ColorPicker.IO
             string? homeworldRootDir = null,
                     toolkitRootDir = null;
 
-            foreach (string line in File.ReadAllLines(FILE_CONFIG_PATH))
+            if(File.Exists(FILE_CONFIG_PATH))
             {
-                string[] param = line.Split('=');
-
-                switch (param[NAME])
+                foreach (string line in File.ReadAllLines(FILE_CONFIG_PATH))
                 {
-                    case KEY_HOMEWORLD:
-                        homeworldRootDir = param[VALUE];
-                        break;
+                    string[] param = line.Split('=');
 
-                    case KEY_TOOLKIT:
-                        toolkitRootDir = param[VALUE];
-                        break;
+                    switch (param[NAME])
+                    {
+                        case KEY_HOMEWORLD:
+                            homeworldRootDir = param[VALUE];
+                            break;
+
+                        case KEY_TOOLKIT:
+                            toolkitRootDir = param[VALUE];
+                            break;
+                    }
                 }
             }
 
