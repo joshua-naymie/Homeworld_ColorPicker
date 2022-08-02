@@ -6,11 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>4.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Images\4.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="4.ico" />
+    <Content Include="Resources\Images\4.ico" />
   </ItemGroup>
 
   <ItemGroup>

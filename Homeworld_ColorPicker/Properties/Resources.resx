@@ -118,7 +118,184 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="blacksun" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\blacksun.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="colstar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\colstar.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\dok.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FreeImage32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\freeimage32.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FreeImage64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\freeimage64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hiigaran" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hiigaran.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hiigaran_border" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hiigaran_border.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm1_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm1_black.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm1_grey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm1_grey.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm1_orange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm1_orange.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm1_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm1_red.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm1_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm1_white.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm1_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm1_yellow.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm2_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm2_black.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm2_grey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm2_grey.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm2_orange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm2_orange.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm2_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm2_red.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm2_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm2_white.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm2_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm2_yellow.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm3_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm3_black.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm3_grey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm3_grey.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm3_orange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm3_orange.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm3_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm3_red.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm3_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm3_white.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hm3_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\hm3_yellow.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="k76" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\k76.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="k76w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\k76w.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kiith_manaan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\kiith manaan.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kiith_naabal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\kiith naabal.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kiith_paktu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\kiith paktu.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kiith_sjet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\kiith sjet.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kiith_soban" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\kiith soban.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kushan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\kushan.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Microgramma_Font" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Microgramma D Extended Bold.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sidstar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\sidstar.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sidstarb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\sidstarb.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sidstarr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\sidstarr.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="soban" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\soban.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="taiidan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\taiidan.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="taiidan2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\taiidan2.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="taiidan2_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\taiidan2_black.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="taiidan_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\taiidan_red.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="taiidan_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\taiidan_white.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tfreight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\tfreight.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="trinity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\trinity.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="turanic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\turanic.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_2.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_2_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_2_black.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_outline_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_outline_red.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_outline_steel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_outline_steel.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_outline_tri" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_outline_tri.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_outline_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_outline_white.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_outline_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_outline_yellow.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_split" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_split.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_split_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_split_black.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="vaygr_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\vaygr_yellow.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_15th_o" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\15th_o.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_15_planet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\15_planet.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_3ball" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Badges\3ball.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

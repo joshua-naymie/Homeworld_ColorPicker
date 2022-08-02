@@ -161,7 +161,69 @@ namespace Homeworld_ColorPicker
         public static readonly
         string DIR_EXTRACTION_OUTPUT_PATH = DIR_DOCUMENTS_PATH + DIR_EXTRACTION_OUTPUT;
 
-        private static readonly
+        public static readonly
+        Dictionary<string, Image> DEFAULT_BADGES_HWRM = new Dictionary<string, Image>()
+        {
+            { "DATA:Badges/3ball.tga", new Paloma.TargaImage(Properties.Resources._3ball).Image },
+            { "DATA:Badges/15_planet.tga", new Paloma.TargaImage(Properties.Resources._15_planet).Image },
+            { "DATA:Badges/15th_o.tga", new Paloma.TargaImage(Properties.Resources._15th_o).Image },
+            { "DATA:Badges/blacksun.tga", new Paloma.TargaImage(Properties.Resources.blacksun).Image },
+            { "DATA:Badges/colstar.tga", new Paloma.TargaImage(Properties.Resources.colstar).Image },
+            { "DATA:Badges/dok.tga", new Paloma.TargaImage(Properties.Resources.dok).Image },
+            { "DATA:Badges/hiigaran.tga", new Paloma.TargaImage(Properties.Resources.hiigaran).Image },
+            { "DATA:Badges/hiigaran_border.tga", new Paloma.TargaImage(Properties.Resources.hiigaran_border).Image },
+            { "DATA:Badges/hm1_black.tga", new Paloma.TargaImage(Properties.Resources.hm1_black).Image },
+            { "DATA:Badges/hm1_grey.tga", new Paloma.TargaImage(Properties.Resources.hm1_grey).Image },
+            { "DATA:Badges/hm1_orange.tga", new Paloma.TargaImage(Properties.Resources.hm1_orange).Image },
+            { "DATA:Badges/hm1_red.tga", new Paloma.TargaImage(Properties.Resources.hm1_red).Image },
+            { "DATA:Badges/hm1_white.tga", new Paloma.TargaImage(Properties.Resources.hm1_white).Image },
+            { "DATA:Badges/hm1_yellow.tga", new Paloma.TargaImage(Properties.Resources.hm1_yellow).Image },
+            { "DATA:Badges/hm2_black.tga", new Paloma.TargaImage(Properties.Resources.hm2_black).Image },
+            { "DATA:Badges/hm2_grey.tga", new Paloma.TargaImage(Properties.Resources.hm2_grey).Image },
+            { "DATA:Badges/hm2_orange.tga", new Paloma.TargaImage(Properties.Resources.hm2_orange).Image },
+            { "DATA:Badges/hm2_red.tga", new Paloma.TargaImage(Properties.Resources.hm2_red).Image },
+            { "DATA:Badges/hm2_white.tga", new Paloma.TargaImage(Properties.Resources.hm2_white).Image },
+            { "DATA:Badges/hm2_yellow.tga", new Paloma.TargaImage(Properties.Resources.hm2_yellow).Image },
+            { "DATA:Badges/hm3_black.tga", new Paloma.TargaImage(Properties.Resources.hm3_black).Image },
+            { "DATA:Badges/hm3_grey.tga", new Paloma.TargaImage(Properties.Resources.hm3_grey).Image },
+            { "DATA:Badges/hm3_orange.tga", new Paloma.TargaImage(Properties.Resources.hm3_orange).Image },
+            { "DATA:Badges/hm3_red.tga", new Paloma.TargaImage(Properties.Resources.hm3_red).Image },
+            { "DATA:Badges/hm3_white.tga", new Paloma.TargaImage(Properties.Resources.hm3_white).Image },
+            { "DATA:Badges/hm3_yellow.tga", new Paloma.TargaImage(Properties.Resources.hm3_yellow).Image },
+            { "DATA:Badges/k76.tga", new Paloma.TargaImage(Properties.Resources.k76).Image },
+            { "DATA:Badges/k76w.tga", new Paloma.TargaImage(Properties.Resources.k76w).Image },
+            { "DATA:Badges/kiith manaan.tga", new Paloma.TargaImage(Properties.Resources.kiith_manaan).Image },
+            { "DATA:Badges/kiith naabal.tga", new Paloma.TargaImage(Properties.Resources.kiith_naabal).Image },
+            { "DATA:Badges/kiith paktu.tga", new Paloma.TargaImage(Properties.Resources.kiith_paktu).Image },
+            { "DATA:Badges/kiith sjet.tga", new Paloma.TargaImage(Properties.Resources.kiith_sjet).Image },
+            { "DATA:Badges/kiith soban.tga", new Paloma.TargaImage(Properties.Resources.kiith_soban).Image },
+            { "DATA:Badges/kushan.tga", new Paloma.TargaImage(Properties.Resources.kushan).Image },
+            { "DATA:Badges/sidstar.tga", new Paloma.TargaImage(Properties.Resources.sidstar).Image },
+            { "DATA:Badges/sidstarb.tga", new Paloma.TargaImage(Properties.Resources.sidstarb).Image },
+            { "DATA:Badges/sidstarr.tga", new Paloma.TargaImage(Properties.Resources.sidstarr).Image },
+            { "DATA:Badges/soban.tga", new Paloma.TargaImage(Properties.Resources.soban).Image },
+            { "DATA:Badges/taiidan.tga", new Paloma.TargaImage(Properties.Resources.taiidan).Image },
+            { "DATA:Badges/taiidan_red.tga", new Paloma.TargaImage(Properties.Resources.taiidan_red).Image },
+            { "DATA:Badges/taiidan_white.tga", new Paloma.TargaImage(Properties.Resources.taiidan_white).Image },
+            { "DATA:Badges/taiidan2.tga", new Paloma.TargaImage(Properties.Resources.taiidan2).Image },
+            { "DATA:Badges/taiidan2_black.tga", new Paloma.TargaImage(Properties.Resources.taiidan2_black).Image },
+            { "DATA:Badges/tfreight.tga", new Paloma.TargaImage(Properties.Resources.tfreight).Image },
+            { "DATA:Badges/trinity.tga", new Paloma.TargaImage(Properties.Resources.trinity).Image },
+            { "DATA:Badges/turanic.tga", new Paloma.TargaImage(Properties.Resources.turanic).Image },
+            { "DATA:Badges/vaygr.tga", new Paloma.TargaImage(Properties.Resources.vaygr).Image },
+            { "DATA:Badges/vaygr_2.tga", new Paloma.TargaImage(Properties.Resources.vaygr_2).Image },
+            { "DATA:Badges/vaygr_2_black.tga", new Paloma.TargaImage(Properties.Resources.vaygr_2_black).Image },
+            { "DATA:Badges/vaygr_outline_red.tga", new Paloma.TargaImage(Properties.Resources.vaygr_outline_red).Image },
+            { "DATA:Badges/vaygr_outline_steel.tga", new Paloma.TargaImage(Properties.Resources.vaygr_outline_steel).Image },
+            { "DATA:Badges/vaygr_outline_tri.tga", new Paloma.TargaImage(Properties.Resources.vaygr_outline_tri).Image },
+            { "DATA:Badges/vaygr_outline_white.tga", new Paloma.TargaImage(Properties.Resources.vaygr_outline_white).Image },
+            { "DATA:Badges/vaygr_outline_yellow.tga", new Paloma.TargaImage(Properties.Resources.vaygr_outline_yellow).Image },
+            { "DATA:Badges/vaygr_split.tga", new Paloma.TargaImage(Properties.Resources.vaygr_split).Image },
+            { "DATA:Badges/vaygr_split_black.tga", new Paloma.TargaImage(Properties.Resources.vaygr_split_black).Image },
+            { "DATA:Badges/vaygr_yellow.tga", new Paloma.TargaImage(Properties.Resources.vaygr_yellow).Image }
+        };
+
+        public static readonly
         string[] LEVEL_NAMES = { "Tanis",
                                  "Angel Moon",
                                  "Sarum",
@@ -302,7 +364,7 @@ namespace Homeworld_ColorPicker
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
 
-        static Font InitHomeworlFont()
+        private static Font InitHomeworlFont()
         {
             PrivateFontCollection fontCollection = new PrivateFontCollection();
 

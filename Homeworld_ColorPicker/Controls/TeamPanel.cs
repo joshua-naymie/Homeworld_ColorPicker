@@ -22,6 +22,9 @@ namespace Homeworld_ColorPicker.Controls
         TeamColour teamColours;
 
         private
+        BadgeBox badge;
+
+        private
         ColourBox baseColourBox,
                   stripeColourBox,
                   trailColourBox;
@@ -53,28 +56,26 @@ namespace Homeworld_ColorPicker.Controls
             teamName.Size = Util.GetLabelSize(teamName);
             teamName.Location = new Point(startX - teamName.Width - 6, 50);
 
-            PictureBox badgePicture = new PictureBox();
-            SetPictureBoxProperties(ref badgePicture, startX, posY);
-            BadgeBox badge = new BadgeBox(badgePicture, teamColours.GetBadgePath());
+            badge = new BadgeBox(teamColours.GetBadgePath());
+            badge.Size = new Size(BOX_SIZE, BOX_SIZE);
+            badge.BorderStyle = BorderStyle.Fixed3D;
+            badge.Location = new Point(startX, posY);
             //badge.SetLeftClickAction();
 
             startX += 150;
 
-            PictureBox baseColour = new PictureBox();
-            SetPictureBoxProperties(ref baseColour, startX, posY);
-            baseColourBox = new ColourBox(baseColour, teamColours.GetBaseColor());
+            baseColourBox = new ColourBox(teamColours.GetBaseColor());
+            SetPictureBoxProperties(ref baseColourBox, startX, posY);
 
             startX += 150;
 
-            PictureBox stripeColour = new PictureBox();
-            SetPictureBoxProperties(ref stripeColour, startX, posY);
-            stripeColourBox = new ColourBox(stripeColour, teamColours.GetStripeColor());
+            stripeColourBox = new ColourBox(teamColours.GetStripeColor());
+            SetPictureBoxProperties(ref stripeColourBox, startX, posY);
 
             startX += 150;
 
-            PictureBox trailColour = new PictureBox();
-            SetPictureBoxProperties(ref trailColour, startX, posY);
-            trailColourBox = new ColourBox(trailColour, teamColours.GetTrailColor());
+            trailColourBox = new ColourBox(teamColours.GetTrailColor());
+            SetPictureBoxProperties(ref trailColourBox, startX, posY);
 
             startX += 150;
 
@@ -86,25 +87,40 @@ namespace Homeworld_ColorPicker.Controls
             resetButton.Font = GC.CUSTOM_FONT;
 
             this.Controls.Add(teamName);
-            this.Controls.Add(badgePicture);
-            this.Controls.Add(baseColour);
-            this.Controls.Add(stripeColour);
-            this.Controls.Add(trailColour);
+            this.Controls.Add(badge);
+            this.Controls.Add(baseColourBox);
+            this.Controls.Add(stripeColourBox);
+            this.Controls.Add(trailColourBox);
             this.Controls.Add(resetButton);
         }
 
-        private void SetPictureBoxProperties(ref PictureBox box, int posX, int posY)
+        private void SetPictureBoxProperties(ref ColourBox box, int posX, int posY)
         {
             box.Size = new Size(BOX_SIZE, BOX_SIZE);
             box.BorderStyle = BorderStyle.Fixed3D;
             box.Location = new Point(posX, posY);
         }
 
-        public void SetColourBoxLeftClicks(Action<ColourBox> action)
+        public void SetColourBoxActions(Action<ColourBox>? leftClick, Action<ColourBox>? rightClick, Action<ColourBox>? middleClick)
         {
-            baseColourBox.SetLeftClickAction(action);
-            stripeColourBox.SetLeftClickAction(action);
-            trailColourBox.SetLeftClickAction(action);
+            baseColourBox.SetLeftClickAction(leftClick);
+            baseColourBox.SetRightClickAction(rightClick);
+            baseColourBox.SetMiddleClickAction(middleClick);
+
+            stripeColourBox.SetLeftClickAction(leftClick);
+            stripeColourBox.SetRightClickAction(rightClick);
+            stripeColourBox.SetMiddleClickAction(middleClick);
+
+            trailColourBox.SetLeftClickAction(leftClick);
+            trailColourBox.SetRightClickAction(rightClick);
+            trailColourBox.SetMiddleClickAction(middleClick);
+        }
+
+        public void SetBadgeBoxActions(Action<BadgeBox>? leftClick, Action<BadgeBox>? rightClick, Action<BadgeBox>? middleClick)
+        {
+            badge.SetLeftClickAction(leftClick);
+            badge.SetRightClickAction(rightClick);
+            badge.SetMiddleClickAction(middleClick);
         }
     }
 }

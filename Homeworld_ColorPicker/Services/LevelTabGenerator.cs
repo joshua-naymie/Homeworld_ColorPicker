@@ -10,21 +10,42 @@ namespace Homeworld_ColorPicker.Services
     using Objects;
     public class LevelTabGenerator
     {
-        private static
-        Font customFont;
+        private
+        Action<ColourBox>? colourLeftClick,
+                           colourRightClick,
+                           colourMiddleClick;
 
-        public static TabPage GenerateTabPage(TeamColour[] level)//, Action<ColourBox> leftClick)
+        private
+        Action<BadgeBox>? badgeLeftClick,
+                          badgeRightClick,
+                          badgeMiddleClick;
+
+        public void SetColourActions(Action<ColourBox>? leftClickAction, Action<ColourBox>? rightClickAction, Action<ColourBox>? middleClickAction)
+        {
+            colourLeftClick = leftClickAction;
+            colourRightClick = rightClickAction;
+            colourMiddleClick = middleClickAction;
+        }
+
+        public void SetBadgeActions(Action<BadgeBox>? leftClickAction, Action<BadgeBox>? rightClickAction, Action<BadgeBox>? middleClickAction)
+        {
+            badgeLeftClick = leftClickAction;
+            badgeRightClick = rightClickAction;
+            badgeMiddleClick = middleClickAction;
+        }
+
+        public TabPage GenerateTabPage(TeamColour[] teams, int levelNum)
         {
             TabPage page = new TabPage();
             page.BackColor = Color.White;
-            page.Text = "TEST";
-            page.Controls.Add(GenerateContentPanel(level));//, leftClick));
+            page.Text = $"Level {levelNum+1}";
+            page.Controls.Add(GenerateContentPanel(teams, levelNum));
             page.Controls.Add(GenerateHeader(GC.CUSTOM_FONT));
 
             return page;
         }
 
-        private static Panel GenerateContentPanel(TeamColour[] level)//HomeworldLevel level, Font font)
+        private Panel GenerateContentPanel(TeamColour[] level, int levelNum)
         {
             Panel panel = new Panel();
             panel.Dock = DockStyle.Fill;
@@ -34,15 +55,16 @@ namespace Homeworld_ColorPicker.Services
             panel.HorizontalScroll.Maximum = 0;
             panel.AutoScroll = true;
 
-            int levelNum = 0, teamNum = 0,
+            int teamNum = 0,
                 teamOffset = 0;
+
             foreach (TeamColour team in level)
             {
                 TeamPanel teamPanel = new TeamPanel(GC.DICT_HW2_LEVEL_TEAM_NAMES[new Tuple<int, int>(levelNum, teamNum++)], team);
                 teamPanel.Location = new Point(0, teamOffset);
                 teamOffset += teamPanel.Height;
                 //teamPanel.BackColor = Color.Red;
-                //teamPanel.SetColourBoxLeftClicks(leftClick);
+                teamPanel.SetColourBoxActions(colourLeftClick, colourRightClick, colourMiddleClick);
                 panel.Controls.Add(teamPanel);
             }
 
@@ -104,7 +126,7 @@ namespace Homeworld_ColorPicker.Services
             //return panel;
         }
 
-        private static Panel GenerateHeader(Font font)
+        private Panel GenerateHeader(Font font)
         {
             Panel panel = new Panel();
             panel.Dock = DockStyle.Top;

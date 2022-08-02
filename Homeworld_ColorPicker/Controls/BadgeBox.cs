@@ -11,7 +11,7 @@ namespace Homeworld_ColorPicker.Controls
         private
         string? path;
 
-        public BadgeBox(PictureBox box, string path) : base(box)
+        public BadgeBox(string path)
         {
             this.path = path;
         }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace Homeworld_ColorPicker
 {
@@ -37,16 +39,34 @@ namespace Homeworld_ColorPicker
 
         public static Size GetLabelSize(Label label)
         {
-            //SizeF size;
-            //using (Graphics g = label.CreateGraphics())
-            //{
-            //    size = g.MeasureString(label.Text, label.Font);
-            //}
-
-            //return new Size((int)Math.Ceiling(size.Width), (int)Math.Ceiling(size.Height));
             Size s = TextRenderer.MeasureText(label.Text, label.Font);
             s.Width += 2;
             return s;
+        }
+
+        public static Bitmap ResizeImage(Image image, int width, int height)
+        {
+            Rectangle dimensions = new Rectangle(0, 0, width, height);
+            Bitmap resizedImage = new Bitmap(width, height);
+
+            resizedImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (Graphics g = Graphics.FromImage(resizedImage))
+            {
+                g.CompositingMode = CompositingMode.SourceCopy;
+                g.CompositingQuality = CompositingQuality.HighQuality;
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (ImageAttributes attributes = new ImageAttributes())
+                {
+                    attributes.SetWrapMode(WrapMode.TileFlipXY);
+                    g.DrawImage(image, dimensions, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+                }
+            }
+
+            return resizedImage;
         }
     }
 }

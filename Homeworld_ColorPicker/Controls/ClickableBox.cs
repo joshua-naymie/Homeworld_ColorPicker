@@ -37,7 +37,7 @@ namespace Homeworld_ColorPicker.Controls
         /// Sets the method called when the left mouse click is detected
         /// </summary>
         /// <param name="action">The method to call</param>
-        public void SetLeftClickAction(Action<T> action)
+        public void SetLeftClickAction(Action<T>? action)
         {
             leftClickAction = action;
         }
@@ -48,7 +48,7 @@ namespace Homeworld_ColorPicker.Controls
         /// Sets the method called when the right mouse click is detected
         /// </summary>
         /// <param name="action">The method to call</param>
-        public void SetRightClickAction(Action<T> action)
+        public void SetRightClickAction(Action<T>? action)
         {
             rightClickAction = action;
         }
@@ -59,7 +59,7 @@ namespace Homeworld_ColorPicker.Controls
         /// Sets the method called when the middle mouse click is detected
         /// </summary>
         /// <param name="action">The method to call</param>
-        public void SetMiddleClickAction(Action<T> action)
+        public void SetMiddleClickAction(Action<T>? action)
         {
             middleClickAction = action;
         }

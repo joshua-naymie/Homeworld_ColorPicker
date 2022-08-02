@@ -14,6 +14,8 @@ namespace Homeworld_ColorPicker.Forms
     using Controls;
     using System.Runtime.InteropServices;
     using System.Drawing.Text;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Imaging;
 
     public partial class MainWindow : Form
     {
@@ -76,47 +78,19 @@ namespace Homeworld_ColorPicker.Forms
             {
                 InitColorSwatches();
                 InitCurrentColor();
-                TeamColour[] testLevel = IO.TeamColourReader.ReadTeamColourLua(@"G:\Documents\Homeworld ColorPicker\HW2_RM\leveldata\campaign\ascension\m01_tanis\teamcolour.lua");
-                //TabPage page = Services.LevelTabGenerator.GenerateTabPage(testLevel, TeamColourBoxClicked);
-
-                //foreach (var pb in this.Controls.OfType<Panel>())
-                //{
-                //    foreach (var pb in this.Controls.OfType<PictureBox>())
-                //    {
-                //        //do stuff
-                //    }
-                //}
-
-                //levelTabControl.Controls.Add();//
+                InitTabPages();
             }
+
+            Paloma.TargaImage t = new Paloma.TargaImage(@"G:\Documents\Homeworld ColorPicker\output.hwr2\badges\hiigaran.tga");
+            pictureBox1.BackColor = Color.Green;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.Image = t.Image;// ResizeImage(t.Image, 100, 100);
+            System.Diagnostics.Debug.WriteLine(t.Image);
         }
 
         private void InitCustomFont()
         {
-            //System.IntPtr data = Marshal.AllocCoTaskMem(Properties.Resources.Microgramma_Font.Length);
-
-            //Byte[] fontData = new Byte[Properties.Resources.Microgramma_Font.Length];
-
-            //byte[] fontStream = Properties.Resources.Microgramma_Font;
-
-            //Marshal.Copy(fontData, 0, data, (int)fontStream.Length);
-
-            //uint cFonts = 0;
-            //AddFontMemResourceEx(data, (uint)fontData.Length, IntPtr.Zero, ref cFonts);
-
-            //pfc.AddMemoryFont(data, (int)fontStream.Length);
-
-            //MessageBox.Show("FONTS: " + pfc.Families.Length);
-
-            //Marshal.FreeCoTaskMem(data);
-
-            //Create your private font collection object.
-            //System.Drawing.Text.PrivateFontCollection pfc = new System.Drawing.Text.PrivateFontCollection();
-
-
-
-
-            //Select your font from the resources
+            // Select your font from the resources
             int fontLength = Properties.Resources.Microgramma_Font.Length;
 
             // create a buffer to read in to
@@ -145,34 +119,46 @@ namespace Homeworld_ColorPicker.Forms
         private void InitColorSwatches()
         {
             ColourBox colorSwatch1 = new ColourBox();
-
-            //colorSwatches[0] = new ColourBox(colorSwatch1);
-            //colorSwatches[1] = new ColourBox(colorSwatch2);
-            //colorSwatches[2] = new ColourBox(colorSwatch3);
-            //colorSwatches[3] = new ColourBox(colorSwatch4);
-            //colorSwatches[4] = new ColourBox(colorSwatch5);
-            //colorSwatches[5] = new ColourBox(colorSwatch6);
-            //colorSwatches[6] = new ColourBox(colorSwatch7);
-            //colorSwatches[7] = new ColourBox(colorSwatch8);
-            //colorSwatches[8] = new ColourBox(colorSwatch9);
-            //colorSwatches[9] = new ColourBox(colorSwatch10);
-            //colorSwatches[10] = new ColourBox(colorSwatch11);
-            //colorSwatches[11] = new ColourBox(colorSwatch12);
-            //colorSwatches[12] = new ColourBox(colorSwatch13);
-            //colorSwatches[13] = new ColourBox(colorSwatch14);
-            //colorSwatches[14] = new ColourBox(colorSwatch15);
-            //colorSwatches[15] = new ColourBox(colorSwatch16);
-
-            //System.Diagnostics.Debug.WriteLine(homeworldDirPath + userProfile.GetPath() + GC.FILE_PLAYERCFG_LUA);
+            ColourBox colorSwatch2 = new ColourBox();
+            ColourBox colorSwatch3 = new ColourBox();
+            ColourBox colorSwatch4 = new ColourBox();
+            ColourBox colorSwatch5 = new ColourBox();
+            ColourBox colorSwatch6 = new ColourBox();
+            ColourBox colorSwatch7 = new ColourBox();
+            ColourBox colorSwatch8 = new ColourBox();
+            ColourBox colorSwatch9 = new ColourBox();
+            ColourBox colorSwatch10 = new ColourBox();
+            ColourBox colorSwatch11 = new ColourBox();
+            ColourBox colorSwatch12 = new ColourBox();
+            ColourBox colorSwatch13 = new ColourBox();
+            ColourBox colorSwatch14 = new ColourBox();
+            ColourBox colorSwatch15 = new ColourBox();
+            ColourBox colorSwatch16 = new ColourBox();
 
             HomeworldColour[] playerColors = IO.ColorReader.GetPlayerColors(instance.HomeworldRootDir + instance.ProfilePath);
-            int i = 0;
-            foreach (ColourBox swatch in colorSwatches)
+            int posX = 12;
+
+            for (int i=0; i<NUMBER_OF_SWATCHES; i++)
             {
-                swatch.SetColor(playerColors[i++]);
-                swatch.SetLeftClickAction(ColorSwatchClicked);
+                colorSwatches[i] = new ColourBox(playerColors[i]);
+                InitSwatch(ref colorSwatches[i], posX);
+                colorPanel.Controls.Add(colorSwatches[i]);
+
+                posX += 56;
             }
         }
+
+        private void InitSwatch(ref ColourBox box, int posX)
+        {
+            box.BorderStyle = BorderStyle.Fixed3D;
+            box.Location = new System.Drawing.Point(posX, 12);
+            box.Name = "colorSwatch1";
+            box.Size = new System.Drawing.Size(50, 50);
+            box.TabIndex = 0;
+            box.TabStop = false;
+            box.SetLeftClickAction(SetCurrentFromBox);
+        }
+
 
         /// <summary>
         /// Initializes the current color ColorBox.
@@ -180,15 +166,31 @@ namespace Homeworld_ColorPicker.Forms
         /// </summary>
         private void InitCurrentColor()
         {
-            currentColorBox = new ColourBox();
-            currentColorSwatch.BorderStyle = BorderStyle.Fixed3D;
-            currentColorSwatch.Location = new Point(12, 68);
-            currentColorSwatch.Name = "currentColorSwatch";
-            currentColorSwatch.Size = new Size(890, 50);
-            currentColorSwatch.TabIndex = 17;
-            currentColorSwatch.TabStop = false;
-            SetCurrentColor(colorSwatches[0].GetColor());
-            panel1.Controls.Add(currentColorSwatch);
+            currentColorBox = new ColourBox(colorSwatches[0].GetColor());
+            currentColorBox.BorderStyle = BorderStyle.Fixed3D;
+            currentColorBox.Location = new Point(12, 68);
+            currentColorBox.Name = "currentColorSwatch";
+            currentColorBox.Size = new Size(890, 50);
+            currentColorBox.TabIndex = 17;
+            currentColorBox.TabStop = false;
+            //SetCurrentColor(colorSwatches[0].GetColor());
+            colorPanel.Controls.Add(currentColorBox);
+        }
+
+        private void InitTabPages()
+        {
+            int levelNum = 0;
+            foreach(string level in GC.HW2_TEAMCOLOR_PATHS)
+            {
+                string path = GC.DIR_HW2_RM_DATA_PATH + level + GC.FILE_TEAMCOLOUR_LUA;
+                TeamColour[] testLevel = IO.TeamColourReader.ReadTeamColourLua(path);
+
+                Services.LevelTabGenerator tabGenerator = new Services.LevelTabGenerator();
+                tabGenerator.SetColourActions(SetBoxFromCurrent, SetCurrentFromBox, null);
+
+                TabPage page = tabGenerator.GenerateTabPage(testLevel, levelNum++);
+                levelTabControl.Controls.Add(page);
+            }
         }
 
         /// <summary>
@@ -199,7 +201,7 @@ namespace Homeworld_ColorPicker.Forms
         /// <param name="e">The mouse event arguments</param>
         private void SetCustomColor(object sender, MouseEventArgs e)
         {
-            customColorDialog.Color = currentColorSwatch.BackColor;
+            customColorDialog.Color = currentColorBox.BackColor;
             customColorDialog.FullOpen = true;
 
             if(customColorDialog.ShowDialog() == DialogResult.OK)
@@ -208,9 +210,10 @@ namespace Homeworld_ColorPicker.Forms
             }
         }
 
-        private void ColorSwatchClicked(ColourBox swatch)
+        private void SetCurrentFromBox(ColourBox swatch)
         {
             SetCurrentColor(swatch.GetColor());
+            System.Diagnostics.Debug.WriteLine(swatch);
         }
 
         private void SetCurrentColor(HomeworldColour color)
@@ -231,9 +234,10 @@ namespace Homeworld_ColorPicker.Forms
             return result;
         }
 
-        private void TeamColourBoxClicked(ColourBox box)
+        private void SetBoxFromCurrent(ColourBox box)
         {
             box.SetColor(currentColorBox.GetColor());
+            System.Diagnostics.Debug.WriteLine(box);
         }
     }
 }
