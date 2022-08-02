@@ -28,7 +28,6 @@ namespace Homeworld_ColorPicker.IO
         /// <returns>The previous Homeworld and Remastered Toolkit root directories</returns>
         public static RootDirectoryData ReadConfig()
         {
-            System.Diagnostics.Debug.WriteLine(FILE_CONFIG_PATH);
             string? homeworldRootDir = null,
                     toolkitRootDir = null;
 
