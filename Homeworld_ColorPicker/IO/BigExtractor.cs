@@ -32,6 +32,7 @@ namespace Homeworld_ColorPicker.IO
             DIRECT_IMPERSONATION = 0x0200
         }
 
+        // thread management
         [DllImport(KERNEL_32_DLL)]
         static extern IntPtr OpenThread(ThreadAccess dwDesiredAccess, bool bInheritHandle, uint dwThreadId);
         [DllImport(KERNEL_32_DLL)]
@@ -41,6 +42,7 @@ namespace Homeworld_ColorPicker.IO
         [DllImport(KERNEL_32_DLL, CharSet = CharSet.Auto, SetLastError = true)]
         static extern bool CloseHandle(IntPtr handle);
 
+        // console control (Ctrl+C)
         [DllImport(KERNEL_32_DLL)]
         private static extern
         bool GenerateConsoleCtrlEvent(uint dwCtrlEvent, uint dwProcessGroupId);
@@ -139,8 +141,8 @@ namespace Homeworld_ColorPicker.IO
             {
                 StartInfo = new System.Diagnostics.ProcessStartInfo
                 {
-                    FileName = String.Format(ARCHIVE_PATH_FORMAT, instance.ToolkitRootDir, GC.FILE_ARCHIVE_EXE_PATH),
-                    Arguments = String.Format(ARCHIVE_ARGS_FORMAT, instance.HomeworldRootDir, bigFilePath, GC.DIR_EXTRACTION_OUTPUT_PATH),
+                    FileName = String.Format(ARCHIVE_PATH_FORMAT, instance.ToolkitRootDir, CONST.FILE_ARCHIVE_EXE_PATH),
+                    Arguments = String.Format(ARCHIVE_ARGS_FORMAT, instance.HomeworldRootDir, bigFilePath, CONST.DIR_EXTRACTION_OUTPUT_PATH),
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
@@ -209,6 +211,7 @@ namespace Homeworld_ColorPicker.IO
                     do
                     {
                         i = ResumeThread(threadHandle);
+                        System.Diagnostics.Debug.WriteLine($"i: {i}");
                     } while (i > 0);
 
                     CloseHandle(threadHandle);

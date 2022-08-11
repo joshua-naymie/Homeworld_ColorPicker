@@ -113,7 +113,7 @@
             this.Name = "BigExtractorDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Big Extractor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Cleanup);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormCloseEvent);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

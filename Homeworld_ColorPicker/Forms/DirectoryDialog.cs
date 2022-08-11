@@ -55,9 +55,16 @@ namespace Homeworld_ColorPicker
                TEXT_REMASTERED_HOMEWORLD_1 = "Homeworld 1";
 
 
+        /// <summary>
+        /// Array of every remastered game represented as a text name.
+        /// Used for Game ComboBox.
+        /// </summary>
         private static readonly
         string[] REMASTERED_GAME_TYPES = { TEXT_REMASTERED_HOMEWORLD_2, TEXT_REMASTERED_HOMEWORLD_1 };
 
+        /// <summary>
+        /// Dictionary of remastered games (HW1, HW2) accessible through their text names.
+        /// </summary>
         private static readonly
         Dictionary<string, RemasteredGame> REMASTERED_GAME_DICTIONARY = new Dictionary<string, RemasteredGame>
         {
@@ -90,13 +97,32 @@ namespace Homeworld_ColorPicker
         private
         HomeworldVersion version = HomeworldVersion.NONE;
 
+        /// <summary>
+        /// Whether a valid Homeworld root directory has been entered.
+        /// </summary>
         private
-        GameInstance gameInstance;
+        bool validRootDir = false;
 
+        /// <summary>
+        /// Whether a valid Toolkit root directory has been entered. 
+        /// </summary>
         private
-        bool validRootDir = false,
-             validToolkitDir = false,
-             validProfile = false;
+        bool validToolkitDir = false;
+
+        /// <summary>
+        /// Whether a valid profile has been selected.
+        /// </summary>
+        private
+        bool validProfile = false;
+
+        // PROPERTIES
+        //----------------------------------------
+
+        /// <summary>
+        /// The instance of the game to work on.
+        /// Holds root directories and remastered game specifications.
+        /// </summary>
+        public GameInstance GameInstance { get; private set; }
 
         // CONSTRUCTOR
         //----------------------------------------
@@ -117,8 +143,8 @@ namespace Homeworld_ColorPicker
         /// </summary>
         public void SetRootDirectories(RootDirectoryData rootDirectories)
         {
-            rootDirInput.Text = rootDirectories.GetHomeworldRoot();
-            toolkitDirInput.Text = rootDirectories.GetToolkitRoot();
+            rootDirInput.Text = rootDirectories.HomeworldRoot;
+            toolkitDirInput.Text = rootDirectories.ToolkitRoot;
         }
 
         // EVENTS
@@ -136,9 +162,9 @@ namespace Homeworld_ColorPicker
             IO.ConfigManager.WriteConfig(new RootDirectoryData(currentRootDirectory, currentToolkitDirectory));
 
             RemasteredGame game = REMASTERED_GAME_DICTIONARY[(string)gameComboBox.SelectedItem];
-            string profile = ((Profile)profileComboBox.SelectedItem).GetPath();
+            string profile = ((Profile)profileComboBox.SelectedItem).Path;
 
-            gameInstance = new GameInstance(currentRootDirectory, currentToolkitDirectory, version, game, profile);
+            GameInstance = new GameInstance(currentRootDirectory, currentToolkitDirectory, version, game, profile);
 
             this.DialogResult = DialogResult.OK;
         }
@@ -283,7 +309,7 @@ namespace Homeworld_ColorPicker
         /// <returns>All valid profiles in the current valid root directory</returns>
         private Profile[] GetAllProfiles()
         {
-            string profilesPath = rootDirInput.Text + GC.DIR_PROFILES_PATH;
+            string profilesPath = rootDirInput.Text + CONST.DIR_PROFILES_PATH;
             
             if (Util.PathExists(profilesPath))
             {
@@ -295,7 +321,7 @@ namespace Homeworld_ColorPicker
                 foreach (string path in paths)
                 {
                     if(Util.PathExists(path + FILE_NAME_DAT)
-                    && Util.PathExists(path + GC.FILE_PLAYERCFG_LUA))
+                    && Util.PathExists(path + CONST.FILE_PLAYERCFG_LUA))
                     {
                         string profilePath = path.Replace(currentRootDirectory, "");
                         string profileName = File.ReadAllText(path + FILE_NAME_DAT);
@@ -332,7 +358,7 @@ namespace Homeworld_ColorPicker
         {
             currentToolkitDirectory = toolkitDirInput.Text.TrimEnd('\\');
 
-            if(Util.PathExists(currentToolkitDirectory + GC.FILE_ARCHIVE_EXE_PATH))
+            if(Util.PathExists(currentToolkitDirectory + CONST.FILE_ARCHIVE_EXE_PATH))
             {
                 validToolkitDir = true;
                 SetToolkitLabelFound();
@@ -420,18 +446,6 @@ namespace Homeworld_ColorPicker
         {
             gameComboBox.Enabled = false;
             gameComboBox.Items.Clear();
-        }
-
-        // ACCESSORS
-        //----------------------------------------
-
-        /// <summary>
-        /// Gets a GameInstance populated with user's input from the form.
-        /// </summary>
-        /// <returns>The GameInstance specified by the user</returns>
-        public GameInstance GetInstance()
-        {
-            return gameInstance;
         }
     }
 }

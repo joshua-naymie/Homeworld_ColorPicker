@@ -14,7 +14,7 @@ namespace Homeworld_ColorPicker
     /// <summary>
     /// Global constants used throughout the program
     /// </summary>
-    public static class GC
+    public static class CONST
     {
         /// <summary>
         /// The number of player colors in <c>PLAYER.CFG</c>
@@ -161,8 +161,13 @@ namespace Homeworld_ColorPicker
         public static readonly
         string DIR_EXTRACTION_OUTPUT_PATH = DIR_DOCUMENTS_PATH + DIR_EXTRACTION_OUTPUT;
 
+        /// <summary>
+        /// A dictionary of all default badges used in Homeworld RM.
+        /// Key is the path to the default badge, ignores character case.
+        /// | eg: DATA:Badges/3ball.tga
+        /// </summary>
         public static readonly
-        Dictionary<string, Image> DEFAULT_BADGES_HWRM = new Dictionary<string, Image>()
+        Dictionary<string, Image> DEFAULT_BADGES_HWRM = new Dictionary<string, Image>(StringComparer.OrdinalIgnoreCase)
         {
             { "DATA:Badges/3ball.tga", new Paloma.TargaImage(Properties.Resources._3ball).Image },
             { "DATA:Badges/15_planet.tga", new Paloma.TargaImage(Properties.Resources._15_planet).Image },
@@ -223,22 +228,25 @@ namespace Homeworld_ColorPicker
             { "DATA:Badges/vaygr_yellow.tga", new Paloma.TargaImage(Properties.Resources.vaygr_yellow).Image }
         };
 
+        /// <summary>
+        /// The proper names for each level in Homeworld 2
+        /// </summary>
         public static readonly
-        string[] LEVEL_NAMES = { "Tanis",
-                                 "Angel Moon",
-                                 "Sarum",
-                                 "Gehenna Outskirts",
-                                 "Gehenna",
-                                 "Karos Graveyard",
-                                 "Progenitor Foundry",
-                                 "Dreadnaught Berth",
-                                 "Vaygr Assembly Point",
-                                 "Great Wastelands",
-                                 "Bentusi Ruins",
-                                 "Thaddis Sabbah",
-                                 "Balcora Gate",
-                                 "Balcora",
-                                 "Return to Hiigara" };
+        string[] LEVEL_NAMES_HW2 = { "Tanis",
+                                     "Angel Moon",
+                                     "Sarum",
+                                     "Gehenna Outskirts",
+                                     "Gehenna",
+                                     "Karos Graveyard",
+                                     "Progenitor Foundry",
+                                     "Dreadnaught Berth",
+                                     "Vaygr Assembly Point",
+                                     "Great Wastelands",
+                                     "Bentusi Ruins",
+                                     "Thaddis Sabbah",
+                                     "Balcora Gate",
+                                     "Balcora",
+                                     "Return to Hiigara" };
 
 
         private const
@@ -260,118 +268,130 @@ namespace Homeworld_ColorPicker
                TEAM_NAME_HIIGARAN_NAVY = "Hiigaran Navy";
 
 
+        /// <summary>
+        /// A dictionary of every Team in Homeworld 2.
+        /// Key is a Tuple(int, int) of the level number and team number.
+        /// </summary>
         public static readonly
         Dictionary<Tuple<int, int>, Team> DICT_HW2_LEVEL_TEAM_NAMES = new Dictionary<Tuple<int, int>, Team>()
         {
             // level 1
-            { new Tuple<int, int>(0,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(0,1), new Team(TeamId.DefenceStation, TEAM_NAME_DEFENCE_STATIONS) },
-            { new Tuple<int, int>(0,2), new Team(TeamId.DefenceFleet, TEAM_NAME_DEFENCE_FLEET) },
-            { new Tuple<int, int>(0,3), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(0,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(0,1), new Team(TeamType.DefenceStation, TEAM_NAME_DEFENCE_STATIONS) },
+            { new Tuple<int, int>(0,2), new Team(TeamType.DefenceFleet, TEAM_NAME_DEFENCE_FLEET) },
+            { new Tuple<int, int>(0,3), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
 
             // level  2
-            { new Tuple<int, int>(1,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(1,1), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(1,2), new Team(TeamId.Hiigaran, TEAM_NAME_CREW_TRANSPORTS) },
-            { new Tuple<int, int>(1,3), new Team(TeamId.Sobani, TEAM_NAME_FERIN_SHA) },
-            { new Tuple<int, int>(1,4), new Team(TeamId.TalornSoban, TEAM_NAME_TALORN_SOBAN) },
-            { new Tuple<int, int>(1,5), new Team(TeamId.HiigaranElite, TEAM_NAME_ELITE_HIIGARAN) },
+            { new Tuple<int, int>(1,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(1,1), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(1,2), new Team(TeamType.Hiigaran, TEAM_NAME_CREW_TRANSPORTS) },
+            { new Tuple<int, int>(1,3), new Team(TeamType.Sobani, TEAM_NAME_FERIN_SHA) },
+            { new Tuple<int, int>(1,4), new Team(TeamType.TalornSoban, TEAM_NAME_TALORN_SOBAN) },
+            { new Tuple<int, int>(1,5), new Team(TeamType.HiigaranElite, TEAM_NAME_ELITE_HIIGARAN) },
 
             // level 3
-            { new Tuple<int, int>(2,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(2,1), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(2,2), new Team(TeamId.Hiigaran, TEAM_NAME_SHIPYARD_NAABAL) },
-            { new Tuple<int, int>(2,3), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(2,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(2,1), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(2,2), new Team(TeamType.Hiigaran, TEAM_NAME_SHIPYARD_NAABAL) },
+            { new Tuple<int, int>(2,3), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
 
             // level 4
-            { new Tuple<int, int>(3,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(3,1), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(3,2), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(3,3), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(3,4), new Team(TeamId.Vaygr, TEAM_NAME_COMMAND_STATION) },
+            { new Tuple<int, int>(3,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(3,1), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(3,2), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(3,3), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(3,4), new Team(TeamType.Vaygr, TEAM_NAME_COMMAND_STATION) },
 
             // level 5
-            { new Tuple<int, int>(4,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(4,1), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(4,2), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(4,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(4,1), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(4,2), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
 
             // level 6
-            { new Tuple<int, int>(5,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(5,1), new Team(TeamId.Progenitor, TEAM_NAME_MOVERS) },
-            { new Tuple<int, int>(5,2), new Team(TeamId.Progenitor, TEAM_NAME_MOVERS) },
+            { new Tuple<int, int>(5,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(5,1), new Team(TeamType.Progenitor, TEAM_NAME_MOVERS) },
+            { new Tuple<int, int>(5,2), new Team(TeamType.Progenitor, TEAM_NAME_MOVERS) },
 
             // level 7
-            { new Tuple<int, int>(6,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(6,1), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(6,2), new Team(TeamId.Progenitor, TEAM_NAME_MOVERS) },
+            { new Tuple<int, int>(6,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(6,1), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(6,2), new Team(TeamType.Progenitor, TEAM_NAME_MOVERS) },
 
             // level  8
-            { new Tuple<int, int>(7,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(7,1), new Team(TeamId.Progenitor, TEAM_NAME_KEEPERS) },
+            { new Tuple<int, int>(7,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(7,1), new Team(TeamType.Progenitor, TEAM_NAME_KEEPERS) },
 
             // level 9
-            { new Tuple<int, int>(8,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(8,1), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(8,2), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(8,3), new Team(TeamId.VaygrElite, TEAM_NAME_VAYGR_ELITE) },
-            { new Tuple<int, int>(8,4), new Team(TeamId.TalornSoban, TEAM_NAME_TALORN_SOBAN) },
-            { new Tuple<int, int>(8,5), new Team(TeamId.Hiigaran, TEAM_NAME_SHIPYARD_NAABAL) },
+            { new Tuple<int, int>(8,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(8,1), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(8,2), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(8,3), new Team(TeamType.VaygrElite, TEAM_NAME_VAYGR_ELITE) },
+            { new Tuple<int, int>(8,4), new Team(TeamType.TalornSoban, TEAM_NAME_TALORN_SOBAN) },
+            { new Tuple<int, int>(8,5), new Team(TeamType.Hiigaran, TEAM_NAME_SHIPYARD_NAABAL) },
 
             // level 10
-            { new Tuple<int, int>(9,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(9,1), new Team(TeamId.Progenitor, TEAM_NAME_KEEPERS) },
-            { new Tuple<int, int>(9,2), new Team(TeamId.Bentusi, TEAM_NAME_BENTUSI) },
+            { new Tuple<int, int>(9,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(9,1), new Team(TeamType.Progenitor, TEAM_NAME_KEEPERS) },
+            { new Tuple<int, int>(9,2), new Team(TeamType.Bentusi, TEAM_NAME_BENTUSI) },
 
             // level 11
-            { new Tuple<int, int>(10,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(10,1), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(10,2), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(10,3), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(10,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(10,1), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(10,2), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(10,3), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
 
             // level 12
-            { new Tuple<int, int>(11,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(11,1), new Team(TeamId.VaygrElite, TEAM_NAME_VAYGR_ELITE) },
-            { new Tuple<int, int>(11,2), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(11,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(11,1), new Team(TeamType.VaygrElite, TEAM_NAME_VAYGR_ELITE) },
+            { new Tuple<int, int>(11,2), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
 
             // level 13
-            { new Tuple<int, int>(12,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(12,1), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(12,2), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(12,3), new Team(TeamId.VaygrElite, TEAM_NAME_VAYGR_ELITE) },
+            { new Tuple<int, int>(12,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(12,1), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(12,2), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(12,3), new Team(TeamType.VaygrElite, TEAM_NAME_VAYGR_ELITE) },
 
             // level 14
-            { new Tuple<int, int>(13,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(13,1), new Team(TeamId.VaygrElite, TEAM_NAME_MAKAAN) },
-            { new Tuple<int, int>(13,2), new Team(TeamId.VaygrElite, TEAM_NAME_MAKAAN) },
+            { new Tuple<int, int>(13,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(13,1), new Team(TeamType.VaygrElite, TEAM_NAME_MAKAAN) },
+            { new Tuple<int, int>(13,2), new Team(TeamType.VaygrElite, TEAM_NAME_MAKAAN) },
 
             // level 15
-            { new Tuple<int, int>(14,0), new Team(TeamId.Player, TEAM_NAME_PLAYER) },
-            { new Tuple<int, int>(14,1), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(14,2), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(14,3), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(14,4), new Team(TeamId.Vaygr, TEAM_NAME_VAYGR) },
-            { new Tuple<int, int>(14,5), new Team(TeamId.Hiigaran, TEAM_NAME_HIIGARAN_NAVY) },
+            { new Tuple<int, int>(14,0), new Team(TeamType.Player, TEAM_NAME_PLAYER) },
+            { new Tuple<int, int>(14,1), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(14,2), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(14,3), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(14,4), new Team(TeamType.Vaygr, TEAM_NAME_VAYGR) },
+            { new Tuple<int, int>(14,5), new Team(TeamType.Hiigaran, TEAM_NAME_HIIGARAN_NAVY) },
         };
 
-        public static readonly
-        Font CUSTOM_FONT;
 
-        static GC()
+        static CONST()
         {
-            CUSTOM_FONT = InitHomeworlFont();
+            CUSTOM_FONT = InitHomeworldFont();
         }
 
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        /// <summary>
+        /// The FontFamily for the custom font used throughout the GUI.
+        /// </summary>
+        public static readonly
+        FontFamily CUSTOM_FONT;
+
+        [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
 
-        private static Font InitHomeworlFont()
+        /// <summary>
+        /// Creates the FontFamily for the custom font used throughout the GUI.
+        /// </summary>
+        /// <returns>The custom font as a FontFamily</returns>
+        private static FontFamily InitHomeworldFont()
         {
             PrivateFontCollection fontCollection = new PrivateFontCollection();
 
-            //Select your font from the resources
+            // get custom font bytestream length
             int fontLength = Properties.Resources.Microgramma_Font.Length;
 
-            // create a buffer to read in to
+            // create a buffer to read in to 
             byte[] fontdata = Properties.Resources.Microgramma_Font;
 
             // create an unsafe memory block for the font data
@@ -386,9 +406,11 @@ namespace Homeworld_ColorPicker
             // pass the font to the font collection
             fontCollection.AddMemoryFont(data, fontLength);
 
+            // free unsafe memory block
             Marshal.FreeCoTaskMem(data);
 
-            return new Font(fontCollection.Families[0], 13);
+
+            return fontCollection.Families[0];
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Homeworld_ColorPicker
         {
             DirectoryInfo directory = new DirectoryInfo(path);
 
+            directory.Create();
             directory.EnumerateFiles().ToList().ForEach(file => file.Delete());
             directory.EnumerateDirectories().ToList().ForEach(d => d.Delete(true));
         }
@@ -67,6 +68,11 @@ namespace Homeworld_ColorPicker
             }
 
             return resizedImage;
+        }
+
+        public static void ResizeBoxImage(ref Controls.BadgeBox box)
+        {
+           box.Image = ResizeImage(box.Image, box.Width, box.Height);
         }
     }
 }

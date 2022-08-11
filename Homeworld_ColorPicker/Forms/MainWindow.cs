@@ -7,27 +7,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Homeworld_ColorPicker.Forms
 {
     using Objects;
     using Controls;
-    using System.Runtime.InteropServices;
-    using System.Drawing.Text;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Imaging;
-
+    
+    /// <summary>
+    /// The Main window of the application.  Runs the DirectoryDialog and, if necessary, the BigExtractor dialog before first show.
+    /// Program closes if either of these dialogs return DialogResult.Cancel. 
+    /// </summary>
     public partial class MainWindow : Form
     {
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
-
         private const
-        int NUMBER_OF_SWATCHES = 16;
+        int POS_START = 12,
+            SPACE_BETWEEN_SWATCHES = 56,
+            SWATCH_SIZE = 50;
 
+        /// <summary>
+        /// The current instance of the game to work on.
+        /// </summary>
         private
         GameInstance instance;
-
 
         /// <summary>
         /// The dialog used to set or change the directories for Homeworld root, Remastered Toolkit, and Profile.
@@ -35,16 +37,33 @@ namespace Homeworld_ColorPicker.Forms
         private
         DirectoryDialog directoryDialog;
 
+        /// <summary>
+        /// A form that allows the user to pick a custom colour.
+        /// </summary>
         private
         ColorDialog customColorDialog = new ColorDialog();
 
+        /// <summary>
+        /// A form that allows the user to pick a badge.
+        /// </summary>
         private
-        ColourBox currentColorBox;
+        BadgePickerDialog badgeDialog;
 
+        /// <summary>
+        /// The box showing the currently selected colour.
+        /// </summary>
         private
-        ColourBox[] colorSwatches = new ColourBox[GC.NUM_PLAYER_COLORS];
+        ColourBox currentColourBox;
 
-        PrivateFontCollection pfc = new PrivateFontCollection();
+        /// <summary>
+        /// A sorted array of all player colour swatches.
+        /// </summary>
+        private readonly
+        ColourBox[] colorSwatches = new ColourBox[CONST.NUM_PLAYER_COLORS];
+
+        // CONSTRUCTOR
+        //----------------------------------------
+        //--------------------
 
         /// <summary>
         /// Constructor for MainWindow.
@@ -52,6 +71,7 @@ namespace Homeworld_ColorPicker.Forms
         public MainWindow()
         {
             directoryDialog = new DirectoryDialog();
+            
 
             bool continueRunning = ShowDirectoryDialog(IO.ConfigManager.ReadConfig()) == DialogResult.OK;
 
@@ -61,6 +81,7 @@ namespace Homeworld_ColorPicker.Forms
                 continueRunning = extractionDialog.ShowDialog() == DialogResult.OK;
             }
 
+            // close before load if directory dialog canceled
             if (!continueRunning)
             {
                 Load += (s, e) => Close();
@@ -68,130 +89,120 @@ namespace Homeworld_ColorPicker.Forms
 
             //----------
 
-            InitCustomFont();
             InitializeComponent();
-            customColorButton.Font = GC.CUSTOM_FONT;//new Font(pfc.Families[0], 11);
-            //label1.Font = new Font(pfc.Families[0], label1.Font.Size);
-            //label1.Text = "HOMEWORLD 2";
 
             if (continueRunning)
             {
-                InitColorSwatches();
-                InitCurrentColor();
+                InitColourSwatches();
+                InitCurrentColour();
+                LoadProfileColours();
+
                 InitTabPages();
+
+                badgeDialog = new BadgePickerDialog(instance);
+                customColorButton.Font = new Font(CONST.CUSTOM_FONT, 11);
             }
-
-            Paloma.TargaImage t = new Paloma.TargaImage(@"G:\Documents\Homeworld ColorPicker\output.hwr2\badges\hiigaran.tga");
-            pictureBox1.BackColor = Color.Green;
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.Image = t.Image;// ResizeImage(t.Image, 100, 100);
-            System.Diagnostics.Debug.WriteLine(t.Image);
         }
 
-        private void InitCustomFont()
-        {
-            // Select your font from the resources
-            int fontLength = Properties.Resources.Microgramma_Font.Length;
-
-            // create a buffer to read in to
-            byte[] fontdata = Properties.Resources.Microgramma_Font;
-
-            // create an unsafe memory block for the font data
-            System.IntPtr data = Marshal.AllocCoTaskMem(fontLength);
-
-            // copy the bytes to the unsafe memory block
-            Marshal.Copy(fontdata, 0, data, fontLength);
-
-            uint cFonts = 0;
-            AddFontMemResourceEx(data, (uint)fontdata.Length, IntPtr.Zero, ref cFonts);
-
-            // pass the font to the font collection
-            pfc.AddMemoryFont(data, fontLength);
-
-            Marshal.FreeCoTaskMem(data);
-        }
+        // UI
+        //----------------------------------------
 
         /// <summary>
         /// Initializes all player color swatches.
         /// Gets and assigns player colors from <c>PLAYERCFG.LUA</c>.
         /// Adds Click events to all ColorBoxes.
         /// </summary>
-        private void InitColorSwatches()
+        private void InitColourSwatches()
         {
-            ColourBox colorSwatch1 = new ColourBox();
-            ColourBox colorSwatch2 = new ColourBox();
-            ColourBox colorSwatch3 = new ColourBox();
-            ColourBox colorSwatch4 = new ColourBox();
-            ColourBox colorSwatch5 = new ColourBox();
-            ColourBox colorSwatch6 = new ColourBox();
-            ColourBox colorSwatch7 = new ColourBox();
-            ColourBox colorSwatch8 = new ColourBox();
-            ColourBox colorSwatch9 = new ColourBox();
-            ColourBox colorSwatch10 = new ColourBox();
-            ColourBox colorSwatch11 = new ColourBox();
-            ColourBox colorSwatch12 = new ColourBox();
-            ColourBox colorSwatch13 = new ColourBox();
-            ColourBox colorSwatch14 = new ColourBox();
-            ColourBox colorSwatch15 = new ColourBox();
-            ColourBox colorSwatch16 = new ColourBox();
+            
+            int posX = POS_START;
 
-            HomeworldColour[] playerColors = IO.ColorReader.GetPlayerColors(instance.HomeworldRootDir + instance.ProfilePath);
-            int posX = 12;
-
-            for (int i=0; i<NUMBER_OF_SWATCHES; i++)
+            for (int i=0; i<CONST.NUM_PLAYER_COLORS; i++)
             {
-                colorSwatches[i] = new ColourBox(playerColors[i]);
+                colorSwatches[i] = new ColourBox();
                 InitSwatch(ref colorSwatches[i], posX);
                 colorPanel.Controls.Add(colorSwatches[i]);
 
-                posX += 56;
+                posX += SPACE_BETWEEN_SWATCHES;
             }
         }
 
+        //----------------------------------------
+
+        /// <summary>
+        /// Sets all ColourBox properties for a colour swatch
+        /// </summary>
+        /// <param name="box">The box to apply the properties too</param>
+        /// <param name="posX">The X position to assign the box</param>
         private void InitSwatch(ref ColourBox box, int posX)
         {
             box.BorderStyle = BorderStyle.Fixed3D;
-            box.Location = new System.Drawing.Point(posX, 12);
-            box.Name = "colorSwatch1";
-            box.Size = new System.Drawing.Size(50, 50);
-            box.TabIndex = 0;
+            box.Location = new Point(posX, POS_START);
+            box.Size = new Size(SWATCH_SIZE, SWATCH_SIZE);
             box.TabStop = false;
-            box.SetLeftClickAction(SetCurrentFromBox);
+            box.SetLeftClickAction(SetCurrentColour);
         }
 
+        //----------------------------------------
 
         /// <summary>
         /// Initializes the current color ColorBox.
         /// Sets the color to the first player color.
         /// </summary>
-        private void InitCurrentColor()
+        private void InitCurrentColour()
         {
-            currentColorBox = new ColourBox(colorSwatches[0].GetColor());
-            currentColorBox.BorderStyle = BorderStyle.Fixed3D;
-            currentColorBox.Location = new Point(12, 68);
-            currentColorBox.Name = "currentColorSwatch";
-            currentColorBox.Size = new Size(890, 50);
-            currentColorBox.TabIndex = 17;
-            currentColorBox.TabStop = false;
-            //SetCurrentColor(colorSwatches[0].GetColor());
-            colorPanel.Controls.Add(currentColorBox);
+            currentColourBox = new ColourBox();
+            currentColourBox.BorderStyle = BorderStyle.Fixed3D;
+            currentColourBox.Location = new Point(12, 68);
+            currentColourBox.Name = "currentColorSwatch";
+            currentColourBox.Size = new Size(890, 50);
+            currentColourBox.TabIndex = 17;
+            currentColourBox.TabStop = false;
+            colorPanel.Controls.Add(currentColourBox);
         }
 
+        //----------------------------------------
+
+        /// <summary>
+        /// Loads all the player colours from their PLAYER.CFG file.
+        /// </summary>
+        private void LoadProfileColours()
+        {
+            HomeworldColour[] playerColors = IO.ColorReader.GetPlayerColors(instance.HomeworldRootDir + instance.ProfilePath);
+
+            int i = 0;
+            foreach(var color in playerColors)
+            {
+                colorSwatches[i++].SetColor(color);
+            }
+
+            currentColourBox.SetColor(playerColors[0]);
+        }
+
+        //----------------------------------------
+
+        /// <summary>
+        /// Creates a tab page for each level in the HW2 Remastered game.
+        /// </summary>
         private void InitTabPages()
         {
             int levelNum = 0;
-            foreach(string level in GC.HW2_TEAMCOLOR_PATHS)
+            foreach(string level in CONST.HW2_TEAMCOLOR_PATHS)
             {
-                string path = GC.DIR_HW2_RM_DATA_PATH + level + GC.FILE_TEAMCOLOUR_LUA;
+                string path = CONST.DIR_HW2_RM_DATA_PATH + level + CONST.FILE_TEAMCOLOUR_LUA;
                 TeamColour[] testLevel = IO.TeamColourReader.ReadTeamColourLua(path);
 
                 Services.LevelTabGenerator tabGenerator = new Services.LevelTabGenerator();
-                tabGenerator.SetColourActions(SetBoxFromCurrent, SetCurrentFromBox, null);
+                tabGenerator.SetColourActions(GetCurrentColour, SetCurrentColour, null);
+                tabGenerator.SetBadgeActions(SetBadge, null, null);
 
                 TabPage page = tabGenerator.GenerateTabPage(testLevel, levelNum++);
                 levelTabControl.Controls.Add(page);
             }
         }
+
+        // EVENTS
+        //----------------------------------------
 
         /// <summary>
         /// Opens a ColorDialog for the user to set a custom color.
@@ -201,26 +212,61 @@ namespace Homeworld_ColorPicker.Forms
         /// <param name="e">The mouse event arguments</param>
         private void SetCustomColor(object sender, MouseEventArgs e)
         {
-            customColorDialog.Color = currentColorBox.BackColor;
+            customColorDialog.Color = currentColourBox.BackColor;
             customColorDialog.FullOpen = true;
 
             if(customColorDialog.ShowDialog() == DialogResult.OK)
             {
-                SetCurrentColor(new HomeworldColour(customColorDialog.Color));
+                currentColourBox.SetColor(new HomeworldColour(customColorDialog.Color));
             }
         }
 
-        private void SetCurrentFromBox(ColourBox swatch)
+        //----------------------------------------
+
+        /// <summary>
+        /// Sets the current colour from another ColourBox
+        /// </summary>
+        /// <param name="box">The ColourBox to copy the colour from</param>
+        private void SetCurrentColour(ColourBox box)
         {
-            SetCurrentColor(swatch.GetColor());
-            System.Diagnostics.Debug.WriteLine(swatch);
+            currentColourBox.SetColor(box.GetColor());
         }
 
-        private void SetCurrentColor(HomeworldColour color)
+        //----------------------------------------
+
+        /// <summary>
+        /// Sets a ColourBox to the current colour
+        /// </summary>
+        /// <param name="box">The ColourBox you want to set</param>
+        private void GetCurrentColour(ColourBox box)
         {
-            currentColorBox.SetColor(color);
+            box.SetColor(currentColourBox.GetColor());
         }
 
+        //----------------------------------------
+
+        /// <summary>
+        /// Sets the selected badge on the BadgeDialog form then shows the dialog.
+        /// </summary>
+        /// <param name="box">The BadgeBox used to set the selected badge</param>
+        private void SetBadge(BadgeBox box)
+        {
+            badgeDialog.SetSelectedBadge(box.Path);
+            if(badgeDialog.ShowDialog() == DialogResult.OK)
+            {
+                box.SetImage(badgeDialog.ImagePath);
+            }
+        }
+
+        // DIALOGS
+        //----------------------------------------
+
+        /// <summary>
+        /// Shows the DirectoryDialog.
+        /// If result is OK, creates a new game instance from the provided directories.
+        /// </summary>
+        /// <param name="rootDirectories">The current root directories being used</param>
+        /// <returns>The DialogResult returned by the DirectoryDialog</returns>
         private DialogResult ShowDirectoryDialog(RootDirectoryData rootDirectories)
         {
             directoryDialog.SetRootDirectories(rootDirectories);
@@ -228,16 +274,11 @@ namespace Homeworld_ColorPicker.Forms
             DialogResult result = directoryDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                instance = directoryDialog.GetInstance();
+                instance = directoryDialog.GameInstance;
+                badgeDialog = new BadgePickerDialog(instance);
             }
 
             return result;
-        }
-
-        private void SetBoxFromCurrent(ColourBox box)
-        {
-            box.SetColor(currentColorBox.GetColor());
-            System.Diagnostics.Debug.WriteLine(box);
         }
     }
 }

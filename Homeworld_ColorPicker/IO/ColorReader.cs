@@ -35,7 +35,7 @@ namespace Homeworld_ColorPicker.IO
         /// <returns>The 16 player colors</returns>
         public static HomeworldColour[] GetPlayerColors(string profilePath)
         {
-            string file = System.IO.File.ReadAllText(profilePath + GC.FILE_PLAYERCFG_LUA);
+            string file = System.IO.File.ReadAllText(profilePath + CONST.FILE_PLAYERCFG_LUA);
 
             int startIndex = file.IndexOf(COLOR_SWATCHES_START) + COLOR_SWATCHES_START.Length;
 
@@ -53,12 +53,12 @@ namespace Homeworld_ColorPicker.IO
         /// <returns>An array of all 16 player colors as HomeworldColors</returns>
         private static HomeworldColour[] ReadSwatches(string file, int startIndex)
         {
-            HomeworldColour[] colors = new HomeworldColour[GC.NUM_PLAYER_COLORS];
+            HomeworldColour[] colors = new HomeworldColour[CONST.NUM_PLAYER_COLORS];
 
             int nextIndex;
             string currentColor;
 
-            for(int i=0; i<GC.NUM_PLAYER_COLORS; i++)
+            for(int i=0; i<CONST.NUM_PLAYER_COLORS; i++)
             {
                 nextIndex = file.IndexOf(COLOR_SWATCH_END, startIndex);
                 //System.Diagnostics.Debug.WriteLine("l: " + file.Length + " | si: " + startIndex + " | ni: " + nextIndex);// + "\n");

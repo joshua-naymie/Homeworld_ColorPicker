@@ -10,21 +10,35 @@ namespace Homeworld_ColorPicker.Controls
     /// Base class for PictureBox control.
     /// Manages mouse event actions and the PictureBox.
     /// </summary>
-    /// <typeparam name="T">The child class to be passed on mouse events</typeparam>
+    /// <typeparam name="T">The child class to be passed on mouse events.</typeparam>
     public abstract class ClickableBox<T> : PictureBox
     {
+        /// <summary>
+        /// The action that will be invoked when a left click event is triggered.
+        /// Can be null, will not be invoked.
+        /// </summary>
         protected
-        Action<T>? leftClickAction,
-                   rightClickAction,
-                   middleClickAction;
+        Action<T>? leftClickAction;
+
+        /// <summary>
+        /// The action that will be invoked when a right click event is triggered.
+        /// Can be null, will not be invoked.
+        /// </summary>
+        protected
+        Action<T>? rightClickAction;
+
+        /// <summary>
+        /// The action that will be invoked when a middle click event is triggered.
+        /// Can be null, will not be invoked.
+        /// </summary>
+        protected
+        Action<T>? middleClickAction;
 
         //----------------------------------------
 
         /// <summary>
-        /// Constructor for ClickableBox base class.
-        /// Must include the PictureBox to be controlled
+        /// Constructor for Clickable Box.
         /// </summary>
-        /// <param name="box">The picture box to be controlled</param>
         public ClickableBox()
         {
             this.Click += BoxClicked;
@@ -34,9 +48,9 @@ namespace Homeworld_ColorPicker.Controls
         //----------------------------------------
 
         /// <summary>
-        /// Sets the method called when the left mouse click is detected
+        /// Sets the action taken when a left click even is triggered.
         /// </summary>
-        /// <param name="action">The method to call</param>
+        /// <param name="action">The action taken when a left click even is triggered.</param>
         public void SetLeftClickAction(Action<T>? action)
         {
             leftClickAction = action;
@@ -45,9 +59,9 @@ namespace Homeworld_ColorPicker.Controls
         //--------------------
 
         /// <summary>
-        /// Sets the method called when the right mouse click is detected
+        /// Sets the action taken when a right click even is triggered.
         /// </summary>
-        /// <param name="action">The method to call</param>
+        /// <param name="action">The action taken when a right click even is triggered.</param>v
         public void SetRightClickAction(Action<T>? action)
         {
             rightClickAction = action;
@@ -56,9 +70,9 @@ namespace Homeworld_ColorPicker.Controls
         //--------------------
 
         /// <summary>
-        /// Sets the method called when the middle mouse click is detected
+        /// Sets the action taken when a middle click even is triggered.
         /// </summary>
-        /// <param name="action">The method to call</param>
+        /// <param name="action">The action taken when a middle click even is triggered.</param>
         public void SetMiddleClickAction(Action<T>? action)
         {
             middleClickAction = action;

@@ -62,6 +62,9 @@ namespace Homeworld_ColorPicker.Forms
                TEXT_PROGRAM_EXIT = "Program will now exit.\r\n",
                TEXT_DONE_TO_PROCEED = "Click 'Done' to proceed.";
 
+        /// <summary>
+        /// Dictionary of the Remastered campaign .big filenames depending on the Remastered game being extracted.
+        /// </summary>
         private static readonly
         Dictionary<RemasteredGame, string> DICT_REMASTERED_BIG_FILE_NAMES = new Dictionary<RemasteredGame, string>
         { 
@@ -69,6 +72,9 @@ namespace Homeworld_ColorPicker.Forms
             { RemasteredGame.HW1, "HW1Campaign.big" }
         };
 
+        /// <summary>
+        /// Dictionary of the estimated disk usage depending on the Remastered game being extracted.
+        /// </summary>
         private static readonly
         Dictionary<RemasteredGame, string> DICT_REMASTERED_BIG_FILE_SIZES = new Dictionary<RemasteredGame, string>
         {
@@ -145,11 +151,18 @@ namespace Homeworld_ColorPicker.Forms
         /// <param name="e">The FormClosing event args</param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine(currentState);
             if(e.CloseReason != CloseReason.WindowsShutDown
             && currentState != ExtractorSate.Done
+            && currentState != ExtractorSate.ExtractionFailed
             && !ShowExitConfirmationDialog(TEXT_CANCEL_EXTRACTING_MESSAGE, TEXT_CANCEL_EXTRACTING_TITLE))
             {
                 e.Cancel = true;
+            }
+            else
+            {
+                Cleanup();
+                
             }
 
             base.OnFormClosing(e);
@@ -216,7 +229,7 @@ namespace Homeworld_ColorPicker.Forms
         /// <param name="e">The event arguments</param>
         private void ShowInfoDialog(object? sender, EventArgs e)
         {
-            MessageBox.Show(TEXT_INFO_DIALOG_MESSAGE, TEXT_INFO_DIALOG_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show(TEXT_INFO_DIALOG_MESSAGE, TEXT_INFO_DIALOG_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         //----------------------------------------
@@ -227,14 +240,11 @@ namespace Homeworld_ColorPicker.Forms
         /// </summary>
         /// <param name="sender">The object that triggered the event</param>
         /// <param name="e">The event arguments</param>
-        private void Cleanup(object? sender, FormClosingEventArgs e)
+        private void FormCloseEvent(object? sender, FormClosingEventArgs e)
         {
-            if (extractor.HasStarted)
-            {
-                extractor.KillProcess();
-                IO.ExtractedDataManager.ClearOutputDir();
-            }
+            Cleanup();
         }
+
 
         // EXTRACTION PIPELINE
         //----------------------------------------
@@ -254,9 +264,9 @@ namespace Homeworld_ColorPicker.Forms
 
             //----------
 
-            Task t = new Task(extractor.ExtractBigFile);
-            t.ContinueWith(ExtractionThreadEnded);
-            t.Start();
+            Task extractionTask = new Task(extractor.ExtractBigFile);
+            extractionTask.ContinueWith(ExtractionThreadEnded);
+            extractionTask.Start();
         }
 
         //----------------------------------------
@@ -281,43 +291,71 @@ namespace Homeworld_ColorPicker.Forms
         /// </summary>
         private void ExtractionFinished()
         {
-            currentState = ExtractorSate.ExtractionFinished;
-            cancelButton.Enabled = false;
-
-            AppendOutput(TEXT_EXTRACTION_COMPLETE);
-
-            deleteFilesCheckBox.Enabled = false;
-            if (deleteFilesCheckBox.Checked)
+            if(currentState == ExtractorSate.ExtractionInProgress)
             {
-                AppendOutput(TEXT_MOVE_REQUIRED_FILES);
-                IO.ExtractedDataManager.MoveRequiredFiles(instance);
+                currentState = ExtractorSate.ExtractionFinished;
+                cancelButton.Enabled = false;
+
+                AppendOutput(TEXT_EXTRACTION_COMPLETE);
+
+                deleteFilesCheckBox.Enabled = false;
+                if (deleteFilesCheckBox.Checked)
+                {
+                    AppendOutput(TEXT_MOVE_REQUIRED_FILES);
+                    IO.ExtractedDataManager.MoveRequiredFiles(instance);
+                }
+                else
+                {
+                    AppendOutput(TEXT_MOVE_ALL_FILES);
+                    IO.ExtractedDataManager.MoveAllFiles(instance);
+                }
+
+                AppendOutput(TEXT_CLEARING_OUTPUT_DIR);
+                IO.ExtractedDataManager.ClearOutputDir();
+
+                AppendOutput(TEXT_VERIFY_REQUIRED_FILES);
+                if (IO.ExtractedDataManager.VerifyRequiredFiles(instance))
+                {
+                    currentState = ExtractorSate.Done;
+                    AppendOutput(TEXT_ALL_FINISHED);
+                    AppendOutput(TEXT_DONE_TO_PROCEED);
+                }
+                else
+                {
+                    currentState = ExtractorSate.ExtractionFailed;
+                    AppendOutput(TEXT_VERIFICATION_FAILED);
+                    AppendOutput(TEXT_PROGRAM_EXIT);
+                    AppendOutput(TEXT_DONE_TO_PROCEED);
+                }
+
+                startDoneButton.Enabled = true;
+                startDoneButton.Text = TEXT_DONE;
             }
-            else
+            else if (currentState == ExtractorSate.ExtractionFailed)
             {
-                AppendOutput(TEXT_MOVE_ALL_FILES);
-                IO.ExtractedDataManager.MoveAllFiles(instance);
-            }
-
-            AppendOutput(TEXT_CLEARING_OUTPUT_DIR);
-            IO.ExtractedDataManager.ClearOutputDir();
-
-            AppendOutput(TEXT_VERIFY_REQUIRED_FILES);
-            if(IO.ExtractedDataManager.VerifyRequiredFiles(instance))
-            {
-                currentState = ExtractorSate.Done;
-                AppendOutput(TEXT_ALL_FINISHED);
-                AppendOutput(TEXT_DONE_TO_PROCEED);
-            }
-            else
-            {
-                currentState = ExtractorSate.ExtractionFailed;
-                AppendOutput(TEXT_VERIFICATION_FAILED);
                 AppendOutput(TEXT_PROGRAM_EXIT);
                 AppendOutput(TEXT_DONE_TO_PROCEED);
+
+                startDoneButton.Enabled = true;
+                startDoneButton.Text = TEXT_DONE;
+            }
+            
+        }
+
+        //----------------------------------------
+
+        /// <summary>
+        /// Kills the Archive.exe process if it has been started.
+        /// Clears the output directory.
+        /// </summary>
+        private void Cleanup()
+        {
+            if (extractor.HasStarted)
+            {
+                extractor.KillProcess();
             }
 
-            startDoneButton.Enabled = true;
-            startDoneButton.Text = TEXT_DONE;
+            IO.ExtractedDataManager.ClearOutputDir();
         }
 
         // CHECK BIG FILES
@@ -354,10 +392,10 @@ namespace Homeworld_ColorPicker.Forms
             switch(instance.RemasteredGame)
             {
                 case RemasteredGame.HW2:
-                    return Util.PathExists(instance.HomeworldRootDir + GC.FILE_HW2_RM_BIG);
+                    return Util.PathExists(instance.HomeworldRootDir + CONST.FILE_HW2_RM_BIG);
 
                 case RemasteredGame.HW1:
-                    return Util.PathExists(instance.HomeworldRootDir + GC.FILE_HW1_RM_BIG);
+                    return Util.PathExists(instance.HomeworldRootDir + CONST.FILE_HW1_RM_BIG);
 
                 default:
                     throw new Exceptions.InvalidRemasteredGameException("Cannot find big file for remastered game: " + instance.RemasteredGame);
@@ -375,7 +413,7 @@ namespace Homeworld_ColorPicker.Forms
         {
             string bigFileName,
                    extractedFileSize,
-                   documentsDriveLetter = Path.GetPathRoot(GC.DIR_DOCUMENTS_PATH).Substring(0, 2);
+                   documentsDriveLetter = Path.GetPathRoot(CONST.DIR_DOCUMENTS_PATH).Substring(0, 2);
 
             if (!DICT_REMASTERED_BIG_FILE_NAMES.TryGetValue(instance.RemasteredGame, out bigFileName))
             {
@@ -418,6 +456,10 @@ namespace Homeworld_ColorPicker.Forms
         /// </summary>
         private void ConfirmCancelExtraction()
         {
+            //extractor.SuspendExtraction();
+
+            //this.Close();
+
             extractor.SuspendExtraction();
 
             if (ShowExitConfirmationDialog(TEXT_CANCEL_EXTRACTING_MESSAGE, TEXT_CANCEL_EXTRACTING_TITLE))
@@ -425,7 +467,9 @@ namespace Homeworld_ColorPicker.Forms
                 extractor.CancelExtraction();
                 IO.ExtractedDataManager.ClearOutputDir();
 
-                this.DialogResult = DialogResult.Cancel;
+                currentState = ExtractorSate.ExtractionFailed;
+
+                //this.DialogResult = DialogResult.Cancel;
             }
             else
             {

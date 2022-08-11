@@ -10,81 +10,146 @@ namespace Homeworld_ColorPicker.Controls
     public class TeamPanel : Panel
     {
         private const
-        int BOX_SIZE = 100;
+        int BOX_SIZE = 100,
+            BASE_INDEX = 0,
+            STRIPE_INDEX = 1,
+            TRAIL_INDEX = 2,
+            LABEL_FONT_SIZE = 13,
+
+            START_POS_X = 240,
+            START_POS_Y = 15,
+
+            PANEL_PADDING = 15,
+            PANEL_WIDTH = 985,
+            PANEL_HEIGHT = 130,
+
+            LABEL_POS_Y = 50,
+            LABEL_SPACING = 6,
+
+            BOX_SPACING = 150;
 
         private const
         string TEXT_RESET_BUTTON = "Reset";
 
+        /// <summary>
+        /// The custom font used on the label
+        /// </summary>
+        private static readonly
+        Font LABEL_FONT;
+
+        /// <summary>
+        /// The teamdata associated with this team
+        /// </summary>
         private
         Team team;
 
-        private
-        TeamColour teamColours;
-
+        /// <summary>
+        /// The BadgeBox representing the team's badge
+        /// </summary>
         private
         BadgeBox badge;
 
+        /// <summary>
+        /// The ColourBox representing the team's base colour.
+        /// </summary>
         private
-        ColourBox baseColourBox,
-                  stripeColourBox,
-                  trailColourBox;
+        ColourBox baseColourBox;
 
+        /// <summary>
+        /// The ColourBox representing the team's stripe colour.
+        /// </summary>
+        private
+        ColourBox stripeColourBox;
 
+        /// <summary>
+        /// The ColourBox representing the team's trail colour.
+        /// </summary>
+        private
+        ColourBox trailColourBox;
 
+        /// <summary>
+        /// An array of the 3 ColourBoxes representing the teams Base, Stripe and Trail colours in that order.
+        /// </summary>
+        private
+        ColourBox[] colourBoxes = new ColourBox[3];
+
+        /// <summary>
+        /// Static Constructor for TeamPanel.
+        /// Initializes the custom label font.
+        /// </summary>
+        static TeamPanel()
+        {
+            LABEL_FONT = new Font(CONST.CUSTOM_FONT, LABEL_FONT_SIZE);
+        }
+
+        /// <summary>
+        /// Constructor for TeamPanel.
+        /// </summary>
+        /// <param name="team">The team attributes for the team</param>
+        /// <param name="teamColours">The team colours for the team</param>
         public TeamPanel(Team team, TeamColour teamColours)
         {
             this.team = team;
-            this.teamColours = teamColours;
 
-            InitComponents();
+            InitComponents(teamColours);
         }
 
-        private void InitComponents()
+        /// <summary>
+        /// Initializes all sub controls for the panel.
+        /// </summary>
+        /// <param name="teamColours">The teamcolours to be assigned to the ClickableBoxes.</param>
+        private void InitComponents(TeamColour teamColours)
         {
-            int startX = 240,
-                posY = 15;
+            int startX = START_POS_X,
+                posY = START_POS_Y;
 
-            this.Padding = new Padding(0, 15, 0, 15);
-            this.Width = 985;
-            this.Height = 130;
-            //this.BorderStyle = BorderStyle.Fixed3D;
+            this.Padding = new Padding(0, PANEL_PADDING, 0, PANEL_PADDING);
+            this.Width = PANEL_WIDTH;
+            this.Height = PANEL_HEIGHT;
 
+            // LABEL
             Label teamName = new Label();
-            teamName.Text = $"{team.Name}:";
-            teamName.Font = GC.CUSTOM_FONT;
-            //teamName.BorderStyle = BorderStyle.FixedSingle;
+            teamName.Text = $"{team.Name}:";    
+            teamName.Font = LABEL_FONT;
             teamName.Size = Util.GetLabelSize(teamName);
-            teamName.Location = new Point(startX - teamName.Width - 6, 50);
+            teamName.Location = new Point(startX - teamName.Width - LABEL_SPACING, LABEL_POS_Y);
 
-            badge = new BadgeBox(teamColours.GetBadgePath());
+            // BADGE
+            badge = new BadgeBox(teamColours.BadgePath);
             badge.Size = new Size(BOX_SIZE, BOX_SIZE);
             badge.BorderStyle = BorderStyle.Fixed3D;
             badge.Location = new Point(startX, posY);
-            //badge.SetLeftClickAction();
+            badge.SetImage(teamColours.BadgePath);
 
-            startX += 150;
+            startX += BOX_SPACING;
 
-            baseColourBox = new ColourBox(teamColours.GetBaseColor());
-            SetPictureBoxProperties(ref baseColourBox, startX, posY);
+            // BASE
+            baseColourBox = new ColourBox(teamColours.BaseColour);
+            SetColourBoxProperties(baseColourBox, startX, posY);
 
-            startX += 150;
+            startX += BOX_SPACING;
 
-            stripeColourBox = new ColourBox(teamColours.GetStripeColor());
-            SetPictureBoxProperties(ref stripeColourBox, startX, posY);
+            // STRIPE
+            stripeColourBox = new ColourBox(teamColours.StripeColour);
+            SetColourBoxProperties(stripeColourBox, startX, posY);
 
-            startX += 150;
+            startX += BOX_SPACING;
 
-            trailColourBox = new ColourBox(teamColours.GetTrailColor());
-            SetPictureBoxProperties(ref trailColourBox, startX, posY);
+            // TRAIL
+            trailColourBox = new ColourBox(teamColours.TrailColour);
+            SetColourBoxProperties(trailColourBox, startX, posY);
 
-            startX += 150;
+            startX += BOX_SPACING;
 
+            // RESET
             Button resetButton = new Button();
             resetButton.Location = new Point(startX, posY);
             resetButton.Size = new Size(BOX_SIZE, BOX_SIZE);
             resetButton.Text = TEXT_RESET_BUTTON;
             resetButton.BackColor = Color.Transparent;
-            resetButton.Font = GC.CUSTOM_FONT;
+            resetButton.Font = LABEL_FONT;
+
+            //----------
 
             this.Controls.Add(teamName);
             this.Controls.Add(badge);
@@ -92,30 +157,51 @@ namespace Homeworld_ColorPicker.Controls
             this.Controls.Add(stripeColourBox);
             this.Controls.Add(trailColourBox);
             this.Controls.Add(resetButton);
+
+            colourBoxes[BASE_INDEX] = baseColourBox;
+            colourBoxes[STRIPE_INDEX] = stripeColourBox;
+            colourBoxes[TRAIL_INDEX] = trailColourBox;
+
         }
 
-        private void SetPictureBoxProperties(ref ColourBox box, int posX, int posY)
+        /// <summary>
+        /// Sets all properties of a ColourBox.
+        /// </summary>
+        /// <param name="box">The ColourBox to assign properties to.</param>
+        /// <param name="posX">The X position of the ColourBox.</param>
+        /// <param name="posY">The Y position of the ColourBox.</param>
+        private void SetColourBoxProperties(ColourBox box, int posX, int posY)
         {
             box.Size = new Size(BOX_SIZE, BOX_SIZE);
             box.BorderStyle = BorderStyle.Fixed3D;
             box.Location = new Point(posX, posY);
         }
 
+        /// <summary>
+        /// Sets all click actions for every ColourBox in the TeamPanel.
+        /// Actions can be null and will not be invoked.
+        /// </summary>
+        /// <param name="leftClick">The action taken when a ColourBox is left clicked.</param>
+        /// <param name="rightClick">The action taken when a ColourBox is right clicked.</param>
+        /// <param name="middleClick">The action taken when a ColourBox is middle clicked.</param>
         public void SetColourBoxActions(Action<ColourBox>? leftClick, Action<ColourBox>? rightClick, Action<ColourBox>? middleClick)
         {
-            baseColourBox.SetLeftClickAction(leftClick);
-            baseColourBox.SetRightClickAction(rightClick);
-            baseColourBox.SetMiddleClickAction(middleClick);
 
-            stripeColourBox.SetLeftClickAction(leftClick);
-            stripeColourBox.SetRightClickAction(rightClick);
-            stripeColourBox.SetMiddleClickAction(middleClick);
-
-            trailColourBox.SetLeftClickAction(leftClick);
-            trailColourBox.SetRightClickAction(rightClick);
-            trailColourBox.SetMiddleClickAction(middleClick);
+            foreach (ColourBox box in colourBoxes)
+            {
+                box.SetLeftClickAction(leftClick);
+                box.SetRightClickAction(rightClick);
+                box.SetMiddleClickAction(middleClick);
+            }
         }
 
+        /// <summary>
+        /// Sets all click actions for every BadgeBox in the TeamPanel.
+        /// Actions can be null and will not be invoked.
+        /// </summary>
+        /// <param name="leftClick">The action taken when a BadgeBox is left clicked.</param>
+        /// <param name="rightClick">The action taken when a BadgeBox is right clicked.</param>
+        /// <param name="middleClick">The action taken when a BadgeBox is middle clicked.</param>
         public void SetBadgeBoxActions(Action<BadgeBox>? leftClick, Action<BadgeBox>? rightClick, Action<BadgeBox>? middleClick)
         {
             badge.SetLeftClickAction(leftClick);

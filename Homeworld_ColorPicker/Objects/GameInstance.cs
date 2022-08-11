@@ -11,36 +11,37 @@ namespace Homeworld_ColorPicker.Objects
     /// </summary>
     public class GameInstance
     {
+        // PROPERTIES
+        //----------------------------------------
+
         /// <summary>
         /// The version of homeworld for this instance (HW1/HW2/HWR).
         /// Currently only HWR is supported.
         /// </summary>
-        public
-        HomeworldVersion Version { get; }
+        public HomeworldVersion Version { get; }
 
         /// <summary>
         /// The remastered game of Homeworld for this instance (HW1/HW2)
         /// </summary>
-        public
-        RemasteredGame RemasteredGame { get; }
+        public  RemasteredGame RemasteredGame { get; }
 
         /// <summary>
         /// The root directory of the Homeworld instance.
         /// </summary>
-        public
-        string HomeworldRootDir { get; }
+        public string HomeworldRootDir { get; }
 
         /// <summary>
         /// The root directory of the Remastered Toolkit.
         /// </summary>
-        public
-        string ToolkitRootDir { get; }
+        public  string ToolkitRootDir { get; }
 
         /// <summary>
         /// The path to the profile directory from the Homeworld root directory.
         /// </summary>
-        public
-        string ProfilePath { get; }
+        public string ProfilePath { get; }
+
+        // CONSTRUCTOR
+        //----------------------------------------
 
         /// <summary>
         /// Constructor for GameInstance.

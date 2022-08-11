@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.customColorButton = new System.Windows.Forms.Button();
             this.globalTabPage = new System.Windows.Forms.TabPage();
             this.button7 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -64,7 +63,14 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.levelTabControl = new System.Windows.Forms.TabControl();
+            this.customColorButton = new System.Windows.Forms.Button();
             this.colorPanel = new System.Windows.Forms.Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.switchGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.globalTabPage.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
@@ -85,18 +91,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.levelTabControl.SuspendLayout();
             this.colorPanel.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // customColorButton
-            // 
-            this.customColorButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.customColorButton.Location = new System.Drawing.Point(908, 12);
-            this.customColorButton.Name = "customColorButton";
-            this.customColorButton.Size = new System.Drawing.Size(97, 106);
-            this.customColorButton.TabIndex = 16;
-            this.customColorButton.Text = "Custom Colour";
-            this.customColorButton.UseVisualStyleBackColor = true;
-            this.customColorButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SetCustomColor);
             // 
             // globalTabPage
             // 
@@ -111,7 +107,7 @@
             this.globalTabPage.Location = new System.Drawing.Point(4, 26);
             this.globalTabPage.Name = "globalTabPage";
             this.globalTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.globalTabPage.Size = new System.Drawing.Size(985, 603);
+            this.globalTabPage.Size = new System.Drawing.Size(1009, 585);
             this.globalTabPage.TabIndex = 0;
             this.globalTabPage.Text = "Global";
             this.globalTabPage.UseVisualStyleBackColor = true;
@@ -205,9 +201,10 @@
             this.panel1.Controls.Add(this.pictureBox4);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(0, 59);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(985, 544);
+            this.panel1.Size = new System.Drawing.Size(1003, 579);
             this.panel1.TabIndex = 0;
             // 
             // button6
@@ -460,31 +457,93 @@
             // levelTabControl
             // 
             this.levelTabControl.Controls.Add(this.globalTabPage);
+            this.levelTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.levelTabControl.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.levelTabControl.Location = new System.Drawing.Point(12, 146);
+            this.levelTabControl.Location = new System.Drawing.Point(0, 142);
             this.levelTabControl.Name = "levelTabControl";
             this.levelTabControl.SelectedIndex = 0;
-            this.levelTabControl.Size = new System.Drawing.Size(993, 633);
+            this.levelTabControl.Size = new System.Drawing.Size(1017, 615);
             this.levelTabControl.TabIndex = 18;
+            // 
+            // customColorButton
+            // 
+            this.customColorButton.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.customColorButton.Location = new System.Drawing.Point(908, 12);
+            this.customColorButton.Name = "customColorButton";
+            this.customColorButton.Size = new System.Drawing.Size(97, 106);
+            this.customColorButton.TabIndex = 16;
+            this.customColorButton.Text = "Custom Colour";
+            this.customColorButton.UseVisualStyleBackColor = true;
+            this.customColorButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SetCustomColor);
             // 
             // colorPanel
             // 
             this.colorPanel.Controls.Add(this.customColorButton);
             this.colorPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.colorPanel.Location = new System.Drawing.Point(0, 0);
+            this.colorPanel.Location = new System.Drawing.Point(0, 24);
             this.colorPanel.Name = "colorPanel";
             this.colorPanel.Size = new System.Drawing.Size(1017, 118);
             this.colorPanel.TabIndex = 19;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.loadToolStripMenuItem,
+            this.switchGameToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1017, 24);
+            this.menuStrip1.TabIndex = 20;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.saveToolStripMenuItem.Text = "Save";
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.resetToolStripMenuItem});
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.loadToolStripMenuItem.Text = "Load";
+            // 
+            // switchGameToolStripMenuItem
+            // 
+            this.switchGameToolStripMenuItem.Name = "switchGameToolStripMenuItem";
+            this.switchGameToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.switchGameToolStripMenuItem.Text = "Switch Game";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Text = "Reset";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1017, 791);
-            this.Controls.Add(this.colorPanel);
+            this.ClientSize = new System.Drawing.Size(1017, 757);
             this.Controls.Add(this.levelTabControl);
+            this.Controls.Add(this.colorPanel);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(1033, 3000);
+            this.MinimumSize = new System.Drawing.Size(1033, 510);
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Homeworld ColorPicker";
@@ -510,15 +569,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.levelTabControl.ResumeLayout(false);
             this.colorPanel.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private Button customColorButton;
         private TabPage globalTabPage;
         private TabControl levelTabControl;
-        private Panel colorPanel;
         private Panel panel1;
         private Label label1;
         private Button button7;
@@ -551,5 +611,13 @@
         private PictureBox pictureBox4;
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
+        private Button customColorButton;
+        private Panel colorPanel;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem saveToolStripMenuItem;
+        private ToolStripMenuItem loadToolStripMenuItem;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private ToolStripMenuItem resetToolStripMenuItem;
+        private ToolStripMenuItem switchGameToolStripMenuItem;
     }
 }

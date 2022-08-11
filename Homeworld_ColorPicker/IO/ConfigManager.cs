@@ -20,7 +20,7 @@ namespace Homeworld_ColorPicker.IO
                KEY_TOOLKIT = "TOOLKIT";
 
         private static readonly
-        string FILE_CONFIG_PATH = GC.DIR_DOCUMENTS_PATH + FILE_CONFIG;
+        string FILE_CONFIG_PATH = CONST.DIR_DOCUMENTS_PATH + FILE_CONFIG;
 
         /// <summary>
         /// Reads the previous Homeworld and Remastered Toolkit root directories from the config file.
@@ -31,7 +31,12 @@ namespace Homeworld_ColorPicker.IO
             string? homeworldRootDir = null,
                     toolkitRootDir = null;
 
-            if(File.Exists(FILE_CONFIG_PATH))
+            if (!Util.PathExists(CONST.DIR_DOCUMENTS_PATH))
+            {
+                new DirectoryInfo(CONST.DIR_DOCUMENTS_PATH).Create();
+            }
+
+            if (File.Exists(FILE_CONFIG_PATH))
             {
                 foreach (string line in File.ReadAllLines(FILE_CONFIG_PATH))
                 {
@@ -59,8 +64,8 @@ namespace Homeworld_ColorPicker.IO
         /// <param name="data">The Homeworld and Remastered Toolkit root directories in a RootDirectoryData object</param>
         public static void WriteConfig(RootDirectoryData data)
         {
-            string output = CreateParameter(KEY_HOMEWORLD, data.GetHomeworldRoot()) 
-                          + CreateParameter(KEY_TOOLKIT, data.GetToolkitRoot());
+            string output = CreateParameter(KEY_HOMEWORLD, data.HomeworldRoot) 
+                          + CreateParameter(KEY_TOOLKIT, data.ToolkitRoot);
 
             File.WriteAllTextAsync(FILE_CONFIG_PATH, output);
         }
