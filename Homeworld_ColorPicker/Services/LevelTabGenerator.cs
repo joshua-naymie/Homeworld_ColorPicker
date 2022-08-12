@@ -101,15 +101,44 @@ namespace Homeworld_ColorPicker.Services
         /// <param name="teams">TeamColours of every team in the level. Used to generate the TeamPanels.</param>
         /// <param name="levelNum">The level number this tab page represents.</param>
         /// <returns>A TabPage representing a single level from a Homeworld campaign with all controls added</returns>
-        public TabPage GenerateTabPage(TeamColour[] teams, int levelNum)
+        public TabPage GenerateTabPage(TeamColour[] teams, int levelNum, List<TeamPanel> allPanels)
         {
             TabPage page = new TabPage();
             page.BackColor = Color.White;
             page.Text = $"Level {levelNum+1}";
-            page.Controls.Add(GenerateContentPanel(teams, levelNum));
+            page.Controls.Add(GenerateContentPanel(teams, levelNum, allPanels));
             page.Controls.Add(GenerateHeader());
 
             return page;
+        }
+
+        public TabPage GenerateGlobalTabPage(TeamColour[] teamColours, Team[] teamDetails)
+        {
+            if(teamColours.Length != teamDetails.Length)
+            {
+                throw new Exception("Colour data and Detail data arrays must have the same length.");
+            }
+
+            TabPage globalPage = new TabPage();
+            globalPage.BackColor = Color.White;
+            globalPage.Text = "Global";
+
+            Panel contentPanel = InitContentPanel();
+
+            int posY = 0;
+            for (int i=0; i<teamColours.Length; i++)
+            {
+                TeamPanel teamPanel = InitTeamPanel(teamDetails[i], teamColours[i], posY);
+
+                contentPanel.Controls.Add(teamPanel);
+
+                posY += teamPanel.Height;
+            }
+
+            globalPage.Controls.Add(contentPanel);
+            globalPage.Controls.Add(GenerateHeader());
+
+            return globalPage;
         }
 
         /// <summary>
@@ -119,32 +148,47 @@ namespace Homeworld_ColorPicker.Services
         /// <param name="level">TeamColours of every team in the level. Used to generate the TeamPanels.</param>
         /// <param name="levelNum">The level number this tab page represents. Used for teamname dictionary lookup.</param>
         /// <returns>The content section of the tab page.</returns>
-        private Panel GenerateContentPanel(TeamColour[] level, int levelNum)
+        private Panel GenerateContentPanel(TeamColour[] level, int levelNum, List<TeamPanel> allPanels)
         {
-            Panel panel = new Panel();
-            panel.Dock = DockStyle.Fill;
-            panel.AutoScroll = false;
-            panel.HorizontalScroll.Enabled = false;
-            panel.HorizontalScroll.Visible = false;
-            panel.HorizontalScroll.Maximum = 0;
-            panel.AutoScroll = true;
+            Panel contentPanel = InitContentPanel();
 
             int teamNum = 0,
-                teamOffset = 0;
+                offsetY = 0;
 
-            foreach (TeamColour team in level)
+            foreach (TeamColour teamColour in level)
             {
-                TeamPanel teamPanel = new TeamPanel(CONST.DICT_HW2_LEVEL_TEAM_NAMES[new Tuple<int, int>(levelNum, teamNum++)], team);
-                teamPanel.Location = new Point(0, teamOffset);
-                teamPanel.SetColourBoxActions(colourLeftClick, colourRightClick, colourMiddleClick);
-                teamPanel.SetBadgeBoxActions(badgeLeftClick, badgeRightClick, badgeMiddleClick);
+                TeamPanel teamPanel = InitTeamPanel(CONST.DICT_HW2_LEVEL_TEAM_NAMES[new Tuple<int, int>(levelNum, teamNum++)], teamColour, offsetY);
 
-                panel.Controls.Add(teamPanel);
+                contentPanel.Controls.Add(teamPanel);
+                allPanels.Add(teamPanel);
 
-                teamOffset += teamPanel.Height;
+                offsetY += teamPanel.Height;
             }
 
-            return panel;
+            return contentPanel;
+        }
+
+        private Panel InitContentPanel()
+        {
+            Panel contentPanel = new Panel();
+            contentPanel.Dock = DockStyle.Fill;
+            contentPanel.AutoScroll = false;
+            contentPanel.HorizontalScroll.Enabled = false;
+            contentPanel.HorizontalScroll.Visible = false;
+            contentPanel.HorizontalScroll.Maximum = 0;
+            contentPanel.AutoScroll = true;
+
+            return contentPanel;
+        }
+
+        private TeamPanel InitTeamPanel(Team team, TeamColour colours, int posY)
+        {
+            TeamPanel teamPanel = new TeamPanel(team, colours);
+            teamPanel.Location = new Point(0, posY);
+            teamPanel.SetColourBoxActions(colourLeftClick, colourRightClick, colourMiddleClick);
+            teamPanel.SetBadgeBoxActions(badgeLeftClick, badgeRightClick, badgeMiddleClick);
+
+            return teamPanel;
         }
 
 
@@ -172,34 +216,30 @@ namespace Homeworld_ColorPicker.Services
             // BADGE LABEL
             Label badgeLabel = new Label();
             badgeLabel.Font = CUSTOM_FONT;
-            badgeLabel.Location = new System.Drawing.Point(240, 14);
+            badgeLabel.Location = new System.Drawing.Point(245, 18);
             badgeLabel.Text = "Badge";
             badgeLabel.Size = Util.GetLabelSize(badgeLabel);
-            badgeLabel.BorderStyle = BorderStyle.FixedSingle;
 
             // BASE LABEL
             Label baseLabel = new Label();
             baseLabel.Font = CUSTOM_FONT;
-            baseLabel.Location = new System.Drawing.Point(405, 14);
+            baseLabel.Location = new System.Drawing.Point(405, 18);
             baseLabel.Text = "Base";
             baseLabel.Size = Util.GetLabelSize(baseLabel);
-            baseLabel.BorderStyle = BorderStyle.FixedSingle;
 
             // STRIPE LABEL
             Label stripeLabel = new Label();
             stripeLabel.Font = CUSTOM_FONT;
-            stripeLabel.Location = new System.Drawing.Point(540, 10);
+            stripeLabel.Location = new System.Drawing.Point(550, 18);
             stripeLabel.Text = "Stripe";
             stripeLabel.Size = Util.GetLabelSize(stripeLabel);
-            stripeLabel.BorderStyle = BorderStyle.FixedSingle;
 
             // TRAIL LABEL
             Label trailLabel = new Label();
             trailLabel.Font = CUSTOM_FONT;
-            trailLabel.Location = new System.Drawing.Point(710, 10);
+            trailLabel.Location = new System.Drawing.Point(705, 18);
             trailLabel.Text = "Trail";
             trailLabel.Size = Util.GetLabelSize(trailLabel);
-            trailLabel.BorderStyle = BorderStyle.FixedSingle;
 
             //----------
 

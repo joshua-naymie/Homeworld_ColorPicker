@@ -61,9 +61,15 @@ namespace Homeworld_ColorPicker.Forms
         private readonly
         ColourBox[] colorSwatches = new ColourBox[CONST.NUM_PLAYER_COLORS];
 
+        /// <summary>
+        /// A list of all the team panels present on all tab pages.
+        /// Does not include the global tab page.
+        /// </summary>
+        private
+        List<TeamPanel> allTeamPanels = new List<TeamPanel> ();
+
         // CONSTRUCTOR
         //----------------------------------------
-        //--------------------
 
         /// <summary>
         /// Constructor for MainWindow.
@@ -90,18 +96,26 @@ namespace Homeworld_ColorPicker.Forms
             //----------
 
             InitializeComponent();
+        }
 
-            if (continueRunning)
-            {
-                InitColourSwatches();
-                InitCurrentColour();
-                LoadProfileColours();
+        /// <summary>
+        /// Override of OnLoad.
+        /// Initializes all custom controls.
+        /// </summary>
+        /// <param name="e">The even arguments</param>
+        protected override void OnLoad(EventArgs e)
+        {
+            InitColourSwatches();
+            InitCurrentColour();
+            LoadProfileColours();
 
-                InitTabPages();
+            InitTabPages();
+            InitGlobalTabPage();
 
-                badgeDialog = new BadgePickerDialog(instance);
-                customColorButton.Font = new Font(CONST.CUSTOM_FONT, 11);
-            }
+            badgeDialog = new BadgePickerDialog(instance);
+            customColorButton.Font = new Font(CONST.CUSTOM_FONT, 11);
+
+            base.OnLoad(e);
         }
 
         // UI
@@ -140,7 +154,7 @@ namespace Homeworld_ColorPicker.Forms
             box.Location = new Point(posX, POS_START);
             box.Size = new Size(SWATCH_SIZE, SWATCH_SIZE);
             box.TabStop = false;
-            box.SetLeftClickAction(SetCurrentColour);
+            box.SetLeftClickAction(GetBoxColour);
         }
 
         //----------------------------------------
@@ -173,13 +187,44 @@ namespace Homeworld_ColorPicker.Forms
             int i = 0;
             foreach(var color in playerColors)
             {
-                colorSwatches[i++].SetColor(color);
+                colorSwatches[i++].Colour = color;
             }
 
-            currentColourBox.SetColor(playerColors[0]);
+            currentColourBox.Colour = playerColors[0];
         }
 
         //----------------------------------------
+
+        private void InitGlobalTabPage()
+        {
+            HashSet<TeamType> teams = new HashSet<TeamType>();
+
+            List<Team> details = new List<Team>();
+            List<TeamColour> colours = new List<TeamColour>();
+
+            foreach(TeamPanel panel in allTeamPanels)
+            {
+                if(!teams.Contains(panel.Team.Type))
+                {
+                    teams.Add(panel.Team.Type);
+
+                    details.Add(panel.Team);
+                    colours.Add(panel.TeamColour);
+                }
+            }
+
+            Services.LevelTabGenerator globalPageGenerator = new Services.LevelTabGenerator();
+            globalPageGenerator.SetColourActions(SetGlobalColour, GetBoxColour, null);
+            globalPageGenerator.SetBadgeActions(SetGlobalBadge, null, null);
+
+
+            TabPage globalPage = globalPageGenerator.GenerateGlobalTabPage(colours.ToArray(), details.ToArray());
+
+            System.Diagnostics.Debug.WriteLine($"{details.Count} - {colours.Count}");
+
+            levelTabControl.TabPages.Insert(0, globalPage);
+            levelTabControl.SelectedIndex = 0;
+        }
 
         /// <summary>
         /// Creates a tab page for each level in the HW2 Remastered game.
@@ -187,17 +232,17 @@ namespace Homeworld_ColorPicker.Forms
         private void InitTabPages()
         {
             int levelNum = 0;
-            foreach(string level in CONST.HW2_TEAMCOLOR_PATHS)
+            foreach(string levelPath in CONST.HW2_TEAMCOLOR_PATHS)
             {
-                string path = CONST.DIR_HW2_RM_DATA_PATH + level + CONST.FILE_TEAMCOLOUR_LUA;
+                string path = CONST.DIR_HW2_RM_DATA_PATH + levelPath + CONST.FILE_TEAMCOLOUR_LUA;
                 TeamColour[] testLevel = IO.TeamColourReader.ReadTeamColourLua(path);
 
                 Services.LevelTabGenerator tabGenerator = new Services.LevelTabGenerator();
-                tabGenerator.SetColourActions(GetCurrentColour, SetCurrentColour, null);
+                tabGenerator.SetColourActions(SetBoxColour, GetBoxColour, null);
                 tabGenerator.SetBadgeActions(SetBadge, null, null);
 
-                TabPage page = tabGenerator.GenerateTabPage(testLevel, levelNum++);
-                levelTabControl.Controls.Add(page);
+                TabPage page = tabGenerator.GenerateTabPage(testLevel, levelNum++, allTeamPanels);
+                levelTabControl.TabPages.Add(page);
             }
         }
 
@@ -217,7 +262,7 @@ namespace Homeworld_ColorPicker.Forms
 
             if(customColorDialog.ShowDialog() == DialogResult.OK)
             {
-                currentColourBox.SetColor(new HomeworldColour(customColorDialog.Color));
+                currentColourBox.Colour = new HomeworldColour(customColorDialog.Color);
             }
         }
 
@@ -227,9 +272,9 @@ namespace Homeworld_ColorPicker.Forms
         /// Sets the current colour from another ColourBox
         /// </summary>
         /// <param name="box">The ColourBox to copy the colour from</param>
-        private void SetCurrentColour(ColourBox box)
+        private void GetBoxColour(ColourBox box)
         {
-            currentColourBox.SetColor(box.GetColor());
+            currentColourBox.Colour = box.Colour;
         }
 
         //----------------------------------------
@@ -238,9 +283,9 @@ namespace Homeworld_ColorPicker.Forms
         /// Sets a ColourBox to the current colour
         /// </summary>
         /// <param name="box">The ColourBox you want to set</param>
-        private void GetCurrentColour(ColourBox box)
+        private void SetBoxColour(ColourBox box)
         {
-            box.SetColor(currentColourBox.GetColor());
+            box.Colour = currentColourBox.Colour;
         }
 
         //----------------------------------------
@@ -255,6 +300,36 @@ namespace Homeworld_ColorPicker.Forms
             if(badgeDialog.ShowDialog() == DialogResult.OK)
             {
                 box.SetImage(badgeDialog.ImagePath);
+            }
+        }
+
+        private void SetGlobalColour(ColourBox box)
+        {
+            SetBoxColour(box);
+
+            TeamPanel parent = (TeamPanel)box.Parent;
+
+            foreach (TeamPanel panel in allTeamPanels)
+            {
+                if (panel.Team.Type == parent.Team.Type)
+                {
+                    panel.TeamColour = parent.TeamColour;
+                }
+            }
+        }
+
+        private void SetGlobalBadge(BadgeBox box)
+        {
+            SetBadge(box);
+
+            TeamPanel parent = (TeamPanel)box.Parent;
+
+            foreach (TeamPanel panel in allTeamPanels)
+            {
+                if (panel.Team.Type == parent.Team.Type)
+                {
+                    panel.TeamColour = parent.TeamColour;
+                }
             }
         }
 

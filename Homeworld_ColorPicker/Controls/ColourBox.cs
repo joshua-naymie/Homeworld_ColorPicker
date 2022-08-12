@@ -13,16 +13,33 @@ namespace Homeworld_ColorPicker.Controls
     /// </summary>
     public class ColourBox : ClickableBox<ColourBox>
     {
+
+        /// <summary>
+        /// Private variable for Colour property.
+        /// </summary>
         private
-        HomeworldColour currentColor;
+        HomeworldColour _Colour;
+        
+        /// <summary>
+        /// The current colour of the ColourBox.
+        /// </summary>
+        public HomeworldColour Colour 
+        {
+            get { return _Colour; }
+            set 
+            {
+                _Colour = value;
+                BackColor = value.ToColor();
+            } 
+        }
 
         //----------------------------------------
 
         public ColourBox()
         {
-            this.currentColor = new HomeworldColour();
+            this.Colour = new HomeworldColour();
 
-            base.BackColor = this.currentColor.ToColor();
+            base.BackColor = this.Colour.ToColor();
         }
 
         //--------------------
@@ -34,31 +51,8 @@ namespace Homeworld_ColorPicker.Controls
         /// <param name="currentColor">The color to assign.</param>
         public ColourBox(HomeworldColour currentColor)
         {
-            this.currentColor = currentColor;
+            this.Colour = currentColor;
             this.BackColor = currentColor.ToColor();
-        }
-
-        //----------------------------------------
-
-        /// <summary>
-        /// Sets the color of the ColorBox and updates the PictureBox's BackColor.
-        /// </summary>
-        /// <param name="color"></param>
-        public void SetColor(HomeworldColour color)
-        {
-            this.currentColor = color;
-            this.BackColor = currentColor.ToColor();
-        }
-
-        //--------------------
-
-        /// <summary>
-        /// Gets the color currently assigned to the ColorBox and it's PictureBox.
-        /// </summary>
-        /// <returns>The current color.</returns>
-        public HomeworldColour GetColor()
-        {
-            return currentColor;
         }
 
         //----------------------------------------

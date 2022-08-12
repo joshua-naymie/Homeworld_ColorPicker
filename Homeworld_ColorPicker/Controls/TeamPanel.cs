@@ -38,10 +38,24 @@ namespace Homeworld_ColorPicker.Controls
         Font LABEL_FONT;
 
         /// <summary>
-        /// The teamdata associated with this team
+        /// Static Constructor for TeamPanel.
+        /// Initializes the custom label font.
+        /// </summary>
+        static TeamPanel()
+        {
+            LABEL_FONT = new Font(CONST.CUSTOM_FONT, LABEL_FONT_SIZE);
+        }
+
+        /// <summary>
+        /// The path to the team's trail image file.
         /// </summary>
         private
-        Team team;
+        string trailPath;
+
+        /// <summary>
+        /// The teamdata associated with this team
+        /// </summary>
+        public Team Team { get; }
 
         /// <summary>
         /// The BadgeBox representing the team's badge
@@ -74,12 +88,22 @@ namespace Homeworld_ColorPicker.Controls
         ColourBox[] colourBoxes = new ColourBox[3];
 
         /// <summary>
-        /// Static Constructor for TeamPanel.
-        /// Initializes the custom label font.
+        /// The team colours and paths currently set.
         /// </summary>
-        static TeamPanel()
-        {
-            LABEL_FONT = new Font(CONST.CUSTOM_FONT, LABEL_FONT_SIZE);
+        public TeamColour TeamColour
+        { 
+            get 
+            { 
+                return new TeamColour(baseColourBox.Colour, stripeColourBox.Colour, trailColourBox.Colour, badge.Path, trailPath);
+            }
+            set
+            {
+                badge.SetImage(value.BadgePath);
+
+                baseColourBox.Colour = value.BaseColour;
+                stripeColourBox.Colour = value.StripeColour;
+                trailColourBox.Colour = value.TrailColour;
+            }
         }
 
         /// <summary>
@@ -89,7 +113,9 @@ namespace Homeworld_ColorPicker.Controls
         /// <param name="teamColours">The team colours for the team</param>
         public TeamPanel(Team team, TeamColour teamColours)
         {
-            this.team = team;
+            this.Team = team;
+            
+            trailPath = teamColours.TrailPath;
 
             InitComponents(teamColours);
         }
@@ -109,7 +135,7 @@ namespace Homeworld_ColorPicker.Controls
 
             // LABEL
             Label teamName = new Label();
-            teamName.Text = $"{team.Name}:";    
+            teamName.Text = $"{Team.Name}:";    
             teamName.Font = LABEL_FONT;
             teamName.Size = Util.GetLabelSize(teamName);
             teamName.Location = new Point(startX - teamName.Width - LABEL_SPACING, LABEL_POS_Y);
@@ -151,17 +177,16 @@ namespace Homeworld_ColorPicker.Controls
 
             //----------
 
+            colourBoxes[BASE_INDEX] = baseColourBox;
+            colourBoxes[STRIPE_INDEX] = stripeColourBox;
+            colourBoxes[TRAIL_INDEX] = trailColourBox;
+
             this.Controls.Add(teamName);
             this.Controls.Add(badge);
             this.Controls.Add(baseColourBox);
             this.Controls.Add(stripeColourBox);
             this.Controls.Add(trailColourBox);
             this.Controls.Add(resetButton);
-
-            colourBoxes[BASE_INDEX] = baseColourBox;
-            colourBoxes[STRIPE_INDEX] = stripeColourBox;
-            colourBoxes[TRAIL_INDEX] = trailColourBox;
-
         }
 
         /// <summary>

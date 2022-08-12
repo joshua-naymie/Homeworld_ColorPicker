@@ -123,26 +123,6 @@ namespace Homeworld_ColorPicker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] FreeImage32 {
-            get {
-                object obj = ResourceManager.GetObject("FreeImage32", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] FreeImage64 {
-            get {
-                object obj = ResourceManager.GetObject("FreeImage64", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] hiigaran {
             get {
                 object obj = ResourceManager.GetObject("hiigaran", resourceCulture);

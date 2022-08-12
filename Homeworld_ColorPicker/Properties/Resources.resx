@@ -127,12 +127,6 @@
   <data name="dok" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Badges\dok.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="FreeImage32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\freeimage32.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FreeImage64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\freeimage64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="hiigaran" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Badges\hiigaran.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
