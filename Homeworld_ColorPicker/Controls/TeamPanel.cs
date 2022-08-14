@@ -9,6 +9,9 @@ namespace Homeworld_ColorPicker.Controls
 {
     public class TeamPanel : Panel
     {
+        // STATIC
+        //----------------------------------------
+
         private const
         int BOX_SIZE = 100,
             BASE_INDEX = 0,
@@ -46,16 +49,8 @@ namespace Homeworld_ColorPicker.Controls
             LABEL_FONT = new Font(CONST.CUSTOM_FONT, LABEL_FONT_SIZE);
         }
 
-        /// <summary>
-        /// The path to the team's trail image file.
-        /// </summary>
-        private
-        string trailPath;
-
-        /// <summary>
-        /// The teamdata associated with this team
-        /// </summary>
-        public Team Team { get; }
+        // INSTANCE
+        //----------------------------------------
 
         /// <summary>
         /// The BadgeBox representing the team's badge
@@ -88,13 +83,35 @@ namespace Homeworld_ColorPicker.Controls
         ColourBox[] colourBoxes = new ColourBox[3];
 
         /// <summary>
+        /// The button used to call the ResetPressed event.
+        /// </summary>
+        private
+        Button resetButton;
+
+        /// <summary>
+        /// The list of TeamPanels to reset when this TeamPanel's reset button is clicked.
+        /// This TeamPanel is added on creation but others can be added after.
+        /// Used by global tab page to reset multiple TeamPanels.
+        /// </summary>
+        private
+        List<TeamPanel> panelsToReset = new List<TeamPanel>();
+
+        // PROPERTIES
+        //----------------------------------------
+
+        /// <summary>
+        /// The teamdata associated with this team
+        /// </summary>
+        public Team Team { get; }
+
+        /// <summary>
         /// The team colours and paths currently set.
         /// </summary>
-        public TeamColour TeamColour
+        public TeamColour Colours
         { 
             get 
             { 
-                return new TeamColour(baseColourBox.Colour, stripeColourBox.Colour, trailColourBox.Colour, badge.Path, trailPath);
+                return new TeamColour(baseColourBox.Colour, stripeColourBox.Colour, trailColourBox.Colour, badge.Path, Team.Colours.TrailPath);
             }
             set
             {
@@ -106,25 +123,47 @@ namespace Homeworld_ColorPicker.Controls
             }
         }
 
+        // CONSTRUCTORS
+        //----------------------------------------
+
         /// <summary>
         /// Constructor for TeamPanel.
         /// </summary>
-        /// <param name="team">The team attributes for the team</param>
-        /// <param name="teamColours">The team colours for the team</param>
-        public TeamPanel(Team team, TeamColour teamColours)
+        /// <param name="team">The team attributes for the team.</param>
+        /// <param name="teamColours">The team colours for the team.</param>
+        public TeamPanel(Team team)
         {
             this.Team = team;
             
-            trailPath = teamColours.TrailPath;
+            //defaultColour = teamColours;
 
-            InitComponents(teamColours);
+            InitControls(Team.Colours);
         }
+
+        //--------------------
+
+        /// <summary>
+        /// Constructor for TeamPanel.
+        /// Allows for default TeamColour to be set independantly from the currently displayed team colours.
+        /// </summary>
+        /// <param name="team">The team attributes for the team.</param>
+        /// <param name="teamColours">The team colours for the team.</param>
+        /// <param name="defaultColours">The default team colours for the team.</param>
+        public TeamPanel(Team team, TeamColour teamColours)
+        {
+            this.Team = team;
+
+            InitControls(teamColours);
+        }
+
+        // CONTROL SETUP
+        //----------------------------------------
 
         /// <summary>
         /// Initializes all sub controls for the panel.
         /// </summary>
         /// <param name="teamColours">The teamcolours to be assigned to the ClickableBoxes.</param>
-        private void InitComponents(TeamColour teamColours)
+        private void InitControls(TeamColour teamColours)
         {
             int startX = START_POS_X,
                 posY = START_POS_Y;
@@ -168,12 +207,15 @@ namespace Homeworld_ColorPicker.Controls
             startX += BOX_SPACING;
 
             // RESET
-            Button resetButton = new Button();
+            resetButton = new Button();
             resetButton.Location = new Point(startX, posY);
             resetButton.Size = new Size(BOX_SIZE, BOX_SIZE);
             resetButton.Text = TEXT_RESET_BUTTON;
             resetButton.BackColor = Color.Transparent;
             resetButton.Font = LABEL_FONT;
+            resetButton.Click += ResetPressed;
+
+            panelsToReset.Add(this);
 
             //----------
 
@@ -189,6 +231,8 @@ namespace Homeworld_ColorPicker.Controls
             this.Controls.Add(resetButton);
         }
 
+        //----------------------------------------
+
         /// <summary>
         /// Sets all properties of a ColourBox.
         /// </summary>
@@ -202,36 +246,65 @@ namespace Homeworld_ColorPicker.Controls
             box.Location = new Point(posX, posY);
         }
 
+        //----------------------------------------
+
         /// <summary>
-        /// Sets all click actions for every ColourBox in the TeamPanel.
-        /// Actions can be null and will not be invoked.
+        /// Sets all the ClickableBox actions for the TeamPanel.
+        /// All ColourBoxes are assigned the same actions.
         /// </summary>
-        /// <param name="leftClick">The action taken when a ColourBox is left clicked.</param>
-        /// <param name="rightClick">The action taken when a ColourBox is right clicked.</param>
-        /// <param name="middleClick">The action taken when a ColourBox is middle clicked.</param>
-        public void SetColourBoxActions(Action<ColourBox>? leftClick, Action<ColourBox>? rightClick, Action<ColourBox>? middleClick)
+        /// <param name="actions">The ClickableBox actions to assign.</param>
+        public void SetBoxActions(BoxActions actions)
         {
 
             foreach (ColourBox box in colourBoxes)
             {
-                box.SetLeftClickAction(leftClick);
-                box.SetRightClickAction(rightClick);
-                box.SetMiddleClickAction(middleClick);
+                box.SetLeftClickAction(actions.ColourLeftClick);
+                box.SetRightClickAction(actions.ColourRightClick);
+                box.SetMiddleClickAction(actions.ColourMiddleClick);
+            }
+
+            badge.SetLeftClickAction(actions.BadgeLeftClick);
+            badge.SetRightClickAction(actions.BadgeRightClick);
+            badge.SetMiddleClickAction(actions.BadgeMiddleClick);
+        }
+
+        // RESET BUTTON
+        //----------------------------------------
+
+        /// <summary>
+        /// Called when the reset button is clicked.
+        /// Resets all panels in the panelsToReset list.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The arguments of the event.</param>
+        public void ResetPressed(object? sender, EventArgs e)
+        {
+            foreach(TeamPanel panel in panelsToReset)
+            {
+                panel.ResetPanel();
             }
         }
 
+        //----------------------------------------
+
         /// <summary>
-        /// Sets all click actions for every BadgeBox in the TeamPanel.
-        /// Actions can be null and will not be invoked.
+        /// Resets the panel to the TeamColours assigned on creation.
         /// </summary>
-        /// <param name="leftClick">The action taken when a BadgeBox is left clicked.</param>
-        /// <param name="rightClick">The action taken when a BadgeBox is right clicked.</param>
-        /// <param name="middleClick">The action taken when a BadgeBox is middle clicked.</param>
-        public void SetBadgeBoxActions(Action<BadgeBox>? leftClick, Action<BadgeBox>? rightClick, Action<BadgeBox>? middleClick)
+        public void ResetPanel()
         {
-            badge.SetLeftClickAction(leftClick);
-            badge.SetRightClickAction(rightClick);
-            badge.SetMiddleClickAction(middleClick);
+            this.Colours = Team.Colours;
+        }
+
+        //----------------------------------------
+
+        /// <summary>
+        /// Adds a range of TeamPanels to the list of panels to reset.
+        /// Used to allow the global tab page to reset multiple TeamPanels.
+        /// </summary>
+        /// <param name="panels">The list of TeamPanels to add to the reset list.</param>
+        public void AddPanelsToReset(List<TeamPanel> panels)
+        {
+            panelsToReset.AddRange(panels);
         }
     }
 }

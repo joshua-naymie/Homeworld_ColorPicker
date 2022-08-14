@@ -365,6 +365,21 @@ namespace Homeworld_ColorPicker
             { new Tuple<int, int>(14,5), new Team(TeamType.Hiigaran, TEAM_NAME_HIIGARAN_NAVY) },
         };
 
+        public static readonly
+        Dictionary<TeamType, string> HW2_TEAM_NAMES = new Dictionary<TeamType, string>()
+        {
+            { TeamType.Player, "Player" },
+            { TeamType.Hiigaran, "Hiigaran" },
+            { TeamType.HiigaranElite, "Hiigaran Elite" },
+            { TeamType.DefenceFleet, "Defence Fleet" },
+            { TeamType.Vaygr, "Vaygr" },
+            { TeamType.VaygrElite, "Vaygr Elite" },
+            { TeamType.DefenceStation, "Defence Stations" },
+            { TeamType.Sobani, "Sobani" },
+            { TeamType.TalornSoban, "Talorn Soban" },
+            { TeamType.Bentusi, "Bentusi" },
+            { TeamType.Progenitor, "Progenitor" }
+        };
 
         static CONST()
         {

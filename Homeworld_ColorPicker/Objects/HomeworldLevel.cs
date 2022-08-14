@@ -8,16 +8,14 @@ namespace Homeworld_ColorPicker.Objects
 {
     public class HomeworldLevel
     {
-        short levelNum;
+        public int LevelNum { get; }
 
-        private
-        TeamColour[] teams;
+        public Team[] Teams { get; }
 
-        
-
-        public TeamColour[] GetTeams()
+        public HomeworldLevel(Team[] teams, int levelNum)
         {
-            return teams;
+            Teams = teams;
+            LevelNum = levelNum;
         }
     }
 }

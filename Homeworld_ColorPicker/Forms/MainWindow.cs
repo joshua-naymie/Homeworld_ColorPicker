@@ -68,6 +68,9 @@ namespace Homeworld_ColorPicker.Forms
         private
         List<TeamPanel> allTeamPanels = new List<TeamPanel> ();
 
+        private
+        HomeworldTabControl mainTabControl;
+
         // CONSTRUCTOR
         //----------------------------------------
 
@@ -102,20 +105,20 @@ namespace Homeworld_ColorPicker.Forms
         /// Override of OnLoad.
         /// Initializes all custom controls.
         /// </summary>
-        /// <param name="e">The even arguments</param>
+        /// <param name="e">The event arguments</param>
         protected override void OnLoad(EventArgs e)
         {
             InitColourSwatches();
             InitCurrentColour();
             LoadProfileColours();
 
-            InitTabPages();
-            InitGlobalTabPage();
-
             badgeDialog = new BadgePickerDialog(instance);
             customColorButton.Font = new Font(CONST.CUSTOM_FONT, 11);
 
             base.OnLoad(e);
+
+            this.Controls.Remove(levelTabControl);
+            InitTabControl(GetHomeworld2Campaign());
         }
 
         // UI
@@ -195,55 +198,48 @@ namespace Homeworld_ColorPicker.Forms
 
         //----------------------------------------
 
-        private void InitGlobalTabPage()
+        private HomeworldCampaign GetHomeworld2Campaign()
         {
-            HashSet<TeamType> teams = new HashSet<TeamType>();
+            HomeworldCampaign campaign = new HomeworldCampaign();
 
-            List<Team> details = new List<Team>();
-            List<TeamColour> colours = new List<TeamColour>();
-
-            foreach(TeamPanel panel in allTeamPanels)
-            {
-                if(!teams.Contains(panel.Team.Type))
-                {
-                    teams.Add(panel.Team.Type);
-
-                    details.Add(panel.Team);
-                    colours.Add(panel.TeamColour);
-                }
-            }
-
-            Services.LevelTabGenerator globalPageGenerator = new Services.LevelTabGenerator();
-            globalPageGenerator.SetColourActions(SetGlobalColour, GetBoxColour, null);
-            globalPageGenerator.SetBadgeActions(SetGlobalBadge, null, null);
-
-
-            TabPage globalPage = globalPageGenerator.GenerateGlobalTabPage(colours.ToArray(), details.ToArray());
-
-            System.Diagnostics.Debug.WriteLine($"{details.Count} - {colours.Count}");
-
-            levelTabControl.TabPages.Insert(0, globalPage);
-            levelTabControl.SelectedIndex = 0;
-        }
-
-        /// <summary>
-        /// Creates a tab page for each level in the HW2 Remastered game.
-        /// </summary>
-        private void InitTabPages()
-        {
             int levelNum = 0;
-            foreach(string levelPath in CONST.HW2_TEAMCOLOR_PATHS)
+            foreach (string levelPath in CONST.HW2_TEAMCOLOR_PATHS)
             {
                 string path = CONST.DIR_HW2_RM_DATA_PATH + levelPath + CONST.FILE_TEAMCOLOUR_LUA;
-                TeamColour[] testLevel = IO.TeamColourReader.ReadTeamColourLua(path);
+                TeamColour[] teamColours = IO.TeamColourReader.ReadTeamColourLua(path);
 
-                Services.LevelTabGenerator tabGenerator = new Services.LevelTabGenerator();
-                tabGenerator.SetColourActions(SetBoxColour, GetBoxColour, null);
-                tabGenerator.SetBadgeActions(SetBadge, null, null);
+                Team[] teams = new Team[teamColours.Length];
 
-                TabPage page = tabGenerator.GenerateTabPage(testLevel, levelNum++, allTeamPanels);
-                levelTabControl.TabPages.Add(page);
+                int teamNum = 0;
+                foreach (TeamColour colours in teamColours)
+                {
+                    Team team = new Team(CONST.DICT_HW2_LEVEL_TEAM_NAMES[new Tuple<int, int>(levelNum, teamNum)]);
+                    team.Colours = colours;
+                    teams[teamNum++] = team;
+                }
+
+                campaign.Add(new HomeworldLevel(teams, levelNum++));
             }
+
+            return campaign;
+        }
+
+        private void InitTabControl(HomeworldCampaign campaign)
+        {
+            BoxActions defaultActions = new BoxActions(SetBoxColour, GetBoxColour, null, SetBadge, null, null);
+            BoxActions globalActions = new BoxActions(SetGlobalColour, GetBoxColour, null, SetGlobalBadge, null, null);
+
+            mainTabControl = new HomeworldTabControl(GetHomeworld2Campaign(), defaultActions, globalActions);
+            mainTabControl.Dock = DockStyle.Fill;
+            mainTabControl.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            mainTabControl.Location = new Point(0, 142);
+            mainTabControl.Name = "levelTabControl";
+            mainTabControl.SelectedIndex = 0;
+            mainTabControl.Size = new Size(1017, 615);
+            mainTabControl.TabIndex = 18;
+
+            this.Controls.Add(mainTabControl);
+            this.Controls.SetChildIndex(mainTabControl, 0);
         }
 
         // EVENTS
@@ -309,11 +305,13 @@ namespace Homeworld_ColorPicker.Forms
 
             TeamPanel parent = (TeamPanel)box.Parent;
 
-            foreach (TeamPanel panel in allTeamPanels)
+            List<TeamPanel> teams = mainTabControl.TeamGroups[parent.Team.Type];
+
+            foreach (TeamPanel panel in teams)
             {
                 if (panel.Team.Type == parent.Team.Type)
                 {
-                    panel.TeamColour = parent.TeamColour;
+                    panel.Colours = parent.Colours;
                 }
             }
         }
@@ -324,11 +322,13 @@ namespace Homeworld_ColorPicker.Forms
 
             TeamPanel parent = (TeamPanel)box.Parent;
 
-            foreach (TeamPanel panel in allTeamPanels)
+            List<TeamPanel> teams = mainTabControl.TeamGroups[parent.Team.Type];
+
+            foreach (TeamPanel panel in teams)
             {
                 if (panel.Team.Type == parent.Team.Type)
                 {
-                    panel.TeamColour = parent.TeamColour;
+                    panel.Colours = parent.Colours;
                 }
             }
         }

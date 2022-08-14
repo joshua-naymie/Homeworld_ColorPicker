@@ -35,15 +35,20 @@ namespace Homeworld_ColorPicker.Objects
         //----------------------------------------
 
         /// <summary>
+        /// The proper name of the team.
+        /// </summary>
+        public string Name { get; }
+
+        /// <summary>
         /// The global team this team belongs to.
         /// Used for the global page
         /// </summary>
         public TeamType Type { get; }
 
         /// <summary>
-        /// The proper name of the team.
+        /// The teams badge and colours.
         /// </summary>
-        public string Name { get; }
+        public TeamColour? Colours { get; set; }
 
         // CONSTRUCTOR
         //----------------------------------------
@@ -58,6 +63,31 @@ namespace Homeworld_ColorPicker.Objects
         {
             Type = type;
             Name = name;
+        }
+
+        //----------------------------------------
+
+        /// <summary>
+        /// Creates a new team by copying values from another team.
+        /// </summary>
+        /// <param name="team">The team whose values will be copied.</param>
+        public Team(Team team)
+        {
+            Type = team.Type;
+            Name = team.Name;
+        }
+
+        //----------------------------------------
+
+        /// <summary>
+        /// Override of the ToString method.
+        /// Outputs the Name and team Type.
+        /// eg: Name: Ferin Sha Fleet | Type: Sobani
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"Name: {Name} | Type: {Type}";
         }
     }
 }
