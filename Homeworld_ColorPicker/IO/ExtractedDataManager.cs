@@ -77,7 +77,7 @@ namespace Homeworld_ColorPicker.IO
         /// <returns>True if all files exist in the correct directories, false otherwise</returns>
         private static bool VerifyHW2RemasteredRequiredFiles()
         {
-            string rootPath = CONST.DIR_DOCUMENTS_PATH + CONST.DIR_HW2_RM_DATA;
+            string rootPath = CONST.DIR_DOCUMENTS_PATH + CONST.DIR_HW2_RM_EXTRACTED;
 
             bool allFilesFound = true;
 
@@ -156,8 +156,8 @@ namespace Homeworld_ColorPicker.IO
         /// </summary>
         private static void MoveHW2RemasteredRequiredFiles()
         {
-            Util.ClearDirectory(CONST.DIR_HW2_RM_DATA_PATH);
-            MoveTeamcolorFiles(CONST.HW2_TEAMCOLOR_PATHS, CONST.DIR_HW2_RM_DATA_PATH);
+            Util.ClearDirectory(CONST.DIR_HW2_RM_EXTRACTED_DATA_PATH);
+            MoveTeamcolorFiles(CONST.HW2_TEAMCOLOR_PATHS, CONST.DIR_HW2_RM_EXTRACTED_DATA_PATH);
         }
 
         // MOVE ALL
@@ -196,8 +196,8 @@ namespace Homeworld_ColorPicker.IO
             switch (instance.RemasteredGame)
             {
                 case RemasteredGame.HW2:
-                    Util.ClearDirectory(CONST.DIR_HW2_RM_DATA_PATH);
-                    MoveAllFilesTo(CONST.DIR_HW2_RM_DATA_PATH);
+                    Util.ClearDirectory(CONST.DIR_HW2_RM_EXTRACTED_DATA_PATH);
+                    MoveAllFilesTo(CONST.DIR_HW2_RM_EXTRACTED_DATA_PATH);
                     break;
 
                 case RemasteredGame.HW1:

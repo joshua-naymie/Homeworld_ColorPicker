@@ -137,9 +137,9 @@ namespace Homeworld_ColorPicker.IO
 
             }
 
-            extractor = new System.Diagnostics.Process
+            extractor = new Process
             {
-                StartInfo = new System.Diagnostics.ProcessStartInfo
+                StartInfo = new ProcessStartInfo
                 {
                     FileName = String.Format(ARCHIVE_PATH_FORMAT, instance.ToolkitRootDir, CONST.FILE_ARCHIVE_EXE_PATH),
                     Arguments = String.Format(ARCHIVE_ARGS_FORMAT, instance.HomeworldRootDir, bigFilePath, CONST.DIR_EXTRACTION_OUTPUT_PATH),

@@ -77,7 +77,6 @@ namespace Homeworld_ColorPicker.Forms
             InitializeComponent();
             this.instance = instance;
             InitTopComponents();
-            badgesPanel.Controls.Clear();
             GetDefaultBadges();
             GetCustomBadges();
             SetBoxLocations();

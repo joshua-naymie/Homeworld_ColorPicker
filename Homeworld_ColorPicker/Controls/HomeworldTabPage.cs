@@ -28,6 +28,12 @@ namespace Homeworld_ColorPicker.Controls
         //----------------------------------------
 
         /// <summary>
+        /// The level of the campaign this tab represents.
+        /// </summary>
+        private
+        int levelNum;
+
+        /// <summary>
         /// The Y position used when adding a TeamPanel to the content area.
         /// </summary>
         private
@@ -53,6 +59,7 @@ namespace Homeworld_ColorPicker.Controls
         public HomeworldTabPage(HomeworldLevel level, BoxActions actions)
         {
             this.BackColor = Color.White;
+            this.levelNum = level.LevelNum;
             this.Text = $"Level {level.LevelNum + 1}";
 
             this.Controls.Add(GenerateContent(level, actions));
@@ -148,7 +155,7 @@ namespace Homeworld_ColorPicker.Controls
             // BADGE LABEL
             Label badgeLabel = new Label();
             badgeLabel.Font = CUSTOM_FONT;
-            badgeLabel.Location = new Point(245, 18);
+            badgeLabel.Location = new Point(247, 18);
             badgeLabel.Text = "Badge";
             badgeLabel.Size = Util.GetLabelSize(badgeLabel);
 
@@ -200,6 +207,24 @@ namespace Homeworld_ColorPicker.Controls
             {
                 panel.ResetPressed(sender, e);
             }
+        }
+
+        /// <summary>
+        /// Gets the team data of all teams on this tab page.
+        /// </summary>
+        /// <returns>The team data for all teams on this level.</returns>
+        public HomeworldLevel GetLevelData()
+        {
+            Team[] teams = new Team[TeamPanels.Count];
+
+            for(int i = 0; i < TeamPanels.Count; i++)
+            {
+                teams[i] = TeamPanels[i].Team;
+            }
+
+            HomeworldLevel level = new HomeworldLevel(teams, levelNum);
+
+            return level;
         }
     }
 }

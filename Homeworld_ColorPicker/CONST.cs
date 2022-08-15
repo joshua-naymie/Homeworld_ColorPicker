@@ -33,13 +33,25 @@ namespace Homeworld_ColorPicker
         string DIR_EXTRACTION_OUTPUT = @"\output";
 
         /// <summary>
-        /// The directory where extracted data from Homeworld 2 Remastered is stored in the Documents directory.
+        /// The directory where all Homeworld 2 Remastered data is stored.
         /// </summary>
         public const
-        string DIR_HW2_RM_DATA = @"\HW2_RM";
+        string DIR_PROFILE_HW2_RM_BASE = @"\HW2_RM";
 
         /// <summary>
-        /// The path to the <c>Profiles</c> directory from the Homeworld root directory
+        /// The directory where extracted data for Homeworld 2 Remastered is stored in the Documents directory.
+        /// </summary>
+        public static readonly
+        string DIR_HW2_RM_EXTRACTED = DIR_PROFILE_HW2_RM_BASE + @"\extracted";
+
+        /// <summary>
+        /// The directory where generated data for Homeworld 2 Remastered is stored in the Documents directory.
+        /// </summary>
+        public static readonly
+        string DIR_HW2_RM_GENERATED = DIR_PROFILE_HW2_RM_BASE + @"\generated";
+
+        /// <summary>
+        /// The path to the <c>Profiles</c> directory from the Homeworld root directory.
         /// </summary>
         public const
         string DIR_PROFILES_PATH = @"\Bin\Profiles";
@@ -57,7 +69,7 @@ namespace Homeworld_ColorPicker
         string FILE_HW1_RM_BIG = @"\Data\HW1Campaign.big";
 
         /// <summary>
-        /// The file name of the player config file from the <c>Profiles</c> directory
+        /// The file name of the player config file from the <c>Profiles</c> directory.
         /// </summary>
         public const
         string FILE_PLAYERCFG_LUA = @"\PLAYERCFG.LUA";
@@ -66,7 +78,7 @@ namespace Homeworld_ColorPicker
         string FILE_TEAMCOLOUR_LUA = @"\teamcolour.lua";
 
         /// <summary>
-        /// The path to the archive executable from the Toolkit root dir
+        /// The path to the archive executable from the Toolkit root dir.
         /// </summary>
         public const
         string FILE_ARCHIVE_EXE_PATH = @"\WorkshopTool\Archive.exe";
@@ -148,11 +160,18 @@ namespace Homeworld_ColorPicker
         string DIR_DOCUMENTS_PATH = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + DIR_DOCUMENTS_COLORPICKER;
 
         /// <summary>
-        /// The path to the directory where Homeworld 2 Remastered data files are stored in the Homeworld ColorPicker working directory.
-        /// eg: C:\Users\[username]\Documents\[working_dir]\[hw2rm_data_dir]
+        /// The path to the directory where extracted Homeworld 2 Remastered data files are stored in the Homeworld ColorPicker working directory.
+        /// eg: C:\Users\[username]\Documents\[working_dir]\[hw2rm_data_dir]\[extracted_data]
         /// </summary>
         public static readonly
-        string DIR_HW2_RM_DATA_PATH = DIR_DOCUMENTS_PATH + DIR_HW2_RM_DATA;
+        string DIR_HW2_RM_EXTRACTED_DATA_PATH = DIR_DOCUMENTS_PATH + DIR_HW2_RM_EXTRACTED;
+
+        /// <summary>
+        /// The path to the directory where generated Homeworld 2 Remastered data files are stored in the Homeworld ColorPicker working directory.
+        /// eg: C:\Users\[username]\Documents\[working_dir]\[hw2rm_data_dir]\[generated_data]
+        /// </summary>
+        public static readonly
+        string DIR_HW2_RM_GENERATED_DATA_PATH = DIR_DOCUMENTS_PATH + DIR_HW2_RM_GENERATED;
 
         /// <summary>
         /// The path to the directory where .big files are extracted in the Homeworld ColorPicker working directory.

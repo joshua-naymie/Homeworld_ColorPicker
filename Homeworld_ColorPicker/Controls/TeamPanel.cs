@@ -96,13 +96,36 @@ namespace Homeworld_ColorPicker.Controls
         private
         List<TeamPanel> panelsToReset = new List<TeamPanel>();
 
+        /// <summary>
+        /// The deafult team settings for this TeamPanel
+        /// </summary>
+        private
+        Team defaultTeam;
+
         // PROPERTIES
         //----------------------------------------
 
         /// <summary>
+        /// Paired with Team property.
+        /// </summary>
+        private Team _Team;
+
+        /// <summary>
         /// The teamdata associated with this team
         /// </summary>
-        public Team Team { get; }
+        public Team Team
+        {
+            get
+            {
+                _Team.Colours = Colours;
+                return _Team;
+            }
+            private set
+            {
+                _Team = new Team(value);
+                _Team.Colours = value.Colours;
+            }
+        }
 
         /// <summary>
         /// The team colours and paths currently set.
@@ -111,7 +134,7 @@ namespace Homeworld_ColorPicker.Controls
         { 
             get 
             { 
-                return new TeamColour(baseColourBox.Colour, stripeColourBox.Colour, trailColourBox.Colour, badge.Path, Team.Colours.TrailPath);
+                return new TeamColour(baseColourBox.Colour, stripeColourBox.Colour, trailColourBox.Colour, badge.Path, _Team.Colours.TrailPath);
             }
             set
             {
@@ -134,10 +157,9 @@ namespace Homeworld_ColorPicker.Controls
         public TeamPanel(Team team)
         {
             this.Team = team;
-            
-            //defaultColour = teamColours;
+            this.defaultTeam = team;
 
-            InitControls(Team.Colours);
+            InitControls(_Team.Colours);
         }
 
         //--------------------
@@ -174,7 +196,7 @@ namespace Homeworld_ColorPicker.Controls
 
             // LABEL
             Label teamName = new Label();
-            teamName.Text = $"{Team.Name}:";    
+            teamName.Text = $"{_Team.Name}:";    
             teamName.Font = LABEL_FONT;
             teamName.Size = Util.GetLabelSize(teamName);
             teamName.Location = new Point(startX - teamName.Width - LABEL_SPACING, LABEL_POS_Y);
@@ -292,7 +314,7 @@ namespace Homeworld_ColorPicker.Controls
         /// </summary>
         public void ResetPanel()
         {
-            this.Colours = Team.Colours;
+            this.Colours = defaultTeam.Colours;
         }
 
         //----------------------------------------

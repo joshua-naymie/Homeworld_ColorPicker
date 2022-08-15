@@ -123,5 +123,17 @@ namespace Homeworld_ColorPicker.Controls
 
             this.TabPages.Add(globalPage);
         }
+
+        public HomeworldCampaign GetCampaignData()
+        {
+            HomeworldCampaign campaign = new HomeworldCampaign();
+
+            foreach(HomeworldTabPage level in tabs)
+            {
+                campaign.Add(level.GetLevelData());
+            }
+
+            return campaign;
+        }
     }
 }

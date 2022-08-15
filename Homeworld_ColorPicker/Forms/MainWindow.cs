@@ -205,7 +205,7 @@ namespace Homeworld_ColorPicker.Forms
             int levelNum = 0;
             foreach (string levelPath in CONST.HW2_TEAMCOLOR_PATHS)
             {
-                string path = CONST.DIR_HW2_RM_DATA_PATH + levelPath + CONST.FILE_TEAMCOLOUR_LUA;
+                string path = CONST.DIR_HW2_RM_EXTRACTED_DATA_PATH + levelPath + CONST.FILE_TEAMCOLOUR_LUA;
                 TeamColour[] teamColours = IO.TeamColourReader.ReadTeamColourLua(path);
 
                 Team[] teams = new Team[teamColours.Length];
@@ -314,6 +314,11 @@ namespace Homeworld_ColorPicker.Forms
                     panel.Colours = parent.Colours;
                 }
             }
+        }
+
+        private void ExportTeamColours(object sender, EventArgs e)
+        {
+            IO.CampaignWriter.WriteCampaignData(mainTabControl.GetCampaignData(), instance);
         }
 
         private void SetGlobalBadge(BadgeBox box)
